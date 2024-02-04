@@ -71,6 +71,9 @@ module.exports = {
       },
       backgroundImage: {
         karczma: "url('@/assets/karczma.jpg')",
+        stilo1: "url('@/assets/stilo1.jpg')",
+        stilo2: "url('@/assets/stilo2.jpg')",
+        stilo3: "url('@/assets/stilo3.jpg')",
       },
     },
   },
