@@ -1,11 +1,14 @@
+import { Link } from 'react-router-dom';
 import { Youtube, Facebook } from 'lucide-react';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
-import { Link } from 'react-router-dom';
+import logoImage from '@/assets/logo-edit.png';
 
 export const Header = () => {
   return (
-    <header className="flex justify-between">
-      <Link to="/">STILO</Link>
+    <header className="fixed flex w-full justify-between backdrop-blur-sm">
+      <Link to="/">
+        <img src={logoImage} alt="Logo" className="h-16 rounded-xl" />
+      </Link>
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
