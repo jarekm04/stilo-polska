@@ -23,7 +23,7 @@ export const Header = () => {
   return (
     <header className="fixed left-0 top-0 z-30 flex h-16 w-full items-center justify-between overflow-hidden backdrop-blur-sm">
       <div
-        className={`absolute inset-0 transform bg-white transition-transform duration-500 ease-in-out ${isScrolled ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`absolute inset-0 transform bg-[#dddddddd] transition-transform duration-500 ease-in-out ${isScrolled ? 'translate-x-0' : '-translate-x-full'}`}
       />
       <div className="relative z-10 flex items-center">
         <Link to="/" className="flex items-center">
