@@ -35,6 +35,15 @@
     --radius: 0.5rem;
 
     --custom-primary: #ffffdd;
+    --custom-secondary: #393286;
+    --custom-tertiary: #ec8117;
+    --custom-fourth: #f7f6f5;
+    --custom-fifth: #9693b6;
+    --custom-sixth: #7e7192;
+    --custom-seventh: #6c6c91;
+    --custom-eigth: #c4b2ba;
+    --custom-ninth: #f3cca0;
+    --custom-tenth: #c4c2db;
   }
 }
 

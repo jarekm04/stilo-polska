@@ -3,7 +3,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import { Carousel, CarouselContent, CarouselDot, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
 
-const images = ['karczma.jpg', 'stilo1.jpg', 'stilo2.jpg', 'stilo3.jpg'];
+const images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg'];
 
 export const Home = () => {
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));

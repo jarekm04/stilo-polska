@@ -47,8 +47,17 @@ module.exports = {
           foreground: 'hsl(var(--card-foreground))',
         },
         custom: {
-          primary: 'var(--custom-primary)'
-        }
+          primary: 'var(--custom-primary)',
+          secondary: 'var(--custom-secondary)',
+          tertiary: 'var(--custom-tertiary)',
+          fourth: 'var(--custom-fourth)',
+          fifth: 'var(--custom-fifth)',
+          sixth: 'var(--custom-sixth)',
+          seventh: 'var(--custom-seventh)',
+          eigth: 'var(--custom-eigth)',
+          ninth: 'var(--custom-ninth)',
+          tenth: 'var(--custom-tenth)',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -71,9 +80,6 @@ module.exports = {
       },
       backgroundImage: {
         karczma: "url('@/assets/karczma.jpg')",
-        stilo1: "url('@/assets/stilo1.jpg')",
-        stilo2: "url('@/assets/stilo2.jpg')",
-        stilo3: "url('@/assets/stilo3.jpg')",
       },
     },
   },
