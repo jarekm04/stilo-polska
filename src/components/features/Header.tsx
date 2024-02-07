@@ -33,43 +33,43 @@ export const Header = () => {
       <NavigationMenu className="relative z-10">
         <NavigationMenuList>
           <NavigationMenuItem>
-            <Link to="/about" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'}`}>
-              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:bg-[length:100%_2px]">
+            <Link to="/about" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} mt-1.5`}>
+              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:bg-[length:100%_2px] pb-1.5">
                 O nas
               </span>
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link to="/offer" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'}`}>
-              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:bg-[length:100%_2px]">
+            <Link to="/offer" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} mt-1.5`}>
+              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:bg-[length:100%_2px] pb-1.5">
                 Oferta
               </span>
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link to="/realizations" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'}`}>
-              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:bg-[length:100%_2px]">
+            <Link to="/realizations" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} mt-1.5`}>
+              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:bg-[length:100%_2px] pb-1.5">
                 Nasze realizacje
               </span>
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link to="/video" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'}`}>
-              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:bg-[length:100%_2px]">
+            <Link to="/video" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} mt-1.5`}>
+              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:bg-[length:100%_2px] pb-1.5">
                 Video
               </span>
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link to="/technology" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'}`}>
-              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:bg-[length:100%_2px]">
+            <Link to="/technology" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} mt-1.5`}>
+              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:bg-[length:100%_2px] pb-1.5">
                 Technologia
               </span>
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link to="/contact" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'}`}>
-              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:bg-[length:100%_2px]">
+            <Link to="/contact" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} mt-1.5`}>
+              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:bg-[length:100%_2px] pb-1.5">
                 Kontakt
               </span>
             </Link>

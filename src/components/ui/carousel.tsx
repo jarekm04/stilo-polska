@@ -25,6 +25,7 @@ type CarouselContextProps = {
   scrollTo: (index: number) => void;
   canScrollPrev: boolean;
   canScrollNext: boolean;
+  selectedIndex: number;
 } & CarouselProps;
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null);
@@ -50,6 +51,7 @@ const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
     );
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
+    const [selectedIndex, setSelectedIndex] = React.useState(0);
 
     const onSelect = React.useCallback((api: CarouselApi) => {
       if (!api) {
@@ -58,6 +60,7 @@ const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
 
       setCanScrollPrev(api.canScrollPrev());
       setCanScrollNext(api.canScrollNext());
+      setSelectedIndex(api.selectedScrollSnap());
     }, []);
 
     const scrollPrev = React.useCallback(() => {
@@ -122,6 +125,7 @@ const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
           scrollTo,
           canScrollPrev,
           canScrollNext,
+          selectedIndex,
         }}
       >
         <div ref={ref} onKeyDownCapture={handleKeyDown} className={cn('relative', className)} role="region" aria-roledescription="carousel" {...props}>
@@ -137,7 +141,7 @@ const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
   const { carouselRef, orientation } = useCarousel();
 
   return (
-    <div ref={carouselRef} className="overflow-hidden max-h-full">
+    <div ref={carouselRef} className="max-h-full overflow-hidden">
       <div ref={ref} className={cn('flex', orientation === 'horizontal' ? '-ml-4' : '-mt-4 flex-col', className)} {...props} />
     </div>
   );
@@ -213,12 +217,21 @@ CarouselNext.displayName = 'CarouselNext';
 
 const CarouselDot = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof Button> & { index: number }>(
   ({ className, variant = 'outline', size = 'icon', index, ...props }, ref) => {
-    const { scrollTo } = useCarousel();
+    const { scrollTo, selectedIndex } = useCarousel();
+
+    const isCurrentImg = index === selectedIndex;
+    const bgColor = isCurrentImg ? 'bg-orange-500' : 'bg-transparent';
+    const measurements = isCurrentImg ? 'h-4 w-4' : 'h-3 w-3';
 
     return (
-      <Button ref={ref} variant={variant} size={size} className={cn('h-8 w-8 rounded-full', className)} onClick={() => scrollTo(index)} {...props}>
-        <Minus className="h-6 w-6" />
-      </Button>
+      <Button
+        ref={ref}
+        variant={variant}
+        size={size}
+        className={cn('rounded-full border-2 backdrop-blur-md transition-all duration-500 ease-in-out', bgColor, measurements, className)}
+        onClick={() => scrollTo(index)}
+        {...props}
+      />
     );
   },
 );
