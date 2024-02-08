@@ -6,7 +6,7 @@ export const MainTemplate = () => {
   return (
     <div>
       <Header />
-      <main>
+      <main className='animate-custom-appear'>
         <Outlet />
       </main>
       <Footer />

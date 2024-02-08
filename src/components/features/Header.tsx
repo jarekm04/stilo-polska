@@ -2,7 +2,14 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Youtube, Facebook } from 'lucide-react';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
+import { navigation } from '@/lib/utils';
 import logoImage from '@/assets/logo-edit2.png';
+
+const linkClasses = (isScrolled: boolean) => `${`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} mt-1.5`}`;
+const spanClasses =
+  'from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat pb-1.5 transition-all duration-500 ease-out hover:bg-[length:100%_2px]';
+const iconClasses = (isScrolled: boolean) =>
+  `${`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} hover:text-custom-tertiary`}`;
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -32,63 +39,20 @@ export const Header = () => {
       </div>
       <NavigationMenu className="relative z-10 h-full">
         <NavigationMenuList>
+          {navigation.map(({ path, title }) => (
+            <NavigationMenuItem key={path}>
+              <Link to={path} className={linkClasses(isScrolled)}>
+                <span className={spanClasses}>{title}</span>
+              </Link>
+            </NavigationMenuItem>
+          ))}
           <NavigationMenuItem>
-            <Link to="/about" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} mt-1.5`}>
-              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat pb-1.5 transition-all duration-500 ease-out hover:bg-[length:100%_2px]">
-                O nas
-              </span>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link to="/offer" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} mt-1.5`}>
-              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat pb-1.5 transition-all duration-500 ease-out hover:bg-[length:100%_2px]">
-                Oferta
-              </span>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link to="/realizations" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} mt-1.5`}>
-              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat pb-1.5 transition-all duration-500 ease-out hover:bg-[length:100%_2px]">
-                Nasze realizacje
-              </span>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link to="/video" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} mt-1.5`}>
-              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat pb-1.5 transition-all duration-500 ease-out hover:bg-[length:100%_2px]">
-                Video
-              </span>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link to="/technology" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} mt-1.5`}>
-              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat pb-1.5 transition-all duration-500 ease-out hover:bg-[length:100%_2px]">
-                Technologia
-              </span>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link to="/contact" className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} mt-1.5`}>
-              <span className="from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat pb-1.5 transition-all duration-500 ease-out hover:bg-[length:100%_2px]">
-                Kontakt
-              </span>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link
-              to="https://www.facebook.com/people/Domy-z-bali-Stilo-Polska/100057174441927/?ref=br_rs"
-              target="_blank"
-              className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} hover:text-custom-tertiary`}
-            >
+            <Link to="https://www.facebook.com/people/Domy-z-bali-Stilo-Polska/100057174441927/?ref=br_rs" target="_blank" className={iconClasses(isScrolled)}>
               <Facebook />
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link
-              to="https://www.youtube.com/channel/UCy3px_4qWAVVZhfCnmsyEmA"
-              target="_blank"
-              className={`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} hover:text-custom-tertiary`}
-            >
+            <Link to="https://www.youtube.com/channel/UCy3px_4qWAVVZhfCnmsyEmA" target="_blank" className={iconClasses(isScrolled)}>
               <Youtube />
             </Link>
           </NavigationMenuItem>

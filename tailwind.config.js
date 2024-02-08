@@ -76,17 +76,11 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
-        'custom-slideInRight': {
+        'custom-appear': {
           from: {
-            transform: 'translateX(100%);',
-            opacity: '0',
-          },
-          '15%': {
-            transform: 'translateX(0)',
-            opacity: '1',
+            opacity: '0.7',
           },
           to: {
-            transform: 'translateX(0)',
             opacity: '1',
           },
         },
@@ -94,10 +88,11 @@ module.exports = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'custom-slideInRight': 'custom-slideInRight 5s ease-out forwards',
+        'custom-appear': 'custom-appear .8s',
       },
       backgroundImage: {
-        karczma: "url('@/assets/karczma.jpg')",
+        circles: "url('@/assets/circles.png')",
+        offer: "url('@/assets/5.jpg')",
       },
     },
   },
