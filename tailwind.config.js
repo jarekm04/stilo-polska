@@ -11,6 +11,9 @@ module.exports = {
         '2xl': '1400px',
       },
     },
+    fontFamily: {
+      montserrat: ['Montserrat', 'sans-serif'],
+    },
     extend: {
       colors: {
         border: 'hsl(var(--border))',
@@ -73,22 +76,25 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
-        kenBurns: {
-          '0%': {
-            transform: 'translateY(0)',
+        'custom-slideInRight': {
+          from: {
+            transform: 'translateX(100%);',
+            opacity: '0',
           },
-          '50%': {
-            transform: 'translateY(-10%)',
+          '15%': {
+            transform: 'translateX(0)',
+            opacity: '1',
           },
-          '100%': {
-            transform: 'translateY(0)',
+          to: {
+            transform: 'translateX(0)',
+            opacity: '1',
           },
         },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        kenBurns: 'kenBurns 60s infinite',
+        'custom-slideInRight': 'custom-slideInRight 5s ease-out forwards',
       },
       backgroundImage: {
         karczma: "url('@/assets/karczma.jpg')",
