@@ -23,10 +23,6 @@ export const navigation = [
     title: 'Video',
   },
   {
-    path: '/technology',
-    title: 'Technologia',
-  },
-  {
     path: '/contact',
     title: 'Kontakt',
   },

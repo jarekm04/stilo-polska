@@ -1,7 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { Award, Brush, Check, Globe, Lightbulb, TreePine } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Award, Brush, Globe, Lightbulb, ShieldCheck, TreePine, TrendingUp } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import logoImage from '@/assets/logo.png';
 
@@ -27,57 +25,63 @@ export const About = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const animationSlideInLeftToRight = (isVisible: boolean) =>
+    `transform ${isVisible ? 'translate-x-0' : '-translate-x-[250%]'} transition-transform duration-500 ease-out`;
+  const animationSlideInRightToLeft = (isVisible: boolean) =>
+    `transform ${isVisible ? 'translate-x-0' : 'translate-x-[250%]'} transition-transform duration-500 ease-out`;
+
   return (
-    <article ref={articleRef} className="flex flex-col items-center gap-3 px-20 py-10 overflow-hidden">
-      <section className="flex justify-center space-x-20">
-        <div className={`transform space-y-4 ${isVisible ? 'translate-x-0' : '-translate-x-[250%]'} transition-transform duration-500 ease-out`}>
-          <div className="flex transform flex-col gap-4 bg-transparent">
-            <div className="flex flex-col items-center">
+    <article ref={articleRef} className="flex flex-col items-center gap-3 overflow-hidden py-14 px-8">
+      <section className="grid grid-cols-[2fr_1fr] space-x-20">
+        <div className="space-y-4">
+          <div className="flex flex-col gap-10">
+            <div className={`flex flex-col items-center ${animationSlideInLeftToRight(isVisible)}`}>
               <img src={logoImage} alt="Logo" className="h-24" />
               <Separator className="bg-custom-tertiary" />
             </div>
-            <div className="flex gap-1 border bg-white p-3 shadow-lg">
-              <Check />
-              <p>Ponad 30 lat na rynku</p>
-            </div>
-            <div className="flex gap-1 border bg-white p-3 shadow-lg">
-              <Check />
-              <p>Lider wśród producentów domów z bala</p>
-            </div>
-            <div className="flex gap-1 border bg-white p-3 shadow-lg">
-              <Check />
-              <p>Opatentowane, autorskie techniki montażu</p>
+            <div className='grid grid-cols-2 gap-4'>
+              <div className={`grid grid-cols-[1fr_3fr] gap-5 bg-white ${animationSlideInLeftToRight(isVisible)} delay-100`}>
+                <TrendingUp className="text-custom-tertiary h-20 w-20" />
+                <div>
+                  <p className="text-custom-tertiary font-bold">30 lat na rynku</p>
+                  <p className="font-thin">Firma o ugruntowanej pozycji z nowoczesnymi rozwiązaniami, której konstrukcje można podziwiać w całej Polsce, jak i poza jej granicami</p>
+                </div>
+              </div>
+              <div className={`grid grid-cols-[1fr_3fr] gap-5 bg-white ${animationSlideInLeftToRight(isVisible)} delay-100`}>
+                <ShieldCheck className="text-custom-tertiary h-20 w-20" />
+                <div>
+                  <p className="text-custom-tertiary font-bold">Lider wśród producentów domów z bala</p>
+                  <p className="font-thin">Opatentowane, autorskie techniki montażu przy użyciu oryginalnych bali importowanych z mroźnej Syberii</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div className={`transform space-y-4 ${isVisible ? 'translate-x-0' : 'translate-x-[250%]'} transition-transform duration-500 ease-out`}>
           <div className="flex transform flex-col gap-4 bg-transparent">
-            <div className="flex gap-1 border bg-white p-3 shadow-lg">
-              <Brush className="animate-bounce" />
+            <div className={`flex gap-1 rounded-lg border bg-white p-3 shadow-lg ${animationSlideInRightToLeft(isVisible)}`}>
+              <Brush className="animate-bounce text-custom-tertiary" />
               <p>Atrakcyjne projekty</p>
             </div>
-            <div className="flex gap-1 border bg-white p-3 shadow-lg">
-              <TreePine className="animate-bounce" />
+            <div className={`flex gap-1 rounded-lg border bg-white p-3 shadow-lg ${animationSlideInRightToLeft(isVisible)} delay-100`}>
+              <TreePine className="animate-bounce text-custom-tertiary" />
               <p>Drewno z Syberii</p>
             </div>
-            <div className="flex gap-1 border bg-white p-3 shadow-lg">
-              <Lightbulb className="animate-bounce" />
+            <div className={`flex gap-1 rounded-lg border bg-white p-3 shadow-lg ${animationSlideInRightToLeft(isVisible)} delay-200`}>
+              <Lightbulb className="animate-bounce text-custom-tertiary" />
               <p>Energooszczędność</p>
             </div>
-            <div className="flex gap-1 border bg-white p-3 shadow-lg">
-              <Award className="animate-bounce" />
+            <div className={`flex gap-1 rounded-lg border bg-white p-3 shadow-lg ${animationSlideInRightToLeft(isVisible)} delay-300`}>
+              <Award className="animate-bounce text-custom-tertiary" />
               <p>Najwyższe standardy</p>
             </div>
-            <div className="flex gap-1 border bg-white p-3 shadow-lg">
-              <Globe className="animate-bounce" />
+            <div className={`flex gap-1 rounded-lg border bg-white p-3 shadow-lg ${animationSlideInRightToLeft(isVisible)} delay-500`}>
+              <Globe className="animate-bounce text-custom-tertiary" />
               <p>Projekty w całym kraju</p>
             </div>
           </div>
         </div>
       </section>
-      <Link to="/about">
-        <Button className="bg-custom-secondary hover:bg-custom-seventh animate-custom-appear">Więcej o nas</Button>
-      </Link>
     </article>
   );
 };

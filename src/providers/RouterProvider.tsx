@@ -11,7 +11,6 @@ export const RootProvider = () => {
         <Route path="/offer" element={<div>oferta</div>} />
         <Route path="/realizations" element={<div>realizacje</div>} />
         <Route path="/video" element={<div>video</div>} />
-        <Route path="/technology" element={<div>technologia</div>} />
         <Route path="/contact" element={<div>kontakt</div>} />
         <Route path="*" element={<div>Nie ma takiej strony</div>} />
       </Route>,

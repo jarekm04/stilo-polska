@@ -91,6 +91,7 @@ module.exports = {
         'custom-appear': 'custom-appear .8s',
       },
       backgroundImage: {
+        karczma: "url('@/assets/karczma.jpg')",
         circles: "url('@/assets/circles.png')",
         offer: "url('@/assets/5.jpg')",
       },
