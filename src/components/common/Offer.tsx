@@ -22,7 +22,6 @@ export const Offer = () => {
       if (articleRef.current) {
         const topPos = articleRef.current.getBoundingClientRect().top;
         const scrollPos = window.scrollY + window.innerHeight;
-        console.log(topPos < scrollPos - 1900);
         if (topPos < scrollPos - 1500) setIsVisible2Part(true);
         else setIsVisible2Part(false);
       }
@@ -45,7 +44,7 @@ export const Offer = () => {
   return (
     <article ref={articleRef} className="overflow-hidden">
       <div className="grid grid-cols-2">
-        <div className={`flex flex-col gap-5 px-10 pt-14 ${animationSlideInLeftToRight(isVisible)}`}>
+        <div className={`flex flex-col gap-5 px-10 pt-14 pb-10 ${animationSlideInLeftToRight(isVisible)}`}>
           <Separator className="bg-custom-tertiary w-14" />
           <p className="font-thin">
             <strong>STILO POLSKA</strong> funkcjonuje na rynku budowlanym już od 30 lat. Jesteśmy liderem wśród producentów domów z bala. Nasze realizacje
@@ -64,10 +63,10 @@ export const Offer = () => {
             <Button className="bg-custom-tertiary hover:bg-custom-ninth animate-custom-appear">Skontaktuj się z nami</Button>
           </Link>
         </div>
-        <div className="bg-offer h-[500px] rounded-t-lg bg-cover bg-fixed brightness-90 drop-shadow-[2px_4px_50px_rgba(0,0,0,1)]" />
+        <div className="bg-offer h-full rounded-t-lg bg-cover bg-fixed brightness-90 drop-shadow-[53px_4px_50px_rgba(0,0,0,1)]" />
       </div>
-      <div className="grid grid-cols-2">
-        <div className="bg-offer h-full rounded-b-lg bg-cover bg-fixed brightness-90 drop-shadow-[2px_4px_50px_rgba(0,0,0,1)]" />
+      <div className="grid grid-cols-2 bg-gradient-to-b from-white to-orange-50">
+        <div className="bg-offer h-full rounded-b-lg bg-cover bg-fixed brightness-90 drop-shadow-[-50px_4px_50px_rgba(0,0,0,1)]" />
         <div className="flex flex-col gap-5 px-10 pt-8">
           <div className={`flex gap-5 p-2 ${animationSlideInRightToLeft(isVisible2Part)}`}>
             <div className="bg-smallImg h-32 w-full rounded-sm bg-cover bg-center" />

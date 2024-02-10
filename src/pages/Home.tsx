@@ -1,6 +1,7 @@
+import { Slider } from '@/components/common/Slider';
 import { About } from '@/components/common/About';
 import { Offer } from '@/components/common/Offer';
-import { Slider } from '@/components/common/Slider';
+import { Technology } from '@/components/common/Technology';
 
 export const Home = () => {
   // jak jest isscrolled to daj jeszcze dropshadow na logo
@@ -12,6 +13,8 @@ export const Home = () => {
       <Slider />
       <About />
       <Offer />
+      <Technology />
+      
     </section>
   );
 };
