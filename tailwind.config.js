@@ -92,6 +92,7 @@ module.exports = {
       },
       backgroundImage: {
         karczma: "url('@/assets/karczma.jpg')",
+        smallImg: "url('@/assets/smallImg.jpg')",
         circles: "url('@/assets/circles.png')",
         offer: "url('@/assets/5.jpg')",
       },

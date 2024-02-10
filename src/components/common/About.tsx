@@ -10,10 +10,8 @@ export const About = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (articleRef.current) {
-        console.log(articleRef.current);
         const topPos = articleRef.current.getBoundingClientRect().top;
         const scrollPos = window.scrollY + window.innerHeight;
-        console.log(topPos);
         if (topPos < scrollPos - 250) setIsVisible(true);
         else setIsVisible(false);
       }
@@ -31,52 +29,60 @@ export const About = () => {
     `transform ${isVisible ? 'translate-x-0' : 'translate-x-[250%]'} transition-transform duration-500 ease-out`;
 
   return (
-    <article ref={articleRef} className="flex flex-col items-center gap-3 overflow-hidden py-14 px-8">
-      <section className="grid grid-cols-[2fr_1fr] space-x-20">
-        <div className="space-y-4">
-          <div className="flex flex-col gap-10">
-            <div className={`flex flex-col items-center ${animationSlideInLeftToRight(isVisible)}`}>
-              <img src={logoImage} alt="Logo" className="h-24" />
-              <Separator className="bg-custom-tertiary" />
-            </div>
-            <div className='grid grid-cols-2 gap-4'>
-              <div className={`grid grid-cols-[1fr_3fr] gap-5 bg-white ${animationSlideInLeftToRight(isVisible)} delay-100`}>
-                <TrendingUp className="text-custom-tertiary h-20 w-20" />
-                <div>
-                  <p className="text-custom-tertiary font-bold">30 lat na rynku</p>
-                  <p className="font-thin">Firma o ugruntowanej pozycji z nowoczesnymi rozwiązaniami, której konstrukcje można podziwiać w całej Polsce, jak i poza jej granicami</p>
-                </div>
+    <article ref={articleRef} className="flex flex-col items-center gap-3 overflow-hidden px-8 py-16">
+      <section className="grid grid-cols-[2fr_1fr] items-center space-x-20">
+        <div className="flex flex-col gap-16 p-3">
+          <div className={`flex flex-col items-center ${animationSlideInLeftToRight(isVisible)}`}>
+            <img src={logoImage} alt="Logo" className="h-40" />
+            <Separator className="bg-custom-tertiary" />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className={`grid grid-cols-[1fr_3fr] gap-5 bg-white ${animationSlideInLeftToRight(isVisible)} delay-100`}>
+              <TrendingUp className="text-custom-tertiary h-20 w-20" />
+              <div>
+                <p className="text-custom-tertiary font-bold">30 lat na rynku</p>
+                <p className="font-thin">
+                  Firma o ugruntowanej pozycji z nowoczesnymi rozwiązaniami, której konstrukcje można podziwiać w całej Polsce, jak i poza jej granicami
+                </p>
               </div>
-              <div className={`grid grid-cols-[1fr_3fr] gap-5 bg-white ${animationSlideInLeftToRight(isVisible)} delay-100`}>
-                <ShieldCheck className="text-custom-tertiary h-20 w-20" />
-                <div>
-                  <p className="text-custom-tertiary font-bold">Lider wśród producentów domów z bala</p>
-                  <p className="font-thin">Opatentowane, autorskie techniki montażu przy użyciu oryginalnych bali importowanych z mroźnej Syberii</p>
-                </div>
+            </div>
+            <div className={`grid grid-cols-[1fr_3fr] gap-5 bg-white ${animationSlideInLeftToRight(isVisible)} delay-100`}>
+              <ShieldCheck className="text-custom-tertiary h-20 w-20" />
+              <div>
+                <p className="text-custom-tertiary font-bold">Lider wśród producentów domów z bala</p>
+                <p className="font-thin">Opatentowane, autorskie techniki montażu przy użyciu oryginalnych bali importowanych z mroźnej Syberii</p>
               </div>
             </div>
           </div>
         </div>
         <div className={`transform space-y-4 ${isVisible ? 'translate-x-0' : 'translate-x-[250%]'} transition-transform duration-500 ease-out`}>
           <div className="flex transform flex-col gap-4 bg-transparent">
-            <div className={`flex gap-1 rounded-lg border bg-white p-3 shadow-lg ${animationSlideInRightToLeft(isVisible)}`}>
-              <Brush className="animate-bounce text-custom-tertiary" />
+            <div className={`flex max-w-xs items-center gap-3 rounded-lg border bg-white p-3 text-center shadow-lg ${animationSlideInRightToLeft(isVisible)}`}>
+              <Brush className="text-custom-tertiary animate-bounce" />
               <p>Atrakcyjne projekty</p>
             </div>
-            <div className={`flex gap-1 rounded-lg border bg-white p-3 shadow-lg ${animationSlideInRightToLeft(isVisible)} delay-100`}>
-              <TreePine className="animate-bounce text-custom-tertiary" />
+            <div
+              className={`flex max-w-xs items-center gap-3 rounded-lg border bg-white p-3 text-center shadow-lg ${animationSlideInRightToLeft(isVisible)} delay-100`}
+            >
+              <TreePine className="text-custom-tertiary animate-bounce" />
               <p>Drewno z Syberii</p>
             </div>
-            <div className={`flex gap-1 rounded-lg border bg-white p-3 shadow-lg ${animationSlideInRightToLeft(isVisible)} delay-200`}>
-              <Lightbulb className="animate-bounce text-custom-tertiary" />
+            <div
+              className={`flex max-w-xs items-center gap-3 rounded-lg border bg-white p-3 text-center shadow-lg ${animationSlideInRightToLeft(isVisible)} delay-200`}
+            >
+              <Lightbulb className="text-custom-tertiary animate-bounce" />
               <p>Energooszczędność</p>
             </div>
-            <div className={`flex gap-1 rounded-lg border bg-white p-3 shadow-lg ${animationSlideInRightToLeft(isVisible)} delay-300`}>
-              <Award className="animate-bounce text-custom-tertiary" />
+            <div
+              className={`flex max-w-xs items-center gap-3 rounded-lg border bg-white p-3 text-center shadow-lg ${animationSlideInRightToLeft(isVisible)} delay-300`}
+            >
+              <Award className="text-custom-tertiary animate-bounce" />
               <p>Najwyższe standardy</p>
             </div>
-            <div className={`flex gap-1 rounded-lg border bg-white p-3 shadow-lg ${animationSlideInRightToLeft(isVisible)} delay-500`}>
-              <Globe className="animate-bounce text-custom-tertiary" />
+            <div
+              className={`flex max-w-xs items-center gap-3 rounded-lg border bg-white p-3 text-center shadow-lg ${animationSlideInRightToLeft(isVisible)} delay-500`}
+            >
+              <Globe className="text-custom-tertiary animate-bounce" />
               <p>Projekty w całym kraju</p>
             </div>
           </div>
