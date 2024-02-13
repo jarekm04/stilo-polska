@@ -7,7 +7,6 @@ export const RootProvider = () => {
     createRoutesFromElements(
       <Route path="/" element={<MainTemplate />}>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<div>o nas</div>} />
         <Route path="/offer" element={<div>oferta</div>} />
         <Route path="/realizations" element={<div>realizacje</div>} />
         <Route path="/video" element={<div>video</div>} />

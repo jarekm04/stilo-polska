@@ -84,11 +84,21 @@ module.exports = {
             opacity: '1',
           },
         },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'custom-appear': 'custom-appear .8s',
+        fadeIn: 'fadeIn 0.5s ease-in-out forwards',
+        fadeOut: 'fadeOut 0.5s ease-in-out forwards',
       },
       backgroundImage: {
         karczma: "url('@/assets/karczma.jpg')",

@@ -44,7 +44,7 @@ export const Offer = () => {
   return (
     <article ref={articleRef} className="overflow-hidden">
       <div className="grid grid-cols-2">
-        <div className={`flex flex-col gap-5 px-10 pt-14 pb-10 ${animationSlideInLeftToRight(isVisible)}`}>
+        <div className={`flex flex-col gap-5 px-10 pb-10 pt-14 ${animationSlideInLeftToRight(isVisible)}`}>
           <Separator className="bg-custom-tertiary w-14" />
           <p className="font-thin">
             <strong>STILO POLSKA</strong> funkcjonuje na rynku budowlanym już od 30 lat. Jesteśmy liderem wśród producentów domów z bala. Nasze realizacje
@@ -63,11 +63,15 @@ export const Offer = () => {
             <Button className="bg-custom-tertiary hover:bg-custom-ninth animate-custom-appear">Skontaktuj się z nami</Button>
           </Link>
         </div>
-        <div className="bg-offer h-full rounded-t-lg bg-cover bg-fixed brightness-90 min-h-[115%] drop-shadow-[53px_4px_50px_rgba(0,0,0,1)]" />
+        <div
+          className={`bg-offer ${isVisible ? 'animate-fadeIn' : 'opacity-0'} h-full min-h-[115%] rounded-t-lg bg-cover bg-fixed brightness-90 drop-shadow-[53px_4px_50px_rgba(0,0,0,1)]`}
+        />
       </div>
       <div className="grid grid-cols-2 bg-gradient-to-b from-white to-orange-50">
-        <div className="bg-offer h-full rounded-b-lg bg-cover bg-fixed brightness-90 drop-shadow-[-50px_4px_50px_rgba(0,0,0,1)]" />
-        <div className="flex flex-col gap-5 px-10 pt-8 mt-16">
+        <div
+          className={`bg-offer ${isVisible2Part ? 'animate-fadeIn' : 'opacity-0'} h-full rounded-b-lg bg-cover bg-fixed brightness-90 drop-shadow-[-50px_4px_50px_rgba(0,0,0,1)]`}
+        />
+        <div className="mt-16 flex flex-col gap-5 px-10 pt-8">
           <div className={`flex gap-5 p-2 ${animationSlideInRightToLeft(isVisible2Part)}`}>
             <div className="bg-smallImg h-32 w-full rounded-sm bg-cover bg-center" />
             <div className="flex flex-col items-center justify-center gap-3">

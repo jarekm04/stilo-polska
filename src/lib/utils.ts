@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export const navigation = [
   {
-    path: '/about',
+    path: '/',
     title: 'O nas',
   },
   {

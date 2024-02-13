@@ -8,7 +8,7 @@ export const Footer = () => {
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="-mb-16">
           <path
             fill="#64748b"
-            fill-opacity="1"
+            fillOpacity="1"
             d="M0,192L48,186.7C96,181,192,171,288,154.7C384,139,480,117,576,117.3C672,117,768,139,864,170.7C960,203,1056,245,1152,245.3C1248,245,1344,203,1392,181.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
           />
         </svg>
@@ -58,7 +58,7 @@ export const Footer = () => {
             Cezariusz Przechlewski: (+48) 601-613-525
           </a>
         </div>
-        <div className="flex flex-col gap-2 justify-center">
+        <div className="flex flex-col justify-center gap-2">
           <p className="flex gap-3 font-semibold">
             <Home />
             Godziny otwarcia:
@@ -69,7 +69,9 @@ export const Footer = () => {
           <p>
             <strong>Piątek: </strong>8.00 - 15.00
           </p>
-          <p><strong>Weekendy: </strong>Zamknięte</p>
+          <p>
+            <strong>Weekendy: </strong>Zamknięte
+          </p>
         </div>
       </div>
     </footer>
