@@ -5,11 +5,11 @@ import { NavigationMenu, NavigationMenuItem, NavigationMenuList, navigationMenuT
 import { navigation } from '@/lib/utils';
 import logoImage from '@/assets/logo-edit2.png';
 
-const linkClasses = (isScrolled: boolean) => `${`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} mt-1.5`}`;
+const linkClasses = (isScrolled: boolean) => `${`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-ninth hover:text-custom-tertiary' : 'text-slate-100 hover:text-custom-ninth'} mt-1.5 font-semibold`}`;
 const spanClasses =
   'from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat pb-1.5 transition-all duration-500 ease-out hover:bg-[length:100%_2px]';
 const iconClasses = (isScrolled: boolean) =>
-  `${`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-secondary' : 'text-custom-primary'} hover:text-custom-tertiary`}`;
+  `${`${navigationMenuTriggerStyle()} ${isScrolled ? 'text-custom-ninth hover:text-custom-tertiary' : 'text-slate-100 hover:text-custom-ninth'} `}`;
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -30,7 +30,7 @@ export const Header = () => {
   return (
     <header className="fixed left-0 top-0 z-30 flex h-16 w-full items-center justify-between overflow-hidden">
       <div
-        className={`absolute inset-0 transform bg-[#dddddddd] transition-transform duration-500 ease-in-out ${isScrolled ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`absolute inset-0 transform bg-slate-500 opacity-95 transition-transform duration-500 ease-in-out ${isScrolled ? 'translate-x-0' : '-translate-x-full'}`}
       />
       <div className="relative z-10 flex items-center">
         <Link to="/" className="flex items-center transition-transform duration-200 hover:scale-105">
