@@ -1,6 +1,7 @@
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import { MainTemplate } from '@/pages/MainTemplate';
 import { Home } from '@/pages/Home';
+import { Video } from '@/pages/Video';
 
 export const RootProvider = () => {
   const router = createBrowserRouter(
@@ -9,7 +10,7 @@ export const RootProvider = () => {
         <Route path="/" element={<Home />} />
         <Route path="/offer" element={<div>oferta</div>} />
         <Route path="/realizations" element={<div>realizacje</div>} />
-        <Route path="/video" element={<div>video</div>} />
+        <Route path="/video" element={<Video />} />
         <Route path="/contact" element={<div>kontakt</div>} />
         <Route path="*" element={<div>Nie ma takiej strony</div>} />
       </Route>,

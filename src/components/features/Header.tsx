@@ -47,7 +47,7 @@ export const Header = () => {
 
   return (
     <header
-      className={`fixed left-0 top-0 z-30 flex h-16 w-full items-center justify-between overflow-hidden transition-all duration-500 ${isHome ? 'bg-transparent' : 'bg-slate-500'}`}
+      className={`${isHome ? 'fixed' : 'block'}left-0 top-0 z-30 flex h-16 w-full items-center justify-between overflow-hidden transition-all duration-500 ${isHome ? 'bg-transparent' : 'bg-slate-500'}`}
     >
       <div
         className={`absolute inset-0 transform bg-slate-500 opacity-95 transition-transform duration-500 ease-in-out ${isScrolled ? 'translate-x-0' : '-translate-x-full'}`}
@@ -61,7 +61,7 @@ export const Header = () => {
         <NavigationMenuList>
           {navigation.map(({ path, title }) => (
             <NavigationMenuItem key={path}>
-              <Link to={path} className={linkClasses(isScrolled, isHome)}>
+              <Link to={path} className={linkClasses(isScrolled, isHome)} data-active={pathname === path ? true : false}>
                 <span className={spanClasses}>{title}</span>
               </Link>
             </NavigationMenuItem>

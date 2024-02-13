@@ -63,15 +63,12 @@ export const Offer = () => {
             <Button className="bg-custom-tertiary hover:bg-custom-ninth animate-custom-appear">Skontaktuj się z nami</Button>
           </Link>
         </div>
-        <div
-          className={`bg-offer ${isVisible ? 'animate-fadeIn' : 'opacity-0'} h-full min-h-[115%] rounded-t-lg bg-cover bg-fixed brightness-90 drop-shadow-[53px_4px_50px_rgba(0,0,0,1)]`}
-        />
+        <div className={`bg-offer ${isVisible ? 'animate-fadeIn' : 'opacity-0'} mt-12 h-full rounded-t-lg bg-cover bg-fixed brightness-90 drop-shadow-2xl`} />
       </div>
       <div className="grid grid-cols-2 bg-gradient-to-b from-white to-orange-50">
-        <div
-          className={`bg-offer ${isVisible2Part ? 'animate-fadeIn' : 'opacity-0'} h-full rounded-b-lg bg-cover bg-fixed brightness-90 drop-shadow-[-50px_4px_50px_rgba(0,0,0,1)]`}
-        />
-        <div className="mt-16 flex flex-col gap-5 px-10 pt-8">
+        <div className={`bg-offer ${isVisible2Part ? 'animate-fadeIn' : 'opacity-0'} h-full rounded-b-lg bg-cover bg-fixed brightness-90 drop-shadow-2xl`} />
+        <div className="mt-20 flex flex-col gap-5 px-10">
+          <Separator className="bg-custom-tertiary" />
           <div className={`flex gap-5 p-2 ${animationSlideInRightToLeft(isVisible2Part)}`}>
             <div className="bg-smallImg h-32 w-full rounded-sm bg-cover bg-center" />
             <div className="flex flex-col items-center justify-center gap-3">
@@ -104,6 +101,7 @@ export const Offer = () => {
           <Link to="/offer" className="my-4 self-end">
             <Button className="bg-custom-tertiary hover:bg-custom-ninth animate-custom-appear">Przejdź do pełnej oferty</Button>
           </Link>
+          <Separator className="bg-custom-tertiary" />
         </div>
       </div>
     </article>
