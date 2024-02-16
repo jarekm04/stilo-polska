@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Youtube, Facebook } from 'lucide-react';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
 import { navigation } from '@/lib/utils';
-import logoImage from '@/assets/logo-edit2.png';
+import logoImage from '@/assets/logo-edit.png';
 
 const linkClasses = (isScrolled: boolean, isHome: boolean) =>
   `${navigationMenuTriggerStyle()} ${

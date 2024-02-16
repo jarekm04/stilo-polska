@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Header } from '@/components/features/Header';
-import { Arrow } from '@/components/common/Arrow';
+import { Arrow } from '@/components/features/Arrow';
 
 export const MainTemplate = () => {
   return (

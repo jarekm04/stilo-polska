@@ -8,19 +8,30 @@ export const About = () => {
   const articleRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          } else {
+            setIsVisible(false);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+      },
+    );
+
+    if (articleRef.current) {
+      observer.observe(articleRef.current);
+    }
+
+    return () => {
       if (articleRef.current) {
-        const topPos = articleRef.current.getBoundingClientRect().top;
-        const scrollPos = window.scrollY + window.innerHeight;
-        if (topPos < scrollPos - 250) setIsVisible(true);
-        else setIsVisible(false);
+        observer.unobserve(articleRef.current);
       }
     };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const animationSlideInLeftToRight = (isVisible: boolean) =>
@@ -29,7 +40,7 @@ export const About = () => {
     `transform ${isVisible ? 'translate-x-0' : 'translate-x-[250%]'} transition-transform duration-500 ease-out`;
 
   return (
-    <article ref={articleRef} className="flex flex-col items-center gap-10 pb-14 pt-10">
+    <article ref={articleRef} className="flex flex-col items-center gap-10 overflow-hidden pb-14 pt-10">
       <div className="flex flex-col gap-16 p-3">
         <div className={`flex flex-col items-center ${animationSlideInLeftToRight(isVisible)}`}>
           <img src={logoImage} alt="Logo" className="h-40" />

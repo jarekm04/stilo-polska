@@ -7,19 +7,30 @@ export const Technology = () => {
   const articleRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          } else {
+            setIsVisible(false);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    if (articleRef.current) {
+      observer.observe(articleRef.current);
+    }
+
+    return () => {
       if (articleRef.current) {
-        const topPos = articleRef.current.getBoundingClientRect().top;
-        const scrollPos = window.scrollY + window.innerHeight;
-        if (topPos < scrollPos - 1800) setIsVisible(true);
-        else setIsVisible(false);
+        observer.unobserve(articleRef.current);
       }
     };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const animationSlideInRightToLeft = (isVisible: boolean) =>

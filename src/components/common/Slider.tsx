@@ -3,7 +3,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import { Carousel, CarouselContent, CarouselDot, CarouselItem } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
 
-const images = ['3.jpg', '4.jpg', '6.jpg'];
+const images = ['slider1.jpg', 'slider2.jpg', 'slider3.jpg'];
 const h1s = ['Domy z bali klejonych', 'Domy z bali okrągłych', 'Projekty domów z bali'];
 
 export const Slider = () => {

@@ -5,7 +5,7 @@ export const Contact = () => {
   return (
     <section className="flex flex-col bg-slate-500">
       <div className="bg-contact h-[300px] w-full bg-cover bg-center sm:h-[450px] xl:h-[600px]" />
-      <article className="grid grid-rows-2 gap-4 bg-slate-500 px-10 py-6 text-sm font-normal text-white md:grid-cols-2 md:grid-rows-1">
+      <article className="grid grid-rows-2 gap-4 bg-slate-500 px-0 py-6 text-sm font-normal text-white md:grid-cols-2 md:grid-rows-1 md:px-10">
         <div className="flex flex-col gap-7 place-self-center px-4 md:place-self-center">
           <div className="flex flex-col gap-2">
             <p className="flex gap-3">
@@ -68,8 +68,9 @@ export const Contact = () => {
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2322.43922086986!2d18.58132261587419!3d54.40221948021385!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46fd752a03e0754d%3A0x8792e0b75e4d17fc!2sSTILO+POLSKA!5e0!3m2!1spl!2spl!4v1531332049002"
           width="100%"
-          height="100%"
+          height="110%"
           allowFullScreen
+          className="mt-0 md:-mt-16"
         />
       </article>
     </section>

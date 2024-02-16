@@ -6,34 +6,37 @@ import { Separator } from '@/components/ui/separator';
 export const Offer = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isVisible2Part, setIsVisible2Part] = useState(false);
-  const articleRef = useRef<HTMLElement | null>(null);
+  const articleRef = useRef<HTMLDivElement | null>(null);
+  const divRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (articleRef.current) {
-        const topPos = articleRef.current.getBoundingClientRect().top;
-        const scrollPos = window.scrollY + window.innerHeight;
-        if (topPos < scrollPos - 800) setIsVisible(true);
-        else setIsVisible(false);
-      }
+    const observerCallback: IntersectionObserverCallback = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.target === articleRef.current) {
+          setIsVisible(entry.isIntersecting);
+        } else if (entry.target === divRef.current) {
+          setIsVisible2Part(entry.isIntersecting);
+        }
+      });
     };
 
-    const handleScrollPart2 = () => {
-      if (articleRef.current) {
-        const topPos = articleRef.current.getBoundingClientRect().top;
-        const scrollPos = window.scrollY + window.innerHeight;
-        if (topPos < scrollPos - 1500) setIsVisible2Part(true);
-        else setIsVisible2Part(false);
-      }
+    const observerOptions: IntersectionObserverInit = {
+      threshold: 0.1,
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-    window.addEventListener('scroll', handleScrollPart2);
-    handleScrollPart2();
+    if (articleRef.current) {
+      observer.observe(articleRef.current);
+    }
+    
+    if (divRef.current) {
+      observer.observe(divRef.current);
+    }
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   const animationSlideInLeftToRight = (isVisible: boolean) =>
@@ -65,7 +68,7 @@ export const Offer = () => {
         </div>
         <div className={`bg-offer ${isVisible ? 'animate-fadeIn' : 'opacity-0'} mt-12 h-full rounded-t-lg bg-cover bg-fixed brightness-90 drop-shadow-2xl`} />
       </div>
-      <div className="grid grid-cols-2 bg-gradient-to-b from-white to-orange-50">
+      <div ref={divRef} className="grid grid-cols-2 bg-gradient-to-b from-white to-orange-50">
         <div className={`bg-offer ${isVisible2Part ? 'animate-fadeIn' : 'opacity-0'} h-full rounded-b-lg bg-cover bg-fixed brightness-90 drop-shadow-2xl`} />
         <div className="mt-20 flex flex-col gap-5 px-10">
           <Separator className="bg-custom-tertiary" />
