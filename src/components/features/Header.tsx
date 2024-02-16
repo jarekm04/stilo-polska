@@ -17,6 +17,9 @@ const linkClasses = (isScrolled: boolean, isHome: boolean) =>
 const spanClasses =
   'from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat pb-1.5 transition-all duration-500 ease-out hover:bg-[length:100%_2px]';
 
+const spanClassesActive =
+  'from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:100%_2px] bg-left-bottom bg-no-repeat pb-1.5 transition-all duration-500 ease-out';
+
 const iconClasses = (isScrolled: boolean, isHome: boolean) =>
   `${navigationMenuTriggerStyle()} ${
     isHome
@@ -47,11 +50,13 @@ export const Header = () => {
 
   return (
     <header
-      className={`${isHome ? 'fixed' : 'block'}left-0 top-0 z-30 flex h-16 w-full items-center justify-between overflow-hidden transition-all duration-500 ${isHome ? 'bg-transparent' : 'bg-slate-500'}`}
+      className={`${isHome ? 'fixed' : 'block'} left-0 top-0 z-30 flex h-16 w-full items-center justify-between overflow-hidden transition-all duration-500 ${isHome ? 'bg-transparent' : 'bg-slate-500'}`}
     >
-      <div
-        className={`absolute inset-0 transform bg-slate-500 opacity-95 transition-transform duration-500 ease-in-out ${isScrolled ? 'translate-x-0' : '-translate-x-full'}`}
-      />
+      {isHome && (
+        <div
+          className={`absolute inset-0 transform bg-slate-500 opacity-95 transition-transform duration-500 ease-in-out ${isScrolled ? 'translate-x-0' : '-translate-x-full'}`}
+        />
+      )}
       <div className="relative z-10 flex items-center">
         <Link to="/" className="flex items-center transition-transform duration-200 hover:scale-105">
           <img src={logoImage} alt="Logo" className="h-16" />
@@ -61,8 +66,8 @@ export const Header = () => {
         <NavigationMenuList>
           {navigation.map(({ path, title }) => (
             <NavigationMenuItem key={path}>
-              <Link to={path} className={linkClasses(isScrolled, isHome)} data-active={pathname === path ? true : false}>
-                <span className={spanClasses}>{title}</span>
+              <Link to={path} className={linkClasses(isScrolled, isHome)} data-active={pathname === path}>
+                <span className={pathname === path ? spanClassesActive : spanClasses}>{title}</span>
               </Link>
             </NavigationMenuItem>
           ))}

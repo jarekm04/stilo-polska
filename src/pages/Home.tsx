@@ -3,6 +3,7 @@ import { About } from '@/components/common/About';
 import { Offer } from '@/components/common/Offer';
 import { Technology } from '@/components/common/Technology';
 import { Realizations } from '@/components/common/Realizations';
+import { Footer } from '@/components/features/Footer';
 
 export const Home = () => {
   return (
@@ -12,6 +13,7 @@ export const Home = () => {
       <Offer />
       <Realizations />
       <Technology />
+      <Footer />
     </section>
   );
 };
