@@ -1,7 +1,7 @@
 export const Offer = () => {
   return (
-    <div>
+    <section>
       <p>Oferta</p>
-    </div>
+    </section>
   );
 };
