@@ -4,7 +4,7 @@ import { Carousel, CarouselContent, CarouselDot, CarouselItem } from '@/componen
 import { Card, CardContent } from '@/components/ui/card';
 
 const images = ['slider1.jpg', 'slider2.jpg', 'slider3.jpg'];
-const h1s = ['Domy z bali klejonych', 'Domy z bali okrągłych', 'Projekty domów z bali'];
+const h1s = ['Lorem ipsum', 'Doler Sit Amet', 'Projekty domów z bali'];
 
 export const Slider = () => {
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: false }));

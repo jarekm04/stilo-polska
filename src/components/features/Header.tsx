@@ -59,8 +59,10 @@ export const Header = () => {
         />
       )}
       <div className="relative z-10 flex items-center">
-        <Link to="/" className="flex items-center transition-transform duration-200 hover:scale-105 pl-3">
-          {isScrolled || !isHome ? <img src={logoImage} alt="Logo" className="h-16" /> : <img src={logoImageBg} alt="Logo" className="h-16" />}
+        <Link to="/" className="flex items-center transition-transform duration-200 hover:scale-105 min-w-[190px]">
+          {/* {isScrolled || !isHome ? <img src={logoImage} alt="Logo" className="h-16 pl-3" /> : <img src={logoImageBg} alt="Logo" className="h-16" />} */}
+          <img src={logoImageBg} alt="Logo" className={`h-16 w-[190px] absolute top-0 left-0 transition-all duration-500 ease-in-out ${!isScrolled && isHome ? '' : '-translate-x-full'}`} />
+          <img src={logoImage} alt="Logo" className={`h-16 pl-3 transition-all duration-500 ease-in-out ${!isScrolled && isHome ? '-translate-x-full' : ''}`} />
         </Link>
       </div>
       <NavigationMenu className="relative z-10 h-full">
