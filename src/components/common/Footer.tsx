@@ -40,7 +40,7 @@ export const Footer = () => {
             2024 STILO POLSKA
           </p>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 self-center">
           <a className="flex gap-3" href="tel:+48585126999">
             <Phone />
             58 512-69-99

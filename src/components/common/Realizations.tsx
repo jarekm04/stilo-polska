@@ -20,7 +20,7 @@ export const Realizations = () => {
       },
       {
         threshold: 0.1,
-      }
+      },
     );
 
     if (articleRef.current) {
@@ -61,7 +61,7 @@ export const Realizations = () => {
         </Button>
       </div>
       <Button
-        className={`bg-custom-tertiary hover:bg-custom-ninth self-center ${animationSlideInLeftToRight(isVisible)} delay-500`}
+        className={`self-center bg-custom-tertiary hover:bg-custom-ninth ${animationSlideInLeftToRight(isVisible)} delay-500`}
         onClick={() => navigate('/realizations')}
       >
         Więcej gotowych realizacji

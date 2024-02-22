@@ -1,11 +1,11 @@
-import { Footer } from '@/components/features/Footer';
+import { Footer } from '@/components/common/Footer';
 import { Separator } from '@/components/ui/separator';
 import ReactPlayer from 'react-player';
 
 export const Video = () => {
   return (
     <section className="mt-20 flex flex-col">
-      <article className="flex flex-col gap-16 bg-gradient-to-b from-slate-200 via-white to-orange-50 px-14 pt-8">
+      <article className="flex flex-col gap-16 bg-gradient-to-b from-white to-orange-50 px-14 pt-8">
         <div className="flex flex-col items-center gap-4">
           <div className="flex flex-col items-center justify-center gap-3">
             <h1 className="mt-2 text-center text-2xl font-light">Lorem Ipsum</h1>

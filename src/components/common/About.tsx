@@ -40,7 +40,7 @@ export const About = () => {
     `transform ${isVisible ? 'translate-x-0' : 'translate-x-[250%]'} transition-transform duration-500 ease-out`;
 
   return (
-    <article ref={articleRef} className="flex flex-col items-center gap-10 overflow-hidden pb-14 pt-10">
+    <article ref={articleRef} className="flex flex-col items-center gap-10 overflow-hidden py-10">
       <div className="flex flex-col gap-16 p-3">
         <div className={`flex flex-col items-center ${animationSlideInLeftToRight(isVisible)}`}>
           <img src={logoImage} alt="Logo" className="h-40" />
@@ -48,18 +48,18 @@ export const About = () => {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className={`grid grid-cols-[1fr_3fr] place-items-center gap-5 bg-white ${animationSlideInLeftToRight(isVisible)} delay-100`}>
-            <TrendingUp className="text-custom-tertiary h-20 w-20" />
+            <TrendingUp className="h-20 w-20 text-custom-tertiary" />
             <div>
-              <p className="text-custom-tertiary font-bold">30 lat na rynku</p>
+              <p className="font-bold text-custom-tertiary">30 lat na rynku</p>
               <p className="font-thin">
                 Firma o ugruntowanej pozycji z nowoczesnymi rozwiązaniami, której konstrukcje można podziwiać w całej Polsce, jak i poza jej granicami
               </p>
             </div>
           </div>
           <div className={`grid grid-cols-[1fr_3fr] place-items-center gap-5 bg-white ${animationSlideInLeftToRight(isVisible)} delay-100`}>
-            <ShieldCheck className="text-custom-tertiary h-20 w-20" />
+            <ShieldCheck className="h-20 w-20 text-custom-tertiary" />
             <div>
-              <p className="text-custom-tertiary font-bold">Lider wśród producentów domów z bala</p>
+              <p className="font-bold text-custom-tertiary">Lider wśród producentów domów z bala</p>
               <p className="font-thin">Opatentowane, autorskie techniki montażu przy użyciu oryginalnych bali importowanych z mroźnej Syberii</p>
             </div>
           </div>
@@ -68,31 +68,31 @@ export const About = () => {
       <div className={`transform space-y-4 ${isVisible ? 'translate-x-0' : 'translate-x-[250%]'} transition-transform duration-500 ease-out`}>
         <div className="flex transform gap-6 bg-transparent px-4">
           <div className={`flex max-w-xs items-center gap-3 rounded-lg border bg-white p-3 text-center shadow-lg ${animationSlideInRightToLeft(isVisible)}`}>
-            <Brush className="text-custom-tertiary animate-bounce" />
+            <Brush className="animate-bounce text-custom-tertiary" />
             <p>Atrakcyjne projekty</p>
           </div>
           <div
             className={`flex max-w-xs items-center gap-3 rounded-lg border bg-white p-3 text-center shadow-lg ${animationSlideInRightToLeft(isVisible)} delay-100`}
           >
-            <TreePine className="text-custom-tertiary animate-bounce" />
+            <TreePine className="animate-bounce text-custom-tertiary" />
             <p>Drewno z Syberii</p>
           </div>
           <div
             className={`flex max-w-xs items-center gap-3 rounded-lg border bg-white p-3 text-center shadow-lg ${animationSlideInRightToLeft(isVisible)} delay-200`}
           >
-            <Lightbulb className="text-custom-tertiary animate-bounce" />
+            <Lightbulb className="animate-bounce text-custom-tertiary" />
             <p>Energooszczędność</p>
           </div>
           <div
             className={`flex max-w-xs items-center gap-3 rounded-lg border bg-white p-3 text-center shadow-lg ${animationSlideInRightToLeft(isVisible)} delay-300`}
           >
-            <Award className="text-custom-tertiary animate-bounce" />
+            <Award className="animate-bounce text-custom-tertiary" />
             <p>Najwyższe standardy</p>
           </div>
           <div
             className={`flex max-w-xs items-center gap-3 rounded-lg border bg-white p-3 text-center shadow-lg ${animationSlideInRightToLeft(isVisible)} delay-500`}
           >
-            <Globe className="text-custom-tertiary animate-bounce" />
+            <Globe className="animate-bounce text-custom-tertiary" />
             <p>Projekty w całym kraju</p>
           </div>
         </div>
