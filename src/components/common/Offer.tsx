@@ -63,8 +63,8 @@ export const Offer = () => {
               className="absolute bottom-0 left-0 right-0 top-0 -z-10 h-full w-full object-cover object-center brightness-75 transition-all group-hover:brightness-100"
               alt="offer-house"
             />
-            <p className="px-1 text-center text-2xl text-white">{item.p1}</p>
-            <p className="px-1 text-center text-xl text-white">{item.p2}</p>
+            <p className="px-1 text-center text-2xl text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{item.p1}</p>
+            <p className="px-1 text-center text-lg font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{item.p2}</p>
           </div>
         ))}
       </div>

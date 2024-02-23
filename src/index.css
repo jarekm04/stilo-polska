@@ -55,6 +55,6 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-montserrat;
+    @apply bg-background font-montserrat text-foreground;
   }
 }
