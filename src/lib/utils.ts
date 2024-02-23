@@ -27,3 +27,13 @@ export const navigation = [
     title: 'Kontakt',
   },
 ];
+
+export const extractImages = (content: string) => {
+  const regex = /<img.*?src="(.*?)".*?>/g;
+  const images = [];
+  let match;
+  while ((match = regex.exec(content)) !== null) {
+    images.push(match[1]);
+  }
+  return images;
+};

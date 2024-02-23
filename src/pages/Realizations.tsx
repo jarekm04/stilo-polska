@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { SkeletonRealizations } from '@/components/features/Skeletons';
 import { Footer } from '@/components/common/Footer';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Gallery } from '@/components/features/Gallery';
+import { extractImages } from '@/lib/utils';
 
 interface Post {
   id: number;
@@ -35,16 +35,6 @@ export const Realizations = () => {
       })
       .catch((error) => console.error('Error fetching posts:', error));
   }, []);
-
-  const extractImages = (content: string) => {
-    const regex = /<img.*?src="(.*?)".*?>/g;
-    const images = [];
-    let match;
-    while ((match = regex.exec(content)) !== null) {
-      images.push(match[1]);
-    }
-    return images;
-  };
 
   return (
     <Dialog>

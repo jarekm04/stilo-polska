@@ -1,22 +1,18 @@
 import { useEffect, useState } from 'react';
 import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import ImageGallery from 'react-image-gallery';
+import { extractImages } from '@/lib/utils';
 import 'react-image-gallery/styles/css/image-gallery.css';
+import '@/lib/gallery-fix.css';
 
-const fetchPost = (postId: number) => {
-  fetch(`https://admin.jmajchrzak.tech/wp-json/wp/v2/posts/${postId}`)
-    .then((response) => response.json())
-    .then((data) => {
-      // Tutaj możesz obsłużyć odebrane dane
-      console.log(data);
-    })
-    .catch((error) => console.error('Error fetching post:', error));
+type ImageItem = {
+  original: string;
+  thumbnail: string;
 };
 
 export const Gallery = ({ id }: { id: number }) => {
-  const [title, setTitle] = useState();
-  const [images, setImages] = useState([]);
-  console.log(images);
+  const [title, setTitle] = useState('');
+  const [images, setImages] = useState<ImageItem[]>([]);
 
   useEffect(() => {
     if (!id) return;
@@ -24,13 +20,12 @@ export const Gallery = ({ id }: { id: number }) => {
     fetch(`https://admin.jmajchrzak.tech/wp-json/wp/v2/posts/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        const imageUrls = data.content.rendered.match(/https:\/\/admin\.jmajchrzak\.tech\/wp-content\/uploads\/[\w\/.-]+\.jpg/g);
-        console.log(imageUrls);
-        const mainImageUrls = imageUrls.filter((url) => !url.match(/-\d+x\d+\.jpg$/));
-
-        const formattedImages = mainImageUrls.map((url) => ({ original: url, thumbnail: url }));
+        console.log(data);
+        const imagesUrls = extractImages(data.content.rendered);
+        const formattedImages = imagesUrls.map((url) => ({ original: url, thumbnail: url }));
 
         setImages(formattedImages);
+        setTitle(data.title.rendered);
       })
       .catch((error) => console.error('Error fetching post:', error));
   }, [id]);
@@ -38,12 +33,12 @@ export const Gallery = ({ id }: { id: number }) => {
   if (!id) return <></>;
 
   return (
-    <DialogContent className="h-[80vh] w-[80vw]" data-dataid="TU_START_DIALOG">
+    <DialogContent className="h-[80vh] w-[80vw] max-w-none grid-rows-[25px_1fr]">
       <DialogHeader className="gap-6">
-        <DialogTitle>{'title'}</DialogTitle>
+        <DialogTitle className='text-lg'>{title}</DialogTitle>
       </DialogHeader>
-      <div>
-        <ImageGallery items={images} showFullscreenButton={false} showPlayButton={false} showIndex={true} />
+      <div className="h-full max-w-full overflow-hidden">
+        <ImageGallery items={images} showFullscreenButton={true} showPlayButton={false} showIndex={true} showThumbnails={true} />
       </div>
     </DialogContent>
   );
