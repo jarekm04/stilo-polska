@@ -1,14 +1,25 @@
+import { useEffect, useState } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { Footer } from '@/components/common/Footer';
-
-const mockArray = [
-  { p1: 'Nowoczesny dom z bala nad Solina', p2: '142B' },
-  { p1: 'Nowoczesny dom z bala pod Gorlicami', p2: '141B' },
-  { p1: 'Nowoczesny dom z bala o pow. uzytkowej 160,80 m2', p2: '140B' },
-  { p1: 'Jakiś tam dom z czymś tam', p2: '21:37' },
-];
+import { Post } from '@/lib/types';
+import { extractHeading, extractImages } from '@/lib/utils';
 
 export const Offer = () => {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [selectedId, setSelectedId] = useState<number>();
+
+  useEffect(() => {
+    const categoryId = 3;
+    const perPage = 100;
+    fetch(`https://admin.jmajchrzak.tech/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${perPage}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPosts(data);
+      })
+      .catch((error) => console.error('Error fetching posts:', error));
+  }, []);
+
   return (
     <section className="mt-20 flex min-h-[calc(100vh-64px)] flex-col bg-gradient-to-b from-white to-orange-50">
       <div className="flex flex-col items-center gap-7 py-6">
@@ -22,18 +33,25 @@ export const Offer = () => {
           </p>
         </div>
         <div className="grid grid-cols-3 place-content-center gap-5 px-14 py-8">
-          {mockArray.map((item, index) => (
+          {posts.map(({ id, title, content }) => (
             <div
-              key={item.p2}
+              key={id}
               className={`shadow-blue-gray-900/50 group relative flex min-h-60 cursor-pointer select-none flex-col items-center justify-center gap-2 shadow-xl`}
             >
-              <img
-                src="/src/assets/karczma.jpg"
-                className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover object-center brightness-75 transition-all group-hover:brightness-100"
-                alt="offer-house"
-              />
-              <p className="px-1 text-center text-2xl text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{item.p1}</p>
-              <p className="px-1 text-center text-lg font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{item.p2}</p>
+              {extractImages(content.rendered)
+                .slice(0, 1)
+                .map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover object-center brightness-75 transition-all group-hover:brightness-100"
+                    alt={`Offer house - ${index}`}
+                  />
+                ))}
+              <p className="px-1 text-center text-2xl text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{title.rendered}</p>
+              <p className="absolute right-0 top-0 bg-gray-500 px-1 text-center text-lg font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                {extractHeading(content.rendered)}
+              </p>
             </div>
           ))}
         </div>

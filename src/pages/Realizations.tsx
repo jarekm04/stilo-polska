@@ -6,16 +6,7 @@ import { Footer } from '@/components/common/Footer';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Gallery } from '@/components/features/Gallery';
 import { extractImages } from '@/lib/utils';
-
-interface Post {
-  id: number;
-  title: {
-    rendered: string;
-  };
-  content: {
-    rendered: string;
-  };
-}
+import { Post } from '@/lib/types';
 
 // {extractImages(content.rendered).map((image, index) => (
 //   <img key={index} src={image} alt={`Image ${index}`} className="w-40" />
@@ -28,7 +19,10 @@ export const Realizations = () => {
   // console.log(posts);
 
   useEffect(() => {
-    fetch('https://admin.jmajchrzak.tech/wp-json/wp/v2/posts')
+    // fetch('https://admin.jmajchrzak.tech/wp-json/wp/v2/posts')
+    const categoryId = 4;
+    const perPage = 100;
+    fetch(`https://admin.jmajchrzak.tech/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${perPage}`)
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
@@ -50,22 +44,27 @@ export const Realizations = () => {
             </p>
           </div>
           {posts.length === 0 ? (
-            <section className="grid grid-cols-1 gap-5 px-8 sm:grid-cols-2 lg:grid-cols-3 xl:gap-12">
+            <section className="grid grid-cols-1 gap-5 px-16 sm:grid-cols-2 lg:grid-cols-3 xl:gap-12">
               {Array.from({ length: 6 }).map((_, index) => (
                 <SkeletonRealizations key={index} />
               ))}
             </section>
           ) : (
-            <section className="grid grid-cols-1 gap-5 px-8 sm:grid-cols-2 lg:grid-cols-3 xl:gap-12">
+            <section className="grid grid-cols-1 gap-5 px-16 sm:grid-cols-2 lg:grid-cols-3 xl:gap-12">
               {posts?.map(({ id, title, content }) => (
                 <DialogTrigger asChild key={id}>
-                  <article className={`group grid cursor-pointer grid-rows-[7fr_2fr_1fr] overflow-hidden bg-white shadow-xl`} onClick={() => setSelectedId(id)}>
+                  <article
+                    className={`group grid cursor-pointer grid-rows-[7fr_1fr_1fr] overflow-hidden bg-white shadow-xl max-h-[350px]`}
+                    onClick={() => setSelectedId(id)}
+                  >
                     {extractImages(content.rendered)
                       .slice(0, 1)
                       .map((image, index) => (
-                        <img key={index} src={image} className="h-full object-cover transition duration-500 group-hover:scale-110" alt={`Image ${index}`} />
+                        <img key={index} src={image} className="h-full w-full object-cover transition duration-500 group-hover:scale-110 max-h-[270px]" alt={`Realization house: ${index}`} />
                       ))}
-                    <p className="flex items-center justify-center px-2 text-center text-lg font-light uppercase text-custom-secondary">{title.rendered}</p>
+                    <p className="z-10 flex items-center justify-center bg-white px-2 py-1 text-center text-lg font-light uppercase text-custom-secondary">
+                      {title.rendered}
+                    </p>
                     <Button
                       variant="link"
                       className="text-xs font-semibold transition-all duration-200 ease-in-out group-hover:text-custom-tertiary group-hover:underline"

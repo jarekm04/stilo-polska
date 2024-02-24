@@ -37,3 +37,13 @@ export const extractImages = (content: string) => {
   }
   return images;
 };
+
+export const extractHeading = (content: string) => {
+  const regex = /<h2[^>]*>(.*?)<\/h2>/g;
+  const headings = [];
+  let match;
+  while ((match = regex.exec(content)) !== null) {
+    headings.push(match[1]);
+  }
+  return headings[0];
+};
