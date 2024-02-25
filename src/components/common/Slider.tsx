@@ -16,7 +16,7 @@ export const Slider = () => {
           <CarouselItem key={index} className="p-0">
             <Card className="h-full border-0">
               <CardContent className="relative h-full p-0">
-                <img src={`/src/assets/${images[index]}`} className="h-full w-full object-cover brightness-75" alt="carousel-large-photos" />
+                <img src={`${images[index]}`} className="h-full w-full object-cover brightness-75" alt="carousel-large-photos" />
                 <div className="absolute left-7 top-[50%] flex flex-col gap-3 rounded-md bg-[rgba(0,0,0,0.4)] p-2">
                   <h1 className="select-none rounded-xl bg-transparent p-3 text-5xl font-thin uppercase text-primary-foreground">{h1s[index]}</h1>
                 </div>

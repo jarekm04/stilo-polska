@@ -103,7 +103,6 @@ module.exports = {
       backgroundImage: {
         contact: "url('@/assets/contact.jpeg')",
         smallImg: "url('@/assets/smallImg.jpg')",
-        offer: "url('@/assets/offer.jpg')",
       },
     },
   },
