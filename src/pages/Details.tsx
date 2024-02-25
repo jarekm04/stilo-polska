@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Gallery } from '@/components/features/Gallery';
+import { SkeletonDetails } from '@/components/features/Skeletons';
 import { extractHeading, extractImages } from '@/lib/utils';
 import { ImageItem } from '@/lib/types';
 
@@ -16,8 +17,6 @@ export const Details = () => {
   const [startIndex, setStartIndex] = useState(0);
   const { pathname } = useLocation();
   const navigate = useNavigate();
-
-  console.log('rendered');
 
   useEffect(() => {
     const currentId = pathname.split('/').pop();
@@ -42,10 +41,14 @@ export const Details = () => {
       .catch((error) => console.error('Error fetching post:', error));
   }, [id]);
 
+  if (images.length === 0) {
+    return <SkeletonDetails />;
+  }
+
   return (
     <Dialog>
       <section className="mt-20">
-        <div className={`relative flex h-[300px] w-full flex-col items-center justify-center gap-3 bg-orange-50`}>
+        <div className={`relative flex h-[300px] w-full flex-col items-center justify-center gap-3`}>
           <img className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover blur-sm brightness-50" src={mainImage} />
           <h1 className="px-1 text-center text-4xl uppercase text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{title}</h1>
           <p className="bg-gray-500 px-1 text-center text-xl uppercase text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{heading}</p>

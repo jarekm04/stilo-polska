@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
 const mockArray = [
-  { p1: 'Nowoczesny dom z bala nad Soliną', p2: '142', delay: 'delay-0', src: '/src/assets/offer1.jpg' },
-  { p1: 'Nowoczesny dom z bala na wzgórzu', p2: '137', delay: 'delay-200', src: '/src/assets/offer3.jpg' },
-  { p1: 'Nowoczesny dom z bala o pow. użytkowej 160,80 m2', p2: '140', delay: 'delay-100', src: '/src/assets/offer2.jpg' },
-  { p1: 'Nowoczesny dom z bali parterowy z antresolą', p2: '135', delay: 'delay-200', src: '/src/assets/offer4.jpg' },
+  { p1: 'Nowoczesny dom z bala nad Soliną', p2: '142', delay: 'delay-0', src: '/src/assets/offer1.jpg', id: 642 },
+  { p1: 'Nowoczesny dom z bala na wzgórzu', p2: '137', delay: 'delay-200', src: '/src/assets/offer3.jpg', id: 565 },
+  { p1: 'Nowoczesny dom z bala o pow. użytkowej 160,80 m2', p2: '140', delay: 'delay-100', src: '/src/assets/offer2.jpg', id: 604 },
+  { p1: 'Nowoczesny dom z bali parterowy z antresolą', p2: '135', delay: 'delay-200', src: '/src/assets/offer4.jpg', id: 541 },
 ];
 
 export const Offer = () => {
@@ -14,6 +14,7 @@ export const Offer = () => {
   const [isVisible2Part, setIsVisible2Part] = useState(false);
   const divRef = useRef<HTMLDivElement | null>(null);
   const anchorRef = useRef<HTMLAnchorElement | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const observerCallback: IntersectionObserverCallback = (entries, observer) => {
@@ -57,6 +58,7 @@ export const Offer = () => {
           <div
             key={item.p2}
             className={`shadow-blue-gray-900/50 group relative flex min-h-60 cursor-pointer select-none flex-col items-center justify-center gap-2 shadow-xl ${animationSlideInRightToLeft(isVisible)} ${item.delay} ${index % 3 === 2 ? 'col-span-2' : ''} ${index % 4 === 0 ? 'row-span-2' : ''}`}
+            onClick={() => navigate(`/offer/${item.id}`)}
           >
             <img
               src={item.src}
