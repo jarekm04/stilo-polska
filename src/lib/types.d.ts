@@ -7,3 +7,8 @@ export interface Post {
     rendered: string;
   };
 }
+
+export type ImageItem = {
+  original: string;
+  thumbnail: string;
+};

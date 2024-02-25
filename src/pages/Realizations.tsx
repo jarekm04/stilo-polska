@@ -8,18 +8,11 @@ import { Gallery } from '@/components/features/Gallery';
 import { extractImages } from '@/lib/utils';
 import { Post } from '@/lib/types';
 
-// {extractImages(content.rendered).map((image, index) => (
-//   <img key={index} src={image} alt={`Image ${index}`} className="w-40" />
-// ))}
-
 export const Realizations = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [selectedId, setSelectedId] = useState<number>();
 
-  // console.log(posts);
-
   useEffect(() => {
-    // fetch('https://admin.jmajchrzak.tech/wp-json/wp/v2/posts')
     const categoryId = 4;
     const perPage = 100;
     fetch(`https://admin.jmajchrzak.tech/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${perPage}`)
@@ -37,7 +30,7 @@ export const Realizations = () => {
           <div className="flex flex-col items-center justify-center gap-3">
             <h1 className="mt-2 text-center text-2xl font-light">Nasze realizacje</h1>
             <Separator className="h-[2px] w-14 bg-custom-tertiary" />
-            <p className="mt-5 w-[60%] px-4 text-center font-thin">
+            <p className="mt-5 w-[80%] px-4 text-center font-thin">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium recusandae sint, culpa veritatis omnis debitis repellat suscipit in nisi
               cumque, modi facilis repudiandae molestias dolorum consequuntur dignissimos odio hic id. Aliquid odio voluptates reprehenderit minus suscipit.
               Earum impedit aspernatur neque.

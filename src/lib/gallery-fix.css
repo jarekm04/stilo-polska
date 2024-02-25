@@ -1,8 +1,7 @@
 .image-gallery-thumbnails-wrapper {
   position: absolute !important;
   bottom: 0 !important;
-  left: 50% !important;
-  translate: -50%;
+  left: 0 !important;
 }
 
 .image-gallery {

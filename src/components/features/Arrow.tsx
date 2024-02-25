@@ -39,7 +39,7 @@ export const Arrow = () => {
   return (
     shouldRender && (
       <div
-        className={`bg-custom-secondary fixed bottom-6 right-6 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border transition-all hover:scale-110 ${isVisible ? 'animate-fadeIn opacity-100' : 'animate-fadeOut opacity-0'}`}
+        className={`fixed bottom-6 right-6 z-50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border bg-custom-secondary transition-all hover:scale-110 ${isVisible ? 'animate-fadeIn opacity-100' : 'animate-fadeOut opacity-0'}`}
         onClick={scrollToTop}
         onAnimationEnd={onAnimationEnd}
       >

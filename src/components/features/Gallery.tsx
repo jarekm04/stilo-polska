@@ -2,15 +2,11 @@ import { useEffect, useState } from 'react';
 import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import ImageGallery from 'react-image-gallery';
 import { extractImages } from '@/lib/utils';
+import { ImageItem } from '@/lib/types';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import '@/lib/gallery-fix.css';
 
-type ImageItem = {
-  original: string;
-  thumbnail: string;
-};
-
-export const Gallery = ({ id }: { id: number }) => {
+export const Gallery = ({ id, startIndex}: { id: number; startIndex?: number }) => {
   const [title, setTitle] = useState('');
   const [images, setImages] = useState<ImageItem[]>([]);
 
@@ -20,7 +16,6 @@ export const Gallery = ({ id }: { id: number }) => {
     fetch(`https://admin.jmajchrzak.tech/wp-json/wp/v2/posts/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         const imagesUrls = extractImages(data.content.rendered);
         const formattedImages = imagesUrls.map((url) => ({ original: url, thumbnail: url }));
 
@@ -38,7 +33,7 @@ export const Gallery = ({ id }: { id: number }) => {
         <DialogTitle className='text-lg'>{title}</DialogTitle>
       </DialogHeader>
       <div className="h-full max-w-full overflow-hidden">
-        <ImageGallery items={images} showFullscreenButton={true} showPlayButton={false} showIndex={true} showThumbnails={true} />
+        <ImageGallery items={images} showFullscreenButton={true} showPlayButton={false} showIndex={true} showThumbnails={true} startIndex={startIndex} />
       </div>
     </DialogContent>
   );

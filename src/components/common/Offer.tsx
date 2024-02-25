@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
 const mockArray = [
-  { p1: 'Nowoczesny dom z bala nad Solina', p2: '142B', delay: 'delay-0' },
-  { p1: 'Nowoczesny dom z bala pod Gorlicami', p2: '141B', delay: 'delay-100' },
-  { p1: 'Nowoczesny dom z bala o pow. uzytkowej 160,80 m2', p2: '140B', delay: 'delay-200' },
-  { p1: 'Jakiś tam dom z czymś tam', p2: '21:37', delay: 'delay-200' },
+  { p1: 'Nowoczesny dom z bala nad Soliną', p2: '142', delay: 'delay-0', src: '/src/assets/offer1.jpg' },
+  { p1: 'Nowoczesny dom z bala na wzgórzu', p2: '137', delay: 'delay-200', src: '/src/assets/offer3.jpg' },
+  { p1: 'Nowoczesny dom z bala o pow. użytkowej 160,80 m2', p2: '140', delay: 'delay-100', src: '/src/assets/offer2.jpg' },
+  { p1: 'Nowoczesny dom z bali parterowy z antresolą', p2: '135', delay: 'delay-200', src: '/src/assets/offer4.jpg' },
 ];
 
 export const Offer = () => {
@@ -59,12 +59,14 @@ export const Offer = () => {
             className={`shadow-blue-gray-900/50 group relative flex min-h-60 cursor-pointer select-none flex-col items-center justify-center gap-2 shadow-xl ${animationSlideInRightToLeft(isVisible)} ${item.delay} ${index % 3 === 2 ? 'col-span-2' : ''} ${index % 4 === 0 ? 'row-span-2' : ''}`}
           >
             <img
-              src="/src/assets/smallImg.jpg"
+              src={item.src}
               className="absolute bottom-0 left-0 right-0 top-0 -z-10 h-full w-full object-cover object-center brightness-75 transition-all group-hover:brightness-100"
               alt="offer-house"
             />
             <p className="px-1 text-center text-2xl text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{item.p1}</p>
-            <p className="px-1 text-center text-lg font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{item.p2}</p>
+            <p className="absolute right-0 top-0 bg-gray-500 px-1 text-center text-lg font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+              {item.p2}
+            </p>
           </div>
         ))}
       </div>
