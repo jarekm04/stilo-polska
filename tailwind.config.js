@@ -101,7 +101,6 @@ module.exports = {
         fadeOut: 'fadeOut 0.5s ease-in-out forwards',
       },
       backgroundImage: {
-        karczma: "url('@/assets/karczma.jpg')",
         contact: "url('@/assets/contact.jpeg')",
         smallImg: "url('@/assets/smallImg.jpg')",
         offer: "url('@/assets/offer.jpg')",

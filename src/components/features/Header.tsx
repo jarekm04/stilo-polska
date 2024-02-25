@@ -49,6 +49,13 @@ export const Header = () => {
     };
   }, []);
 
+  const isActive = (path: string) => {
+    if (path === '/') {
+      return pathname === path;
+    }
+    return pathname.startsWith(path);
+  };
+
   return (
     <header
       className={`fixed left-0 top-0 z-30 flex h-20 w-full items-center justify-between overflow-hidden drop-shadow-lg transition-all duration-500 ${isHome ? 'bg-transparent' : 'bg-white'}`}
@@ -59,16 +66,21 @@ export const Header = () => {
         />
       )}
       <div className="relative z-10 flex items-center">
-        <Link to="/" className="flex items-center transition-transform duration-200 hover:scale-105 pl-3">
-          {isScrolled || !isHome ? <img src={logoImage} alt="Logo" className="h-16" /> : <img src={logoImageBg} alt="Logo" className="h-16" />}
+        <Link to="/" className="flex min-w-[190px] items-center transition-transform duration-200 hover:scale-105">
+          <img
+            src={logoImageBg}
+            alt="Logo"
+            className={`absolute left-0 top-0 h-16 w-[190px] transition-all duration-500 ease-in-out ${!isScrolled && isHome ? '' : '-translate-x-full'}`}
+          />
+          <img src={logoImage} alt="Logo" className={`h-16 pl-3 transition-all duration-500 ease-in-out ${!isScrolled && isHome ? '-translate-x-full' : ''}`} />
         </Link>
       </div>
       <NavigationMenu className="relative z-10 h-full">
         <NavigationMenuList className="h-20 gap-3 lg:gap-5">
           {navigation.map(({ path, title }) => (
-            <NavigationMenuItem key={path} className='h-full'>
-              <Link to={path} className={linkClasses(isScrolled, isHome)} data-active={pathname === path}>
-                <span className={pathname === path ? spanClassesActive : spanClasses}>{title}</span>
+            <NavigationMenuItem key={path} className="h-full">
+              <Link to={path} className={linkClasses(isScrolled, isHome)} data-active={isActive(path)}>
+                <span className={isActive(path) ? spanClassesActive : spanClasses}>{title}</span>
               </Link>
             </NavigationMenuItem>
           ))}

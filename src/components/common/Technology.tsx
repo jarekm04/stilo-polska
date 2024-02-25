@@ -37,7 +37,7 @@ export const Technology = () => {
     `transform ${isVisible ? 'translate-x-0' : 'translate-x-[300%]'} transition-transform duration-500 ease-out`;
   
   return (
-    <article ref={articleRef} className="grid grid-cols-3 gap-7 bg-orange-50 px-8 pt-10 overflow-hidden">
+    <article ref={articleRef} className="grid grid-cols-3 gap-7 bg-orange-50 px-8 py-10 overflow-hidden">
       <div className={`border-custom-tertiary flex flex-col gap-4 rounded-lg border bg-white px-3 py-5 ${animationSlideInRightToLeft(isVisible)}`}>
         <div className="flex items-center gap-6">
           <TreePine className="text-custom-tertiary h-20 w-20" />

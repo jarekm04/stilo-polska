@@ -4,7 +4,7 @@ import { Carousel, CarouselContent, CarouselDot, CarouselItem } from '@/componen
 import { Card, CardContent } from '@/components/ui/card';
 
 const images = ['slider1.jpg', 'slider2.jpg', 'slider3.jpg'];
-const h1s = ['Domy z bali klejonych', 'Domy z bali okrągłych', 'Projekty domów z bali'];
+const h1s = ['Lorem ipsum', 'Doler Sit Amet', 'Projekty domów z bali'];
 
 export const Slider = () => {
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: false }));
@@ -17,10 +17,8 @@ export const Slider = () => {
             <Card className="h-full border-0">
               <CardContent className="relative h-full p-0">
                 <img src={`/src/assets/${images[index]}`} className="h-full w-full object-cover brightness-75" alt="carousel-large-photos" />
-                <div className="absolute left-7 top-[50%] flex flex-col gap-3">
-                  <h1 className="select-none rounded-xl bg-transparent p-3 text-5xl font-thin uppercase text-primary-foreground backdrop-blur-sm">
-                    {h1s[index]}
-                  </h1>
+                <div className="absolute left-7 top-[50%] flex flex-col gap-3 rounded-md bg-[rgba(0,0,0,0.4)] p-2">
+                  <h1 className="select-none rounded-xl bg-transparent p-3 text-5xl font-thin uppercase text-primary-foreground">{h1s[index]}</h1>
                 </div>
               </CardContent>
             </Card>
