@@ -3,7 +3,6 @@
   "private": false,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://jarekm04.github.io/stilo-polska/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
