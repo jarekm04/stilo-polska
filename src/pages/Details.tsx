@@ -46,11 +46,10 @@ export const Details = () => {
   const [id, setId] = useState<string>();
   const [title, setTitle] = useState('nowoczesny dom z bala o pow. uzytkowej 160,80m2');
   const [heading, setHeading] = useState('145');
-  const [images, setImages] = useState<{ content: string }[]>(mockImages);
+  const [images, setImages] = useState<{ content: string }[]>([]);
   const [startIndex, setStartIndex] = useState(0);
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  console.log(images);
 
   useEffect(() => {
     const currentId = pathname.split('/').pop();
