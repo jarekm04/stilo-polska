@@ -18,22 +18,22 @@ export const Video = () => {
           <div className="grid grid-cols-1 grid-rows-2 gap-3 lg:grid-cols-2 lg:grid-rows-1">
             <div className="p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
               <ReactPlayer
-                url="short.mp4"
+                url="./short.mp4"
                 width="100%"
                 height="100%"
                 playing={true}
                 controls={true}
-                light={<img src="short-thumb.png" className="h-full w-full" alt="Thumbnail" />}
+                light={<img src="./short-thumb.png" className="h-full w-full" alt="Thumbnail" />}
               />
             </div>
             <div className="p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
               <ReactPlayer
-                url="long.mp4"
+                url="./long.mp4"
                 width="100%"
                 height="100%"
                 playing={true}
                 controls={true}
-                light={<img src="long-thumb.png" className="h-full w-full" alt="Thumbnail" />}
+                light={<img src="./long-thumb.png" className="h-full w-full" alt="Thumbnail" />}
               />
             </div>
           </div>
@@ -49,12 +49,12 @@ export const Video = () => {
           </div>
           <div className="p-3  transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
             <ReactPlayer
-              url="visualisation.mp4"
+              url="./visualisation.mp4"
               width="100%"
               height="100%"
               playing={true}
               controls={true}
-              light={<img src="visualisation-thumb.png" className="h-full w-full" alt="Thumbnail" />}
+              light={<img src="./visualisation-thumb.png" className="h-full w-full" alt="Thumbnail" />}
             />
           </div>
         </div>

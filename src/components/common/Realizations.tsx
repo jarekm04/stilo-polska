@@ -5,17 +5,17 @@ import { Button } from '@/components/ui/button';
 const mockArray = [
   {
     title: 'Dom całoroczny 241m2',
-    src: 'ready1.jpg',
+    src: './ready1.jpg',
     delay: 'delay-0',
   },
   {
     title: 'Dom całoroczny 134m2',
-    src: 'ready2.jpg',
+    src: './ready2.jpg',
     delay: 'delay-100',
   },
   {
     title: 'Dom całoroczny 190m2',
-    src: 'ready3.jpeg',
+    src: './ready3.jpeg',
     delay: 'delay-200',
   },
 ];
