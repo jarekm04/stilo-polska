@@ -3,22 +3,74 @@ import { useNavigate } from 'react-router-dom';
 import { Separator } from '@/components/ui/separator';
 import { Footer } from '@/components/common/Footer';
 import { SkeletonOffers } from '@/components/features/Skeletons';
-import { Post } from '@/lib/types';
-import { extractHeading, extractImages } from '@/lib/utils';
+
+export interface FakePost {
+  content: string;
+  title: string;
+  id: number;
+}
+
+const mockContent = [
+  {
+    content: './offer1.jpg',
+    title: 'nowoczesny dom z bala nad solina',
+    id: 142,
+  },
+  {
+    content: './offer2.jpg',
+    title: 'nowoczesny dom z bala o pow. uzytkowej 160,80m2',
+    id: 140,
+  },
+  {
+    content: './offer3.jpg',
+    title: 'nowoczesny dom z bala na wzgorzu',
+    id: 137,
+  },
+  {
+    content: './offer3.jpg',
+    title: 'nowoczesny dom z bali parterowy z antresolą',
+    id: 135,
+  },
+  {
+    content: './offer2.jpg',
+    title: 'nowoczesny dom z bala o pow 98,30m2',
+    id: 130,
+  },
+  {
+    content: './offer1.jpg',
+    title: 'nowoczesny dom z bala klejonego na kaszubach',
+    id: 125,
+  },
+  {
+    content: './offer1.jpg',
+    title: 'nowoczesny dom z bala położony na dolnoslaskim',
+    id: 122,
+  },
+  {
+    content: './offer2.jpg',
+    title: 'luksusowy dom z bali, z plaskim dachem i basenem kenzo',
+    id: 118,
+  },
+  {
+    content: './offer3.jpg',
+    title: 'nowoczesny dom z bala klejonego w pruszczu',
+    id: 116,
+  },
+  {
+    content: './offer2.jpg',
+    title: 'nowoczesny dom z bala z podpiwniczeniem i budynkiem gospodarczym',
+    id: 112,
+  },
+];
 
 export const Offer = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<FakePost[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const categoryId = 3;
-    const perPage = 100;
-    fetch(`https://admin.jmajchrzak.tech/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${perPage}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setPosts(data);
-      })
-      .catch((error) => console.error('Error fetching posts:', error));
+    setTimeout(() => {
+      setPosts(mockContent);
+    }, 2000);
   }, []);
 
   return (
@@ -47,19 +99,14 @@ export const Offer = () => {
                 className={`shadow-blue-gray-900/50 group relative flex min-h-60 cursor-pointer select-none flex-col items-center justify-center gap-2 shadow-xl`}
                 onClick={() => navigate(`/offer/${id}`)}
               >
-                {extractImages(content.rendered)
-                  .slice(0, 1)
-                  .map((image, index) => (
-                    <img
-                      key={index}
-                      src={image}
-                      className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover object-center brightness-75 transition-all group-hover:brightness-100"
-                      alt={`Offer house - ${index}`}
-                    />
-                  ))}
-                <p className="px-1 text-center text-2xl uppercase text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{title.rendered}</p>
+                <img
+                  src={content}
+                  className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover object-center brightness-75 transition-all group-hover:brightness-100"
+                  alt={`Offer house - ${id}`}
+                />
+                <p className="px-1 text-center text-2xl uppercase text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{title}</p>
                 <p className="absolute right-0 top-0 bg-gray-500 px-1 text-center text-lg font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-                  {extractHeading(content.rendered)}
+                  {id}
                 </p>
               </article>
             ))}

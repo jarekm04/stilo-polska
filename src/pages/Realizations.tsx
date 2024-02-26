@@ -5,22 +5,74 @@ import { SkeletonRealizations } from '@/components/features/Skeletons';
 import { Footer } from '@/components/common/Footer';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Gallery } from '@/components/features/Gallery';
-import { extractImages } from '@/lib/utils';
-import { Post } from '@/lib/types';
+
+export interface FakePost {
+  content: string;
+  title: string;
+  id: number;
+}
+
+const mockContent = [
+  {
+    content: './ready1.jpg',
+    title: 'dom całoroczny 250m2',
+    id: 142,
+  },
+  {
+    content: './ready2.jpg',
+    title: 'domy całoroczne 150m2 i 200m2',
+    id: 140,
+  },
+  {
+    content: './ready3.jpeg',
+    title: 'dom całoroczny 149m2',
+    id: 137,
+  },
+  {
+    content: './ready3.jpeg',
+    title: 'dom całoroczny 190m2',
+    id: 135,
+  },
+  {
+    content: './ready2.jpg',
+    title: 'stodoła 450m2',
+    id: 130,
+  },
+  {
+    content: './ready1.jpg',
+    title: 'dom letniskowy',
+    id: 125,
+  },
+  {
+    content: './ready1.jpg',
+    title: 'dom całoroczny 250m2',
+    id: 122,
+  },
+  {
+    content: './ready2.jpg',
+    title: 'dom całoroczny 130m2',
+    id: 118,
+  },
+  {
+    content: './ready3.jpeg',
+    title: 'ruska bania',
+    id: 116,
+  },
+  {
+    content: './ready2.jpg',
+    title: 'dom całoroczny 230m2',
+    id: 112,
+  },
+];
 
 export const Realizations = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<FakePost[]>([]);
   const [selectedId, setSelectedId] = useState<number>();
 
   useEffect(() => {
-    const categoryId = 4;
-    const perPage = 100;
-    fetch(`https://admin.jmajchrzak.tech/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${perPage}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setPosts(data);
-      })
-      .catch((error) => console.error('Error fetching posts:', error));
+    setTimeout(() => {
+      setPosts(mockContent);
+    }, 2000);
   }, []);
 
   return (
@@ -47,16 +99,16 @@ export const Realizations = () => {
               {posts?.map(({ id, title, content }) => (
                 <DialogTrigger asChild key={id}>
                   <article
-                    className={`group grid cursor-pointer grid-rows-[7fr_1fr_1fr] overflow-hidden bg-white shadow-xl max-h-[350px]`}
+                    className={`group grid max-h-[350px] cursor-pointer grid-rows-[7fr_1fr_1fr] overflow-hidden bg-white shadow-xl`}
                     onClick={() => setSelectedId(id)}
                   >
-                    {extractImages(content.rendered)
-                      .slice(0, 1)
-                      .map((image, index) => (
-                        <img key={index} src={image} className="h-full w-full object-cover transition duration-500 group-hover:scale-110 max-h-[270px]" alt={`Realization house: ${index}`} />
-                      ))}
+                    <img
+                      src={content}
+                      className="h-full max-h-[270px] w-full object-cover transition duration-500 group-hover:scale-110"
+                      alt={`Realization house: ${id}`}
+                    />
                     <p className="z-10 flex items-center justify-center bg-white px-2 py-1 text-center text-lg font-light uppercase text-custom-secondary">
-                      {title.rendered}
+                      {title}
                     </p>
                     <Button
                       variant="link"
