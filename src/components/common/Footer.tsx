@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export const Footer = () => {
   return (
     <footer>
-      <div className="flex justify-around gap-4 bg-slate-500 px-10 pt-10 pb-6 text-sm font-light text-white">
+      <div className="flex justify-around gap-4 bg-slate-500 px-10 pt-10 pb-6 text-sm font-normal text-white">
         <div className="flex flex-col gap-2">
           <p className="flex gap-3">
             <MapPin />

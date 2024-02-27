@@ -51,7 +51,7 @@ export const About = () => {
             <TrendingUp className="h-20 w-20 text-custom-tertiary" />
             <div>
               <p className="font-bold text-custom-tertiary">30 lat na rynku</p>
-              <p className="font-thin">
+              <p className="font-light">
                 Firma o ugruntowanej pozycji z nowoczesnymi rozwiązaniami, której konstrukcje można podziwiać w całej Polsce, jak i poza jej granicami
               </p>
             </div>
@@ -60,7 +60,7 @@ export const About = () => {
             <ShieldCheck className="h-20 w-20 text-custom-tertiary" />
             <div>
               <p className="font-bold text-custom-tertiary">Lider wśród producentów domów z bala</p>
-              <p className="font-thin">Opatentowane, autorskie techniki montażu przy użyciu oryginalnych bali importowanych z mroźnej Syberii</p>
+              <p className="font-light">Opatentowane, autorskie techniki montażu przy użyciu oryginalnych bali importowanych z mroźnej Syberii</p>
             </div>
           </div>
         </div>
