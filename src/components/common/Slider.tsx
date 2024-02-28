@@ -3,8 +3,8 @@ import Autoplay from 'embla-carousel-autoplay';
 import { Carousel, CarouselContent, CarouselDot, CarouselItem } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
 
-const images = ['./slider1.jpg', './slider2.jpg', './slider3.jpg'];
-const h1s = ['Lorem ipsum', 'Doler Sit Amet', 'Projekty domów z bali'];
+const images = ['./slider1.jpg', './slider2.jpg', './slider3.jpg', './slider4.jpg', './slider5.jpg'];
+const h1s = ['Lorem ipsum', 'Doler Sit Amet', 'Projekty domów z bali', 'At vero eos et accusamus', 'Nam libero tempore'];
 
 export const Slider = () => {
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: false }));
