@@ -1,21 +1,24 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import ready1 from '@/assets/ready1.jpg';
+import ready2 from '@/assets/ready2.jpg';
+import ready3 from '@/assets/ready3.jpeg';
 
 const mockArray = [
   {
     title: 'Dom całoroczny 241m2',
-    src: './ready1.jpg',
+    src: ready1,
     delay: 'delay-0',
   },
   {
     title: 'Dom całoroczny 134m2',
-    src: './ready2.jpg',
+    src: ready2,
     delay: 'delay-100',
   },
   {
     title: 'Dom całoroczny 190m2',
-    src: './ready3.jpeg',
+    src: ready3,
     delay: 'delay-200',
   },
 ];

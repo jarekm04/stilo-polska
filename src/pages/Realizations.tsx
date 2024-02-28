@@ -5,6 +5,9 @@ import { SkeletonRealizations } from '@/components/features/Skeletons';
 import { Footer } from '@/components/common/Footer';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Gallery } from '@/components/features/Gallery';
+import ready1 from '@/assets/ready1.jpg';
+import ready2 from '@/assets/ready2.jpg';
+import ready3 from '@/assets/ready3.jpeg';
 
 export interface FakePost {
   content: string;
@@ -14,52 +17,52 @@ export interface FakePost {
 
 const mockContent = [
   {
-    content: './ready1.jpg',
+    content: ready1,
     title: 'dom całoroczny 250m2',
     id: 142,
   },
   {
-    content: './ready2.jpg',
+    content: ready2,
     title: 'domy całoroczne 150m2 i 200m2',
     id: 140,
   },
   {
-    content: './ready3.jpeg',
+    content: ready3,
     title: 'dom całoroczny 149m2',
     id: 137,
   },
   {
-    content: './ready3.jpeg',
+    content: ready3,
     title: 'dom całoroczny 190m2',
     id: 135,
   },
   {
-    content: './ready2.jpg',
+    content: ready2,
     title: 'stodoła 450m2',
     id: 130,
   },
   {
-    content: './ready1.jpg',
+    content: ready1,
     title: 'dom letniskowy',
     id: 125,
   },
   {
-    content: './ready1.jpg',
+    content: ready1,
     title: 'dom całoroczny 250m2',
     id: 122,
   },
   {
-    content: './ready2.jpg',
+    content: ready2,
     title: 'dom całoroczny 130m2',
     id: 118,
   },
   {
-    content: './ready3.jpeg',
+    content: ready3,
     title: 'ruska bania',
     id: 116,
   },
   {
-    content: './ready2.jpg',
+    content: ready2,
     title: 'dom całoroczny 230m2',
     id: 112,
   },

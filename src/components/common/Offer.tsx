@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import offer1 from '@/assets/offer1.jpg';
+import offer2 from '@/assets/offer2.jpg';
+import offer3 from '@/assets/offer3.jpg';
+import offer4 from '@/assets/offer4.jpg';
 
 const mockArray = [
-  { p1: 'Nowoczesny dom z bala nad Soliną', p2: '142', delay: 'delay-0', src: './offer1.jpg', id: 642 },
-  { p1: 'Nowoczesny dom z bala na wzgórzu', p2: '137', delay: 'delay-200', src: './offer3.jpg', id: 565 },
-  { p1: 'Nowoczesny dom z bala o pow. użytkowej 160,80 m2', p2: '140', delay: 'delay-100', src: './offer2.jpg', id: 604 },
-  { p1: 'Nowoczesny dom z bali parterowy z antresolą', p2: '135', delay: 'delay-200', src: './offer4.jpg', id: 541 },
+  { p1: 'Nowoczesny dom z bala nad Soliną', p2: '142', delay: 'delay-0', src: offer1, id: 642 },
+  { p1: 'Nowoczesny dom z bala na wzgórzu', p2: '137', delay: 'delay-200', src: offer3, id: 565 },
+  { p1: 'Nowoczesny dom z bala o pow. użytkowej 160,80 m2', p2: '140', delay: 'delay-100', src: offer2, id: 604 },
+  { p1: 'Nowoczesny dom z bali parterowy z antresolą', p2: '135', delay: 'delay-200', src: offer4, id: 541 },
 ];
 
 export const Offer = () => {

@@ -5,40 +5,44 @@ import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Gallery } from '@/components/features/Gallery';
 import { SkeletonDetails } from '@/components/features/Skeletons';
+import offer1 from '@/assets/offer1.jpg';
+import offer2 from '@/assets/offer2.jpg';
+import offer3 from '@/assets/offer3.jpg';
+import offer4 from '@/assets/offer4.jpg';
 
 const mockImages = [
   {
-    content: '/ready1.jpg',
+    content: offer4,
   },
   {
-    content: '/offer2.jpg',
+    content: offer2,
   },
   {
-    content: '/offer3.jpg',
+    content: offer3,
   },
   {
-    content: '/offer2.jpg',
+    content: offer2,
   },
   {
-    content: '/offer1.jpg',
+    content: offer1,
   },
   {
-    content: '/offer3.jpg',
+    content: offer3,
   },
   {
-    content: '/offer1.jpg',
+    content: offer1,
   },
   {
-    content: '/offer2.jpg',
+    content: offer2,
   },
   {
-    content: '/offer1.jpg',
+    content: offer1,
   },
   {
-    content: '/offer2.jpg',
+    content: offer2,
   },
   {
-    content: '/offer3.jpg',
+    content: offer3,
   },
 ];
 
@@ -70,7 +74,7 @@ export const Details = () => {
     <Dialog>
       <section className="mt-20">
         <div className={`relative flex h-[300px] w-full flex-col items-center justify-center gap-3`}>
-          <img className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover blur-sm brightness-50" src="/offer1.jpg" />
+          <img className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover blur-sm brightness-50" src={offer1} />
           <h1 className="px-1 text-center text-4xl uppercase text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{title}</h1>
           <p className="bg-gray-500 px-1 text-center text-xl uppercase text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{heading}</p>
           <Button className="absolute bottom-3 left-5 gap-2 bg-gray-500 hover:bg-gray-400" onClick={() => navigate('/offer')}>

@@ -4,35 +4,38 @@ import ImageGallery from 'react-image-gallery';
 import { ImageItem } from '@/lib/types';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import '@/lib/gallery-fix.css';
+import ready1 from '@/assets/ready1.jpg';
+import ready2 from '@/assets/ready2.jpg';
+import ready3 from '@/assets/ready3.jpeg';
 
 const mockImages = [
   {
-    original: '/ready1.jpg',
-    thumbnail: '/ready1.jpg',
+    original: ready1,
+    thumbnail: ready1,
   },
   {
-    original: '/ready2.jpg',
-    thumbnail: '/ready2.jpg',
+    original: ready2,
+    thumbnail: ready2,
   },
   {
-    original: '/ready3.jpeg',
-    thumbnail: '/ready3.jpeg',
+    original: ready3,
+    thumbnail: ready3,
   },
   {
-    original: '/ready1.jpg',
-    thumbnail: '/ready1.jpg',
+    original: ready1,
+    thumbnail: ready1,
   },
   {
-    original: '/ready2.jpg',
-    thumbnail: '/ready2.jpg',
+    original: ready2,
+    thumbnail: ready2,
   },
   {
-    original: '/ready3.jpeg',
-    thumbnail: '/ready3.jpeg',
+    original: ready3,
+    thumbnail: ready3,
   },
   {
-    original: '/ready1.jpg',
-    thumbnail: '/ready1.jpg',
+    original: ready1,
+    thumbnail: ready1,
   },
 ];
 

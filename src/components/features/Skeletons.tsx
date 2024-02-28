@@ -1,7 +1,10 @@
+import realization from '@/assets/realization-skeleton.jpeg';
+import offer from '@/assets/offer-skeleton.jpg';
+
 export const SkeletonRealizations = () => {
   return (
     <article className={`group grid cursor-pointer grid-rows-[5fr_1fr_1fr] gap-3 overflow-hidden bg-white shadow-xl`}>
-      <img src="./realization-skeleton.jpeg" className="h-full animate-pulse object-cover blur-md brightness-50" alt="skeleton-house" />
+      <img src={realization} className="h-full animate-pulse object-cover blur-md brightness-50" alt="skeleton-house" />
       <div className="mx-5 my-1 animate-pulse rounded-full bg-gray-300"></div>
       <div className="mx-20 my-2 animate-pulse rounded-full bg-gray-300"></div>
     </article>
@@ -14,7 +17,7 @@ export const SkeletonOffers = () => {
       className={`shadow-blue-gray-900/50 group relative flex min-h-60 min-w-[300px] cursor-pointer select-none flex-col items-center justify-center gap-2 shadow-xl`}
     >
       <img
-        src="./offer-skeleton.jpg"
+        src={offer}
         className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover object-center blur-md brightness-50"
         alt="skeleton-house"
       />

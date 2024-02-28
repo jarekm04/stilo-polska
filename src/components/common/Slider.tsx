@@ -2,8 +2,13 @@ import { useRef } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 import { Carousel, CarouselContent, CarouselDot, CarouselItem } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
+import slider1 from '@/assets/slider1.jpg';
+import slider2 from '@/assets/slider2.jpg';
+import slider3 from '@/assets/slider3.jpg';
+import slider4 from '@/assets/slider4.jpg';
+import slider5 from '@/assets/slider5.jpg';
 
-const images = ['./slider1.jpg', './slider2.jpg', './slider3.jpg', './slider4.jpg', './slider5.jpg'];
+const images = [slider1, slider2, slider3, slider4, slider5];
 const h1s = ['Lorem ipsum', 'Doler Sit Amet', 'Projekty domów z bali', 'At vero eos et accusamus', 'Nam libero tempore'];
 
 export const Slider = () => {
