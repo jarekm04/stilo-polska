@@ -92,6 +92,14 @@ module.exports = {
           '0%': { opacity: '1' },
           '100%': { opacity: '0' },
         },
+        slideIn: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        slideOut: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -99,6 +107,8 @@ module.exports = {
         'custom-appear': 'custom-appear .8s',
         fadeIn: 'fadeIn 0.5s ease-in-out forwards',
         fadeOut: 'fadeOut 0.5s ease-in-out forwards',
+        slideIn: 'slideIn 0.3s ease-in-out',
+        slideOut: 'slideOut 0.5s ease-in-out',
       },
       backgroundImage: {
         contact: "url('@/assets/contact.jpeg')",

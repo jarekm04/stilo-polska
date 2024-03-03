@@ -5,7 +5,7 @@ import logoImage from '@/assets/logo-removedbg.png';
 export const Contact = () => {
   return (
     <section className="mt-20 flex flex-col bg-white">
-      <div className='h-[400px] w-full'>
+      <div className="h-[400px] w-full">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2322.43922086986!2d18.58132261587419!3d54.40221948021385!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46fd752a03e0754d%3A0x8792e0b75e4d17fc!2sSTILO+POLSKA!5e0!3m2!1spl!2spl!4v1531332049002"
           width="100%"
@@ -13,8 +13,8 @@ export const Contact = () => {
           allowFullScreen
         />
       </div>
-      <article className="grid grid-rows-2 gap-4 bg-white px-0 py-6 text-sm font-normal text-black md:grid-cols-2 md:grid-rows-1 md:px-10">
-        <div className="flex flex-col gap-7 place-self-center px-4 md:place-self-center">
+      <article className="grid grid-rows-1 gap-4 bg-white px-0 py-6 text-sm font-normal text-black md:grid-cols-2 md:grid-rows-1 md:px-10">
+        <div className="flex flex-col gap-3 place-self-center px-4 md:gap-7 md:place-self-center">
           <img src={logoImage} alt="Logo" className="w-[50%] self-center object-cover" />
           <div className="flex flex-col gap-2">
             <p className="flex gap-3">
@@ -75,7 +75,7 @@ export const Contact = () => {
           </p>
         </div>
         <div className="flex flex-col items-center justify-center">
-          <div className="w-full bg-contact bg-cover bg-center sm:h-[450px] xl:h-[600px]" />
+          <div className="h-[450px] w-full bg-contact bg-cover bg-center xl:h-[600px]" />
         </div>
       </article>
     </section>

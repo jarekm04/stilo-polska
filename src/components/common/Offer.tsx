@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import offer1 from '@/assets/offer1.jpg';
+import offer2 from '@/assets/offer2.jpg';
+import offer3 from '@/assets/offer3.jpg';
+import offer4 from '@/assets/offer4.jpg';
 
 const mockArray = [
-  { p1: 'Nowoczesny dom z bala nad Soliną', p2: '142', delay: 'delay-0', src: './offer1.jpg', id: 642 },
-  { p1: 'Nowoczesny dom z bala na wzgórzu', p2: '137', delay: 'delay-200', src: './offer3.jpg', id: 565 },
-  { p1: 'Nowoczesny dom z bala o pow. użytkowej 160,80 m2', p2: '140', delay: 'delay-100', src: './offer2.jpg', id: 604 },
-  { p1: 'Nowoczesny dom z bali parterowy z antresolą', p2: '135', delay: 'delay-200', src: './offer4.jpg', id: 541 },
+  { p1: 'Nowoczesny dom z bala nad Soliną', p2: '142', delay: 'delay-0', src: offer1, id: 642 },
+  { p1: 'Nowoczesny dom z bala na wzgórzu', p2: '137', delay: 'delay-200', src: offer3, id: 565 },
+  { p1: 'Nowoczesny dom z bala o pow. użytkowej 160,80 m2', p2: '140', delay: 'delay-100', src: offer2, id: 604 },
+  { p1: 'Nowoczesny dom z bali parterowy z antresolą', p2: '135', delay: 'delay-200', src: offer4, id: 541 },
 ];
 
 export const Offer = () => {
@@ -52,12 +56,12 @@ export const Offer = () => {
     `transform ${isVisiblePart2 ? 'translate-x-0' : 'translate-x-[250%]'} transition-transform duration-500 ease-out`;
 
   return (
-    <article className="my-10 flex flex-col overflow-hidden">
-      <div ref={divRef} className="grid grid-flow-dense grid-cols-3 place-content-center gap-5 px-6 py-8">
+    <article className="my-2 lg:my-10 flex flex-col overflow-hidden">
+      <div ref={divRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-flow-dense md:grid-cols-3 md:place-content-center gap-5 px-6 py-8">
         {mockArray.map((item, index) => (
           <div
             key={item.p2}
-            className={`shadow-blue-gray-900/50 group relative flex min-h-60 cursor-pointer select-none flex-col items-center justify-center gap-2 shadow-xl ${animationSlideInRightToLeft(isVisible)} ${item.delay} ${index % 3 === 2 ? 'col-span-2' : ''} ${index % 4 === 0 ? 'row-span-2' : ''}`}
+            className={`shadow-blue-gray-900/50 group relative flex min-h-60 cursor-pointer select-none flex-col items-center justify-center gap-2 shadow-xl ${animationSlideInRightToLeft(isVisible)} ${item.delay} ${index % 3 === 2 ? 'md:col-span-2' : ''} ${index % 4 === 0 ? 'md:row-span-2' : ''}`}
             onClick={() => navigate(`/offer/${item.id}`)}
           >
             <img
@@ -65,8 +69,8 @@ export const Offer = () => {
               className="absolute bottom-0 left-0 right-0 top-0 -z-10 h-full w-full object-cover object-center brightness-75 transition-all group-hover:brightness-100"
               alt="offer-house"
             />
-            <p className="px-1 text-center text-2xl text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{item.p1}</p>
-            <p className="absolute right-0 top-0 bg-gray-500 px-1 text-center text-lg font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            <p className="px-1 text-center text-xl md:text-2xl text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{item.p1}</p>
+            <p className="absolute right-0 top-0 bg-gray-500 px-1 text-center text-sm md:text-lg font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
               {item.p2}
             </p>
           </div>

@@ -2,9 +2,14 @@ import { useRef } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 import { Carousel, CarouselContent, CarouselDot, CarouselItem } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
+import slider1 from '@/assets/slider1.jpg';
+import slider2 from '@/assets/slider2.jpg';
+import slider3 from '@/assets/slider3.jpg';
+import slider4 from '@/assets/slider4.jpg';
+import slider5 from '@/assets/slider5.jpg';
 
-const images = ['./slider1.jpg', './slider2.jpg', './slider3.jpg'];
-const h1s = ['Lorem ipsum', 'Doler Sit Amet', 'Projekty domów z bali'];
+const images = [slider1, slider2, slider3, slider4, slider5];
+const h1s = ['Lorem ipsum', 'Doler Sit Amet', 'Projekty domów z bali', 'At vero eos et accusamus', 'Nam libero tempore'];
 
 export const Slider = () => {
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: false }));
@@ -18,7 +23,7 @@ export const Slider = () => {
               <CardContent className="relative h-full p-0">
                 <img src={`${images[index]}`} className="h-full w-full object-cover brightness-75" alt="carousel-large-photos" />
                 <div className="absolute left-7 top-[50%] flex flex-col gap-3 rounded-md bg-[rgba(0,0,0,0.4)] p-2">
-                  <h1 className="select-none rounded-xl bg-transparent p-3 text-5xl font-thin uppercase text-primary-foreground">{h1s[index]}</h1>
+                  <h1 className="select-none rounded-xl bg-transparent p-3 text-xl sm:text-2xl font-thin uppercase text-primary-foreground lg:text-5xl">{h1s[index]}</h1>
                 </div>
               </CardContent>
             </Card>
