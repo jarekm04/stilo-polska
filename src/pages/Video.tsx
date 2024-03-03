@@ -11,12 +11,12 @@ import visualisation from '@/assets/visualisation.mp4';
 export const Video = () => {
   return (
     <section className="mt-20 flex flex-col">
-      <article className="flex flex-col gap-16 bg-gradient-to-b from-white to-orange-50 px-14 py-8">
+      <article className="flex flex-col gap-6 md:gap-16 bg-gradient-to-b from-white to-orange-50 px-4 py-4 md:px-14 md:py-8">
         <div className="flex flex-col items-center gap-4">
           <div className="flex flex-col items-center justify-center gap-3">
-            <h1 className="mt-2 text-center text-2xl font-light">Lorem Ipsum</h1>
+            <h1 className="mt-2 text-center text-xl font-light md:text-2xl">Lorem Ipsum</h1>
             <Separator className="h-[2px] w-14 bg-custom-tertiary" />
-            <p className="mt-5 w-[60%] px-4 text-center font-thin">
+            <p className="mt-5 w-full md:w-[60%] px-2 text-center text-sm font-thin md:px-4 md:text-base">
               W ciągu naszej 25-letniej historii zrealizowaliśmy wiele wspaniałych projektów w całej Polsce. Od domów całorocznych, przez letniskowe po obiekty
               gospodarcze.
             </p>
@@ -46,9 +46,9 @@ export const Video = () => {
         </div>
         <div className="flex flex-col items-center gap-4">
           <div className="flex flex-col items-center justify-center gap-3">
-            <h1 className="mt-2 text-center text-2xl font-light">Lorem Ipsum</h1>
+            <h1 className="mt-2 text-center text-xl font-light md:text-2xl">Lorem Ipsum</h1>
             <Separator className="h-[2px] w-14 bg-custom-tertiary" />
-            <p className="mt-5 w-[60%] px-4 text-center font-thin">
+            <p className="mt-5 w-full md:w-[60%] px-2 text-center text-sm font-thin md:px-4 md:text-base">
               Dzięki współpracy z renomowanym biurem architektonicznym - Cdom, oferujemy najwyższej jakości projekty. Konstrukcje z bala to nie tylko tradycyjne
               chaty, ale i nowoczesne domy.
             </p>

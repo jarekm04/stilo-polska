@@ -38,7 +38,7 @@ export const Description = () => {
     `transform ${isVisible ? 'translate-x-0' : 'translate-x-[250%]'} transition-transform duration-500 ease-out`;
 
   return (
-    <article ref={articleRef} className={`flex flex-col gap-5 overflow-hidden bg-white px-7 py-10`}>
+    <article ref={articleRef} className={`flex flex-col gap-5 overflow-hidden bg-white px-7 py-10 text-sm sm:text-base`}>
       <Separator className="w-14 bg-custom-tertiary" />
       <p className={`font-light ${animationSlideInRightToLeft(isVisible)}`}>
         <strong className='font-bold'>STILO POLSKA</strong> funkcjonuje na rynku budowlanym już od 30 lat. Jesteśmy liderem wśród producentów domów z bala. Nasze realizacje cechuje

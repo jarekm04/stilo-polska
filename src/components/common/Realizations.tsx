@@ -59,7 +59,7 @@ export const Realizations = () => {
     `transform ${isVisible ? 'translate-x-0' : '-translate-x-[600%]'} transition-transform duration-500 ease-out`;
 
   return (
-    <article ref={articleRef} className="grid grid-cols-4 gap-5 bg-orange-50 p-16">
+    <article ref={articleRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 bg-orange-50 p-8 lg:p-16">
       {mockArray.map(({ title, src, delay }) => (
         <div
           key={src}
@@ -80,7 +80,7 @@ export const Realizations = () => {
         className={`self-center bg-custom-tertiary hover:bg-custom-ninth ${animationSlideInLeftToRight(isVisible)} delay-500`}
         onClick={() => navigate('/realizations')}
       >
-        Więcej gotowych realizacji
+        Więcej realizacji
       </Button>
     </article>
   );

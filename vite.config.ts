@@ -10,5 +10,5 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  // base: '/wp-content/themes/react/',
+  base: process.env.VITE_BASE_URL || '/',
 });
