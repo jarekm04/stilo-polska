@@ -117,14 +117,14 @@ export const Header = () => {
       </>
       <>
         <header className="fixed left-0 top-0 z-30 w-full drop-shadow-lg lg:hidden" data-title="mobile-nav">
-          <nav className="relative flex items-center justify-between bg-white pr-4 py-2">
+          <nav className="relative flex items-center justify-between bg-transparent py-2 pr-4">
             <Link to="/" className="transition-transform duration-200 hover:scale-105">
               <img src={logoImageBg} alt="Logo" className="h-14" />
             </Link>
             <Button
               variant="outline"
               size="icon"
-              className="transition-all bg-custom-secondary text-white hover:border-custom-tertiary hover:bg-orange-50 hover:text-custom-tertiary"
+              className="bg-custom-secondary text-white transition-all hover:border-custom-tertiary hover:bg-orange-50 hover:text-custom-tertiary"
               onClick={handleMobileNav}
             >
               <Menu className="h-6 w-6" />
@@ -132,7 +132,7 @@ export const Header = () => {
           </nav>
           <div className={`relative z-50 h-screen ${isMobileNavOpened ? 'block' : 'hidden'}`}>
             <div className="navbar-backdrop fixed inset-0 bg-gray-800 opacity-75" onClick={handleMobileNav} />
-            <nav className={`animate-slideIn fixed bg-white bottom-0 left-0 top-0 flex w-5/6 max-w-sm flex-col overflow-y-auto border-r px-6 py-6`}>
+            <nav className={`animate-slideIn fixed bottom-0 left-0 top-0 flex w-5/6 max-w-sm flex-col overflow-y-auto border-r bg-white px-6 py-6`}>
               <div className="mb-8 flex items-center justify-between">
                 <Link to="/" className="transition-transform duration-200 hover:scale-105">
                   <img src={logoImage} alt="Logo" className="h-16" />
