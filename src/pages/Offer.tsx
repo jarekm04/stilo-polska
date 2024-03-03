@@ -3,77 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import { Separator } from '@/components/ui/separator';
 import { Footer } from '@/components/common/Footer';
 import { SkeletonOffers } from '@/components/features/Skeletons';
-import offer1 from '@/assets/offer1.jpg';
-import offer2 from '@/assets/offer2.jpg';
-import offer3 from '@/assets/offer3.jpg';
-
-export interface FakePost {
-  content: string;
-  title: string;
-  id: number;
-}
-
-const mockContent = [
-  {
-    content: offer1,
-    title: 'nowoczesny dom z bala nad solina',
-    id: 142,
-  },
-  {
-    content: offer2,
-    title: 'nowoczesny dom z bala o pow. uzytkowej 160,80m2',
-    id: 140,
-  },
-  {
-    content: offer3,
-    title: 'nowoczesny dom z bala na wzgorzu',
-    id: 137,
-  },
-  {
-    content: offer3,
-    title: 'nowoczesny dom z bali parterowy z antresolą',
-    id: 135,
-  },
-  {
-    content: offer2,
-    title: 'nowoczesny dom z bala o pow 98,30m2',
-    id: 130,
-  },
-  {
-    content: offer1,
-    title: 'nowoczesny dom z bala klejonego na kaszubach',
-    id: 125,
-  },
-  {
-    content: offer1,
-    title: 'nowoczesny dom z bala położony na dolnoslaskim',
-    id: 122,
-  },
-  {
-    content: offer2,
-    title: 'luksusowy dom z bali, z plaskim dachem i basenem kenzo',
-    id: 118,
-  },
-  {
-    content: offer3,
-    title: 'nowoczesny dom z bala klejonego w pruszczu',
-    id: 116,
-  },
-  {
-    content: offer2,
-    title: 'nowoczesny dom z bala z podpiwniczeniem i budynkiem gospodarczym',
-    id: 112,
-  },
-];
+import { extractHeading, extractImages } from '@/lib/utils';
+import { Post } from '@/lib/types';
 
 export const Offer = () => {
-  const [posts, setPosts] = useState<FakePost[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setTimeout(() => {
-      setPosts(mockContent);
-    }, 2000);
+    const categoryId = 3;
+    const perPage = 100;
+    fetch(`https://jmajchrzak.tech/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${perPage}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setPosts(data);
+      })
+      .catch((error) => console.error('Error fetching posts:', error));
   }, []);
 
   return (
@@ -82,7 +27,7 @@ export const Offer = () => {
         <div className="flex flex-col items-center justify-center gap-3">
           <h1 className="mt-2 text-center text-xl font-light md:text-2xl">Oferta</h1>
           <Separator className="h-[2px] w-14 bg-custom-tertiary" />
-          <p className="mt-5 w-full md:w-[80%] px-2 text-center text-sm font-thin sm:text-base md:px-4">
+          <p className="mt-5 w-full px-2 text-center text-sm font-thin sm:text-base md:w-[80%] md:px-4">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium recusandae sint, culpa veritatis omnis debitis repellat suscipit in nisi
             cumque, modi facilis repudiandae molestias dolorum consequuntur dignissimos odio hic id. Aliquid odio voluptates reprehenderit minus suscipit. Earum
             impedit aspernatur neque.
@@ -102,14 +47,19 @@ export const Offer = () => {
                 className={`shadow-blue-gray-900/50 group relative flex min-h-60 cursor-pointer select-none flex-col items-center justify-center gap-2 shadow-xl`}
                 onClick={() => navigate(`/offer/${id}`)}
               >
-                <img
-                  src={content}
-                  className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover object-center brightness-75 transition-all group-hover:brightness-100"
-                  alt={`Offer house - ${id}`}
-                />
-                <p className="px-1 text-center text-xl uppercase text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] lg:text-2xl">{title}</p>
+                {extractImages(content.rendered)
+                  .slice(0, 1)
+                  .map((image, index) => (
+                    <img
+                      key={index}
+                      src={image}
+                      className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover object-center brightness-75 transition-all group-hover:brightness-100"
+                      alt={`Offer house - ${index}`}
+                    />
+                  ))}
+                <p className="px-1 text-center text-2xl uppercase text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{title.rendered}</p>
                 <p className="absolute right-0 top-0 bg-gray-500 px-1 text-center text-lg font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-                  {id}
+                  {extractHeading(content.rendered)}
                 </p>
               </article>
             ))}

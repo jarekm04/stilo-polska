@@ -5,77 +5,22 @@ import { SkeletonRealizations } from '@/components/features/Skeletons';
 import { Footer } from '@/components/common/Footer';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Gallery } from '@/components/features/Gallery';
-import ready1 from '@/assets/ready1.jpg';
-import ready2 from '@/assets/ready2.jpg';
-import ready3 from '@/assets/ready3.jpeg';
-
-export interface FakePost {
-  content: string;
-  title: string;
-  id: number;
-}
-
-const mockContent = [
-  {
-    content: ready1,
-    title: 'dom całoroczny 250m2',
-    id: 142,
-  },
-  {
-    content: ready2,
-    title: 'domy całoroczne 150m2 i 200m2',
-    id: 140,
-  },
-  {
-    content: ready3,
-    title: 'dom całoroczny 149m2',
-    id: 137,
-  },
-  {
-    content: ready3,
-    title: 'dom całoroczny 190m2',
-    id: 135,
-  },
-  {
-    content: ready2,
-    title: 'stodoła 450m2',
-    id: 130,
-  },
-  {
-    content: ready1,
-    title: 'dom letniskowy',
-    id: 125,
-  },
-  {
-    content: ready1,
-    title: 'dom całoroczny 250m2',
-    id: 122,
-  },
-  {
-    content: ready2,
-    title: 'dom całoroczny 130m2',
-    id: 118,
-  },
-  {
-    content: ready3,
-    title: 'ruska bania',
-    id: 116,
-  },
-  {
-    content: ready2,
-    title: 'dom całoroczny 230m2',
-    id: 112,
-  },
-];
+import { Post } from '@/lib/types';
+import { extractImages } from '@/lib/utils';
 
 export const Realizations = () => {
-  const [posts, setPosts] = useState<FakePost[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [selectedId, setSelectedId] = useState<number>();
 
   useEffect(() => {
-    setTimeout(() => {
-      setPosts(mockContent);
-    }, 2000);
+    const categoryId = 4;
+    const perPage = 100;
+    fetch(`https://jmajchrzak.tech/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${perPage}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setPosts(data);
+      })
+      .catch((error) => console.error('Error fetching posts:', error));
   }, []);
 
   return (
@@ -105,13 +50,18 @@ export const Realizations = () => {
                     className={`group grid max-h-[350px] w-[350px] cursor-pointer grid-rows-[7fr_1fr_1fr] overflow-hidden bg-white shadow-xl sm:w-[450px]`}
                     onClick={() => setSelectedId(id)}
                   >
-                    <img
-                      src={content}
-                      className="h-full max-h-[270px] w-full object-cover transition duration-500 group-hover:scale-110"
-                      alt={`Realization house: ${id}`}
-                    />
+                    {extractImages(content.rendered)
+                      .slice(0, 1)
+                      .map((image, index) => (
+                        <img
+                          key={index}
+                          src={image}
+                          className="h-full max-h-[270px] w-full object-cover transition duration-500 group-hover:scale-110"
+                          alt={`Realization house: ${index}`}
+                        />
+                      ))}
                     <p className="z-10 flex items-center justify-center bg-white px-2 py-1 text-center text-lg font-light uppercase text-custom-secondary">
-                      {title}
+                      {title.rendered}
                     </p>
                     <Button
                       variant="link"

@@ -1,60 +1,36 @@
 import { useEffect, useState } from 'react';
 import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import ImageGallery from 'react-image-gallery';
+import { extractImages } from '@/lib/utils';
 import { ImageItem } from '@/lib/types';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import '@/lib/gallery-fix.css';
-import ready1 from '@/assets/ready1.jpg';
-import ready2 from '@/assets/ready2.jpg';
-import ready3 from '@/assets/ready3.jpeg';
-
-const mockImages = [
-  {
-    original: ready1,
-    thumbnail: ready1,
-  },
-  {
-    original: ready2,
-    thumbnail: ready2,
-  },
-  {
-    original: ready3,
-    thumbnail: ready3,
-  },
-  {
-    original: ready1,
-    thumbnail: ready1,
-  },
-  {
-    original: ready2,
-    thumbnail: ready2,
-  },
-  {
-    original: ready3,
-    thumbnail: ready3,
-  },
-  {
-    original: ready1,
-    thumbnail: ready1,
-  },
-];
 
 export const Gallery = ({ id, startIndex }: { id: number; startIndex?: number }) => {
-  const [title, setTitle] = useState('Dom całoroczny 250m2');
+  const [title, setTitle] = useState('');
   const [images, setImages] = useState<ImageItem[]>([]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setImages(mockImages);
-    }, 500);
-  }, []);
+    if (!id) return;
+
+    fetch(`https://jmajchrzak.tech/wp-json/wp/v2/posts/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const imagesUrls = extractImages(data.content.rendered);
+        const formattedImages = imagesUrls.map((url) => ({ original: url, thumbnail: url }));
+
+        setImages(formattedImages);
+        setTitle(data.title.rendered);
+      })
+      .catch((error) => console.error('Error fetching post:', error));
+  }, [id]);
 
   if (!id) return <></>;
 
   return (
-    <DialogContent className="h-[80vh] w-[80vw] max-w-none grid-rows-[25px_1fr]">
+    <DialogContent className="h-[50vh] w-[80vw] max-w-none grid-rows-[25px_1fr] sm:h-[60vh] md:h-[80vh]">
       <DialogHeader className="gap-6">
-        <DialogTitle className="text-lg">{title}</DialogTitle>
+        <DialogTitle className="mr-4 text-base sm:text-lg">{title}</DialogTitle>
       </DialogHeader>
       <div className="h-full max-w-full overflow-hidden">
         <ImageGallery items={images} showFullscreenButton={true} showPlayButton={false} showIndex={true} showThumbnails={true} startIndex={startIndex} />
