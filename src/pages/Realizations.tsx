@@ -30,10 +30,8 @@ export const Realizations = () => {
           <div className="flex flex-col items-center justify-center gap-3">
             <h1 className="mt-2 text-center text-xl font-light lg:text-2xl">Nasze realizacje</h1>
             <Separator className="h-[2px] w-14 bg-custom-tertiary" />
-            <p className="mt-5 w-full px-2 text-center text-sm font-thin sm:text-base md:w-[80%] md:px-4">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium recusandae sint, culpa veritatis omnis debitis repellat suscipit in nisi
-              cumque, modi facilis repudiandae molestias dolorum consequuntur dignissimos odio hic id. Aliquid odio voluptates reprehenderit minus suscipit.
-              Earum impedit aspernatur neque.
+            <p className="mt-5 w-full px-3 text-sm font-thin sm:text-base md:w-[80%] md:px-4">
+              W latach 2004 – 2022 budowaliśmy domy z bali okrągłych, natomiast od roku 2022 budujemy z bali prostokątnych – suszonych i klejonych.
             </p>
           </div>
           {posts.length === 0 ? (

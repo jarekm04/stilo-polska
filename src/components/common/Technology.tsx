@@ -40,7 +40,7 @@ export const Technology = () => {
     <article ref={articleRef} className="overflow-hidden bg-orange-50">
       <div className="grid max-w-[1400px] gap-4 bg-orange-50 px-3 py-10 lg:grid-cols-3 lg:grid-rows-none xl:gap-7 xl:px-12">
         <div
-          className={`mx-auto flex flex-col gap-4 rounded-lg border border-custom-tertiary bg-white px-3 py-5 lg:max-w-[400px] ${animationSlideInRightToLeft(isVisible)}`}
+          className={`mx-auto flex flex-col gap-4 rounded-lg border border-custom-tertiary bg-white px-5 py-5 lg:max-w-[400px] ${animationSlideInRightToLeft(isVisible)}`}
         >
           <div className="flex items-center gap-6">
             <TreePine className="h-14 w-14 text-custom-tertiary sm:h-20 sm:w-20" />
@@ -58,7 +58,7 @@ export const Technology = () => {
           <p className="text-sm font-light">Na podstawie projektu inwestora wykonujemy projekt technologiczny, który jest podstawą ostatecznej wyceny.</p>
         </div>
         <div
-          className={`mx-auto flex flex-col gap-4 rounded-lg border border-custom-tertiary bg-white px-3 py-5 lg:max-w-[400px] ${animationSlideInRightToLeft(isVisible)} delay-150`}
+          className={`mx-auto flex flex-col gap-4 rounded-lg border border-custom-tertiary bg-white px-5 py-5 lg:max-w-[400px] ${animationSlideInRightToLeft(isVisible)} delay-150`}
         >
           <div className="flex items-center gap-6">
             <Wrench className="h-14 w-14 text-custom-tertiary sm:h-20 sm:w-20" />
@@ -76,7 +76,7 @@ export const Technology = () => {
           </p>
         </div>
         <div
-          className={`mx-auto flex flex-col gap-4 rounded-lg border border-custom-tertiary bg-white px-3 py-5 lg:max-w-[400px] ${animationSlideInRightToLeft(isVisible)} delay-300`}
+          className={`mx-auto flex flex-col gap-4 rounded-lg border border-custom-tertiary bg-white px-5 py-5 lg:max-w-[400px] ${animationSlideInRightToLeft(isVisible)} delay-300`}
         >
           <div className="flex items-center gap-6">
             <BatteryCharging className="h-14 w-14 text-custom-tertiary sm:h-20 sm:w-20" />

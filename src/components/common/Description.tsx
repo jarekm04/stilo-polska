@@ -41,17 +41,17 @@ export const Description = () => {
     <article ref={articleRef} className={`flex flex-col gap-5 overflow-hidden bg-white px-7 py-10 text-sm sm:text-base`}>
       <Separator className="w-14 bg-custom-tertiary" />
       <p className={`font-light ${animationSlideInRightToLeft(isVisible)}`}>
-        <strong className='font-bold'>STILO POLSKA</strong> funkcjonuje na rynku budowlanym już od 30 lat. Jesteśmy liderem wśród producentów domów z bala. Nasze realizacje cechuje
-        najwyższa staranność, użycie oryginalnych bali importowanych z mroźnej Syberii oraz opatentowane, autorskie techniki montażu. STILO to jakość ciesząca
-        się najwyższa renomą.
+        <strong className="font-bold">STILO POLSKA</strong> funkcjonuje na rynku budowlanym związanym z budową domów drewnianych od 2004r.
       </p>
       <p className={`font-light ${animationSlideInRightToLeft(isVisible)}`}>
-        Nasze konstrukcje można podziwiać w całej Polsce, jak i poza jej granicami - w mroźnych górach Norwegii. Realizujemy domy zarówno na podstawie projektów
-        klienta, jak i naszych partnerskich studiów projektowych.
+        Jesteśmy jednym z liderów wśród producentów domów z bala, szczególnie przy realizacji technologicznie skomplikowanych projektów . Cechuje nas najwyższa
+        staranność i profesjonalne podejście do każdego zlecenia. Do budowy używamy tylko oryginalnych i selekcjonowanych bali suszonych, które importujemy z
+        wysokich rejonów Alp.
       </p>
       <p className={`font-light ${animationSlideInRightToLeft(isVisible)}`}>
-        Przy konstrukcji naszych domów korzystamy z najnowszych technologii, opatentowanych metod montażu oraz najwyższej jakości materiałów. Wykorzystane
-        rozwiązania to wymierne korzyści dla klienta - zdrowy i ekonomiczny dom na lata.
+        Nasze konstrukcje można spotkać w całej Polsce. Do 2022 roku budowaliśmy domy z bali okrągłych pozyskiwanych z mroźnej Syberii. Od momentu wybuchu wojny
+        w Ukrainie pozyskujemy surowiec od wysoko wyspecjalizowanych firm z Austrii, które w oparciu o swoje wieloletnie doświadczenie oraz wysokiej jakości
+        park maszynowy dostarczają nam bale o bardzo wysokiej jakości spełniające nasze normy technologiczne.
       </p>
       <Link to="/contact">
         <Button className={`bg-custom-tertiary hover:bg-custom-ninth ${animationSlideInRightToLeft(isVisible)}`}>Skontaktuj się z nami</Button>

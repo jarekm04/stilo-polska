@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Separator } from '@/components/ui/separator';
 import { Footer } from '@/components/common/Footer';
 import { SkeletonOffers } from '@/components/features/Skeletons';
@@ -27,10 +27,28 @@ export const Offer = () => {
         <div className="flex flex-col items-center justify-center gap-3">
           <h1 className="mt-2 text-center text-xl font-light md:text-2xl">Oferta</h1>
           <Separator className="h-[2px] w-14 bg-custom-tertiary" />
-          <p className="mt-5 w-full px-2 text-center text-sm font-thin sm:text-base md:w-[80%] md:px-4">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium recusandae sint, culpa veritatis omnis debitis repellat suscipit in nisi
-            cumque, modi facilis repudiandae molestias dolorum consequuntur dignissimos odio hic id. Aliquid odio voluptates reprehenderit minus suscipit. Earum
-            impedit aspernatur neque.
+          <p className="mt-5 w-full px-3 text-sm font-thin sm:text-base md:w-[90%] md:px-4">
+            Budujemy generalnie z drewna świerkowego, które charakteryzuje się stosunkowo małą ilością słoi oraz naturalnych pęknięć. Drewno jest suszone jest w
+            specjalnych komorach, a następnie klejone do pożądanego wymiaru. Po procesie technologicznym uzyskuje wilgotność na poziomie 15-16 % Bale wykonywane
+            są w technologii prostokątnej, obrabiane na maszynach CNC. Najczęściej stosowane grubości bali to 20 i 24 cm. i wysokości 26 cm. Aby jednak sprostać
+            oczekiwaniom niektórych klientów jesteśmy w stanie sprowadzić drewno o większych wymiarach. Dzięki tej technologii osiadanie bali jest znikome i po
+            wybudowaniu stanu surowego otwartego można właściwie od razu przytępić do prac wykończeniowych.
+          </p>
+          <p className="w-full px-3 text-sm font-thin sm:text-base md:w-[90%] md:px-4">
+            Posiadamy wyspecjalizowane ekipy monterskie, które są w stanie sprostać największym wymaganiom projektowym.
+          </p>
+          <p className="w-full px-3 text-sm font-thin sm:text-base md:w-[90%] md:px-4">
+            Na terenie placu budowy operujemy własnymi dźwigami, dzięki czemu nie ogranicza nas czas na solidne i dokładne wykonanie zlecenia. Posiadamy również
+            domek socjalny dla pracowników, tak aby nie obciążać inwestora dodatkowymi kosztami. Ekipa monterska przebywa na placu budowy właściwie przez 24
+            godziny na dobę.
+          </p>
+          <p className="w-full px-3 text-sm font-thin sm:text-base md:w-[90%] md:px-4">
+            Poza realizacją indywidualnych projektów, oferujemy szeroką gamę propozycji przygotowanych przez współpracujące z nami od wielu lat biuro projektowe
+            -{' '}
+            <Link to="http://cdomprojekt.pl/" target="_blank" className="text-blue-600 underline">
+              Cdom
+            </Link>
+            .
           </p>
         </div>
         {posts.length === 0 ? (
