@@ -1,10 +1,10 @@
-import { Slider } from '@/components/common/Slider';
-import { About } from '@/components/common/About';
-import { Offer } from '@/components/common/Offer';
-import { Technology } from '@/components/common/Technology';
-import { Realizations } from '@/components/common/Realizations';
-import { Footer } from '@/components/common/Footer';
-import { Description } from '@/components/common/Description';
+import { Slider } from '@/components/Slider';
+import { About } from '@/components/About';
+import { Offer } from '@/components/Offer';
+import { Technology } from '@/components/Technology';
+import { Realizations } from '@/components/Realizations';
+import { Footer } from '@/components/Footer';
+import { Description } from '@/components/Description';
 
 export const Home = () => {
   return (

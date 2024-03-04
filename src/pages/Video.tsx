@@ -1,4 +1,4 @@
-import { Footer } from '@/components/common/Footer';
+import { Footer } from '@/components/Footer';
 import { Separator } from '@/components/ui/separator';
 import ReactPlayer from 'react-player';
 import longThumb from '@/assets/long-thumb.png';

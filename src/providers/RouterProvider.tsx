@@ -1,5 +1,5 @@
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
-import { MainTemplate } from '@/components/templates/MainTemplate';
+import { MainTemplate } from '@/templates/MainTemplate';
 import { Home } from '@/pages/Home';
 import { Video } from '@/pages/Video';
 import { Contact } from '@/pages/Contact';

@@ -118,7 +118,7 @@ export const Header = () => {
       <>
         <header className="fixed left-0 top-0 z-30 w-full drop-shadow-lg lg:hidden" data-title="mobile-nav">
           <nav className="relative flex items-center justify-between bg-transparent py-2 pr-4">
-            <Link to="/" className="transition-transform duration-200 hover:scale-105">
+            <Link to="/" className="drop-shadow-2xl transition-transform duration-200 hover:scale-105">
               <img src={logoImageBg} alt="Logo" className="h-14" />
             </Link>
             <Button

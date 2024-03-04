@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { Header } from '@/components/features/Header';
-import { Arrow } from '@/components/features/Arrow';
+import { Header } from '@/components/Header';
+import { Arrow } from '@/components/Arrow';
 
 export const MainTemplate = () => {
   const location = useLocation();

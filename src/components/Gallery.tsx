@@ -4,6 +4,7 @@ import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog
 import { extractImages } from '@/lib/utils';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import '@/lib/gallery-fix.css';
+import { useEffect } from 'react';
 
 export const Gallery = ({ id, startIndex }: { id: number; startIndex?: number }) => {
   const { data } = useQuery({
@@ -15,20 +16,25 @@ export const Gallery = ({ id, startIndex }: { id: number; startIndex?: number })
   const imagesUrls = extractImages(data?.content.rendered);
   const formattedImages = imagesUrls.map((url) => ({ original: url, thumbnail: url }));
 
+  useEffect(() => {
+    setTimeout(() => {}, 500);
+  }, []);
+
   if (!id) return <></>;
 
   return (
-    <DialogContent className="h-[50vh] w-[80vw] max-w-none grid-rows-[25px_1fr] sm:h-[60vh] md:h-[80vh]">
+    <DialogContent onOpenAutoFocus={(e) => e.preventDefault()} className="h-[50vh] w-[80vw] max-w-none grid-rows-[25px_1fr] sm:h-[60vh] md:h-[80vh]">
       <DialogHeader className="gap-6">
         <DialogTitle className="mr-4 text-base sm:text-lg">{title}</DialogTitle>
       </DialogHeader>
       <div className="h-full max-w-full overflow-hidden">
         <ImageGallery
           items={formattedImages}
-          showFullscreenButton={true}
           showPlayButton={false}
           showIndex={true}
           showThumbnails={true}
+          showNav={true}
+          showFullscreenButton={true}
           startIndex={startIndex}
         />
       </div>

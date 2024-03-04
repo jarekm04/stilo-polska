@@ -2,8 +2,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { ErrorPage } from '@/pages/ErrorPage';
 import { Separator } from '@/components/ui/separator';
-import { Footer } from '@/components/common/Footer';
-import { SkeletonOffers } from '@/components/features/Skeletons';
+import { Footer } from '@/components/Footer';
+import { SkeletonOffers } from '@/components/Skeletons';
 import { extractHeading, extractImages } from '@/lib/utils';
 import { Post } from '@/lib/types';
 

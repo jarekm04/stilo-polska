@@ -3,10 +3,10 @@ import { useQuery } from '@tanstack/react-query';
 import { ErrorPage } from '@/pages/ErrorPage';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { SkeletonRealizations } from '@/components/features/Skeletons';
-import { Footer } from '@/components/common/Footer';
+import { SkeletonRealizations } from '@/components/Skeletons';
+import { Footer } from '@/components/Footer';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
-import { Gallery } from '@/components/features/Gallery';
+import { Gallery } from '@/components/Gallery';
 import { Post } from '@/lib/types';
 import { extractImages } from '@/lib/utils';
 

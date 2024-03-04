@@ -5,9 +5,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ErrorPage } from '@/pages/ErrorPage';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Gallery } from '@/components/features/Gallery';
-import { SkeletonDetails } from '@/components/features/Skeletons';
-import { Footer } from '@/components/common/Footer';
+import { Gallery } from '@/components/Gallery';
+import { SkeletonDetails } from '@/components/Skeletons';
+import { Footer } from '@/components/Footer';
 import { extractHeading, extractImages } from '@/lib/utils';
 
 export const Details = () => {
