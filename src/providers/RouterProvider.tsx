@@ -5,7 +5,7 @@ import { Video } from '@/pages/Video';
 import { Contact } from '@/pages/Contact';
 import { Realizations } from '@/pages/Realizations';
 import { Offer } from '@/pages/Offer';
-import { Error } from '@/pages/Error';
+import { ErrorPage } from '@/pages/ErrorPage';
 import { Details } from '@/pages/Details';
 
 export const RootProvider = () => {
@@ -18,7 +18,7 @@ export const RootProvider = () => {
         <Route path="/realizations" element={<Realizations />} />
         <Route path="/video" element={<Video />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="*" element={<Error />} />
+        <Route path="*" element={<ErrorPage />} />
       </Route>,
     ),
   );

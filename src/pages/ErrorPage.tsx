@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import detective from '@/assets/detective.png';
 
-export const Error = () => {
+export const ErrorPage = () => {
   const navigate = useNavigate();
 
   return (

@@ -1,29 +1,19 @@
-import { useEffect, useState } from 'react';
-import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { useQuery } from '@tanstack/react-query';
 import ImageGallery from 'react-image-gallery';
+import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { extractImages } from '@/lib/utils';
-import { ImageItem } from '@/lib/types';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import '@/lib/gallery-fix.css';
 
 export const Gallery = ({ id, startIndex }: { id: number; startIndex?: number }) => {
-  const [title, setTitle] = useState('');
-  const [images, setImages] = useState<ImageItem[]>([]);
+  const { data } = useQuery({
+    queryKey: ['gallery', id],
+    queryFn: () => fetch(`https://jmajchrzak.tech/wp-json/wp/v2/posts/${id}`).then((res) => res.json()),
+  });
 
-  useEffect(() => {
-    if (!id) return;
-
-    fetch(`https://jmajchrzak.tech/wp-json/wp/v2/posts/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const imagesUrls = extractImages(data.content.rendered);
-        const formattedImages = imagesUrls.map((url) => ({ original: url, thumbnail: url }));
-
-        setImages(formattedImages);
-        setTitle(data.title.rendered);
-      })
-      .catch((error) => console.error('Error fetching post:', error));
-  }, [id]);
+  const title = data?.title.rendered;
+  const imagesUrls = extractImages(data?.content.rendered);
+  const formattedImages = imagesUrls.map((url) => ({ original: url, thumbnail: url }));
 
   if (!id) return <></>;
 
@@ -33,7 +23,14 @@ export const Gallery = ({ id, startIndex }: { id: number; startIndex?: number })
         <DialogTitle className="mr-4 text-base sm:text-lg">{title}</DialogTitle>
       </DialogHeader>
       <div className="h-full max-w-full overflow-hidden">
-        <ImageGallery items={images} showFullscreenButton={true} showPlayButton={false} showIndex={true} showThumbnails={true} startIndex={startIndex} />
+        <ImageGallery
+          items={formattedImages}
+          showFullscreenButton={true}
+          showPlayButton={false}
+          showIndex={true}
+          showThumbnails={true}
+          startIndex={startIndex}
+        />
       </div>
     </DialogContent>
   );
