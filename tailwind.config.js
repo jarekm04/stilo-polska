@@ -100,6 +100,10 @@ module.exports = {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-100%)' },
         },
+        moveChevronsDown: {
+          '0%': { transform: 'translateY(0)', opacity: '1' },
+          '100%': { transform: 'translateY(30px)', opacity: '0' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -109,6 +113,7 @@ module.exports = {
         fadeOut: 'fadeOut 0.5s ease-in-out forwards',
         slideIn: 'slideIn 0.3s ease-in-out',
         slideOut: 'slideOut 0.5s ease-in-out',
+        moveChevronsDown: 'moveChevronsDown 1.5s ease-out infinite',
       },
       backgroundImage: {
         contact: "url('@/assets/contact.jpeg')",

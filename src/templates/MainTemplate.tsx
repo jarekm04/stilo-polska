@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Header } from '@/components/Header';
-import { Arrow } from '@/components/Arrow';
+import { ArrowTop } from '@/components/ArrowTop';
+import { ArrowBottom } from '@/components/ArrowBottom';
 
 export const MainTemplate = () => {
   const location = useLocation();
@@ -26,7 +27,8 @@ export const MainTemplate = () => {
       <main className="animate-custom-appear">
         <Outlet />
       </main>
-      <Arrow />
+      <ArrowTop />
+      <ArrowBottom />
     </div>
   );
 };
