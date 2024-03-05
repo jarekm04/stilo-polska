@@ -35,7 +35,7 @@ export const Details = () => {
   return (
     <Dialog>
       <section className="mt-20">
-        <div className={`relative flex w-full flex-col items-center justify-center gap-3 md:h-[300px]`}>
+        <div className={`relative flex w-full flex-col h-[200px] items-center justify-center gap-3 md:h-[300px]`}>
           <img className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover blur-sm brightness-50" src={formattedImages[0].original} />
           <h1 className="px-1 text-center text-xl uppercase text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] sm:text-2xl md:text-4xl">{title}</h1>
           <p className="bg-gray-500 px-1 text-center text-xs uppercase text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] sm:text-base md:text-xl">
