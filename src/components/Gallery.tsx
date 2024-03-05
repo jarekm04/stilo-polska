@@ -1,10 +1,11 @@
+import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { isMobile } from 'react-device-detect';
 import ImageGallery from 'react-image-gallery';
 import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { extractImages } from '@/lib/utils';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import '@/lib/gallery-fix.css';
-import { useEffect } from 'react';
 
 export const Gallery = ({ id, startIndex }: { id: number; startIndex?: number }) => {
   const { data } = useQuery({
@@ -23,9 +24,12 @@ export const Gallery = ({ id, startIndex }: { id: number; startIndex?: number })
   if (!id) return <></>;
 
   return (
-    <DialogContent onOpenAutoFocus={(e) => e.preventDefault()} className="h-[50vh] w-[80vw] max-w-none grid-rows-[25px_1fr] sm:h-[60vh] md:h-[80vh]">
+    <DialogContent
+      onOpenAutoFocus={(e) => e.preventDefault()}
+      className="h-[40vh] w-[80vw] max-w-none grid-rows-[25px_1fr] sm:h-[50vh] md:h-[65vh] lg:h-[80vh]"
+    >
       <DialogHeader className="gap-6">
-        <DialogTitle className="mr-4 text-base sm:text-lg">{title}</DialogTitle>
+        <DialogTitle className="mr-4 text-sm sm:text-lg">{title}</DialogTitle>
       </DialogHeader>
       <div className="h-full max-w-full overflow-hidden">
         <ImageGallery
@@ -34,7 +38,7 @@ export const Gallery = ({ id, startIndex }: { id: number; startIndex?: number })
           showIndex={true}
           showThumbnails={true}
           showNav={true}
-          showFullscreenButton={true}
+          showFullscreenButton={isMobile ? false : true}
           startIndex={startIndex}
         />
       </div>
