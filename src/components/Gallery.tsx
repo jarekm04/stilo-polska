@@ -26,7 +26,7 @@ export const Gallery = ({ id, startIndex }: { id: number; startIndex?: number })
   return (
     <DialogContent
       onOpenAutoFocus={(e) => e.preventDefault()}
-      className="h-[40vh] w-[80vw] max-w-none grid-rows-[25px_1fr] sm:h-[50vh] md:h-[65vh] lg:h-[80vh]"
+      className="h-[60vh] w-[100vw] max-w-none grid-rows-[25px_1fr] md:h-[75vh] lg:h-[90vh] lg:w-[80vw]"
     >
       <DialogHeader className="gap-6">
         <DialogTitle className="mr-4 text-sm sm:text-lg">{title}</DialogTitle>
