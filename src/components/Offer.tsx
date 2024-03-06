@@ -6,7 +6,7 @@ import offer2 from '@/assets/offer2.jpg';
 import offer3 from '@/assets/offer3.jpg';
 import offer4 from '@/assets/offer4.jpg';
 
-const mockArray = [
+const items = [
   { p1: 'Nowoczesny dom z bala nad Soliną', p2: '142', delay: 'delay-0', src: offer1, id: 642 },
   { p1: 'Nowoczesny dom z bala na wzgórzu', p2: '137', delay: 'delay-200', src: offer3, id: 565 },
   { p1: 'Nowoczesny dom z bala o pow. użytkowej 160,80 m2', p2: '140', delay: 'delay-100', src: offer2, id: 604 },
@@ -58,7 +58,7 @@ export const Offer = () => {
   return (
     <article className="my-2 flex flex-col overflow-hidden">
       <div ref={divRef} className="grid grid-cols-1 gap-5 px-6 py-8 sm:grid-cols-2 md:grid-flow-dense md:grid-cols-3 md:place-content-center">
-        {mockArray.map((item, index) => (
+        {items.map((item, index) => (
           <div
             key={item.p2}
             className={`shadow-blue-gray-900/50 group relative flex min-h-60 cursor-pointer select-none flex-col items-center justify-center gap-2 shadow-xl ${animationSlideInRightToLeft(isVisible)} ${item.delay} ${index % 3 === 2 ? 'md:col-span-2' : ''} ${index % 4 === 0 ? 'md:row-span-2' : ''}`}

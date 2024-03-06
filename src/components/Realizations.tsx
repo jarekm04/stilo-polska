@@ -2,34 +2,34 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
+import { Gallery } from '@/components/Gallery';
 import ready1 from '@/assets/ready1.jpg';
 import ready2 from '@/assets/ready2.jpg';
 import ready3 from '@/assets/ready3.jpeg';
-import { Gallery } from './Gallery';
 
-const mockArray = [
+const items = [
   {
     title: 'Dom całoroczny 241m2',
     src: ready1,
     delay: 'delay-0',
-    id: '',
+    id: 1272,
   },
   {
     title: 'Dom całoroczny 134m2',
     src: ready2,
     delay: 'delay-100',
-    id: '',
+    id: 1258,
   },
   {
     title: 'Dom całoroczny 190m2',
     src: ready3,
     delay: 'delay-200',
-    id: '',
+    id: 1228,
   },
 ];
 
 export const Realizations = () => {
-  const [selectedId, setSelectedId] = useState();
+  const [selectedId, setSelectedId] = useState<number>();
   const [isVisible, setIsVisible] = useState(false);
   const articleRef = useRef<HTMLElement | null>(null);
   const navigate = useNavigate();
@@ -67,11 +67,11 @@ export const Realizations = () => {
   return (
     <Dialog>
       <article ref={articleRef} className="grid grid-cols-1 gap-5 bg-orange-50 p-8 md:grid-cols-2 lg:grid-cols-4 lg:p-16">
-        {mockArray.map(({ title, src, delay }) => (
+        {items.map(({ title, src, delay, id }) => (
           <DialogTrigger asChild key={delay}>
             <div
               className={`group grid max-h-[350px] cursor-pointer grid-rows-[7fr_1fr_1fr] overflow-hidden bg-white ${animationSlideInLeftToRight(isVisible)} ${delay}`}
-              onClick={() => navigate('/realizations')}
+              onClick={() => setSelectedId(id)}
             >
               <img src={src} className="h-full max-h-[270px] w-full object-cover transition duration-500 group-hover:scale-110" alt="ready-house" />
               <p className="z-10 flex items-center justify-center bg-white p-1 px-2 text-center text-lg font-light uppercase text-custom-secondary">{title}</p>
