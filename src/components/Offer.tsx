@@ -56,8 +56,8 @@ export const Offer = () => {
     `transform ${isVisiblePart2 ? 'translate-x-0' : 'translate-x-[250%]'} transition-transform duration-500 ease-out`;
 
   return (
-    <article className="my-2 lg:my-10 flex flex-col overflow-hidden">
-      <div ref={divRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-flow-dense md:grid-cols-3 md:place-content-center gap-5 px-6 py-8">
+    <article className="my-2 flex flex-col overflow-hidden">
+      <div ref={divRef} className="grid grid-cols-1 gap-5 px-6 py-8 sm:grid-cols-2 md:grid-flow-dense md:grid-cols-3 md:place-content-center">
         {mockArray.map((item, index) => (
           <div
             key={item.p2}
@@ -69,8 +69,8 @@ export const Offer = () => {
               className="absolute bottom-0 left-0 right-0 top-0 -z-10 h-full w-full object-cover object-center brightness-75 transition-all group-hover:brightness-100"
               alt="offer-house"
             />
-            <p className="px-1 text-center text-xl md:text-2xl text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{item.p1}</p>
-            <p className="absolute right-0 top-0 bg-gray-500 px-1 text-center text-sm md:text-lg font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            <p className="px-1 text-center text-xl text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] md:text-2xl">{item.p1}</p>
+            <p className="absolute right-0 top-0 bg-gray-500 px-1 text-center text-sm font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] md:text-lg">
               {item.p2}
             </p>
           </div>
