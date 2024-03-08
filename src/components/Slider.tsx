@@ -15,7 +15,7 @@ import slider5 from '@/assets/slider5.jpg';
 
 const lowQualityImages = [slider1FCP, slider2FCP, slider3FCP, slider4FCP, slider5FCP];
 const highQualityImages = [slider1, slider2, slider3, slider4, slider5];
-const h1s = ['Lorem ipsum', 'Doler Sit Amet', 'Projekty domów z bali', 'At vero eos et accusamus', 'Nam libero tempore'];
+const h1s = ['PROFESJONALIZM', 'WSZECHSTRONNOŚĆ', 'DOŚWIADCZENIE', 'INNOWACYJNOŚĆ', 'PRECYZJA'];
 
 export const Slider = () => {
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: false }));
