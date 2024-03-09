@@ -5,9 +5,6 @@ import longThumb from '@/assets/long-thumb.png';
 import shortThumb from '@/assets/short-thumb.png';
 import visualisationThumb from '@/assets/visualisation-thumb.png';
 import residenceThumb from '@/assets/residence-thumb.png';
-import short from '@/assets/short.mp4';
-import long from '@/assets/long.mp4';
-import visualisation from '@/assets/visualisation.mp4';
 import residence from '@/assets/residence.mp4';
 
 export const Video = () => {
@@ -26,7 +23,7 @@ export const Video = () => {
           <div className="grid grid-cols-1 grid-rows-2 gap-3 lg:grid-cols-2 lg:grid-rows-1">
             <div className="max-h-[500px] p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
               <ReactPlayer
-                url={short}
+                url="http://jmajchrzak.tech/wp-content/uploads/2024/03/short-1.mp4"
                 width="100%"
                 height="100%"
                 playing={true}
@@ -36,7 +33,7 @@ export const Video = () => {
             </div>
             <div className="max-h-[500px] p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
               <ReactPlayer
-                url={long}
+                url="http://jmajchrzak.tech/wp-content/uploads/2024/03/long.mp4"
                 width="100%"
                 height="100%"
                 playing={true}
@@ -58,7 +55,7 @@ export const Video = () => {
           <div className="grid grid-cols-1 grid-rows-2 gap-3 lg:grid-cols-2 lg:grid-rows-1">
             <div className="flex h-[400px] items-center p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
               <ReactPlayer
-                url={visualisation}
+                url="http://jmajchrzak.tech/wp-content/uploads/2024/03/visualisation-1.mp4"
                 width="100%"
                 playing={true}
                 controls={true}
