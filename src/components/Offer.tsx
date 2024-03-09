@@ -76,7 +76,7 @@ export const Offer = () => {
           </div>
         ))}
       </div>
-      <Link ref={anchorRef} to="/offer" className="flex w-full items-center justify-center bg-custom-ninth py-8">
+      <Link ref={anchorRef} to="/offer" className="flex w-full items-center justify-center bg-orange-100 py-8">
         <Button className={`bg-custom-tertiary hover:bg-custom-tenth ${animationSlideInLeftToRight(isVisible2Part)}`}>Przejdź do pełnej oferty</Button>
       </Link>
     </article>

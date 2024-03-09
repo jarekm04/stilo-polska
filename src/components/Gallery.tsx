@@ -29,7 +29,7 @@ export const Gallery = ({ id, startIndex }: { id: number; startIndex?: number })
       className="h-[60vh] w-[100vw] max-w-none grid-rows-[25px_1fr] md:h-[75vh] lg:h-[90vh] lg:w-[80vw]"
     >
       <DialogHeader className="gap-6">
-        <DialogTitle className="mr-4 text-sm sm:text-lg">{title}</DialogTitle>
+        <DialogTitle className="mr-4 text-sm uppercase sm:text-lg">{title}</DialogTitle>
       </DialogHeader>
       <div className="h-full max-w-full overflow-hidden">
         <ImageGallery

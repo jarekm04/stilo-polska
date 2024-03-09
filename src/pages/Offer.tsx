@@ -43,11 +43,7 @@ export const Offer = () => {
             </p>
             <p className="w-full px-3 text-sm font-thin sm:text-base md:w-[90%] md:px-4">
               Poza realizacją indywidualnych projektów, oferujemy szeroką gamę propozycji przygotowanych przez współpracujące z nami od wielu lat biuro
-              projektowe -{' '}
-              <Link to="http://cdomprojekt.pl/" target="_blank" className="text-blue-600 underline">
-                Cdom
-              </Link>
-              .
+              projektowe - Cdom.
             </p>
           </div>
           <div className="grid grid-cols-1 place-content-center gap-5 px-8 py-8 md:grid-cols-2 lg:grid-cols-3 lg:px-14">
@@ -84,7 +80,7 @@ export const Offer = () => {
           <p className="w-full px-3 text-sm font-thin sm:text-base md:w-[90%] md:px-4">
             Poza realizacją indywidualnych projektów, oferujemy szeroką gamę propozycji przygotowanych przez współpracujące z nami od wielu lat biuro projektowe
             -{' '}
-            <Link to="http://cdomprojekt.pl/" target="_blank" className="text-blue-600 underline">
+            <Link to="http://www.cdomprojekt.pl/" target="_blank" className="text-custom-tertiary underline">
               Cdom
             </Link>
             .
@@ -94,7 +90,7 @@ export const Offer = () => {
           {data?.map(({ id, title, content }) => (
             <article
               key={id}
-              className={`shadow-blue-gray-900/50 group relative flex min-h-60 cursor-pointer select-none flex-col items-center justify-center gap-2 shadow-xl`}
+              className={`shadow-blue-gray-900/50 group relative flex min-h-60 cursor-pointer max-w-[450px] select-none flex-col items-center justify-center gap-2 shadow-xl`}
               onClick={() => navigate(`/offer/${id}`)}
             >
               {extractImages(content.rendered)

@@ -37,8 +37,8 @@ export const Technology = () => {
     `transform ${isVisible ? 'translate-x-0' : 'translate-x-[300%]'} transition-transform duration-500 ease-out`;
 
   return (
-    <article ref={articleRef} className="overflow-hidden bg-orange-50">
-      <div className="grid max-w-[1400px] gap-4 bg-orange-50 px-3 py-10 lg:grid-cols-3 lg:grid-rows-none xl:gap-7 xl:px-12">
+    <article ref={articleRef} className="flex justify-center overflow-hidden bg-orange-50">
+      <div className="grid max-w-[1400px] gap-4 bg-orange-50 px-8 py-10 lg:grid-cols-3 lg:grid-rows-none lg:px-4 xl:gap-7 xl:px-12">
         <div
           className={`mx-auto flex flex-col gap-4 rounded-lg border border-custom-tertiary bg-white px-5 py-5 lg:max-w-[400px] ${animationSlideInRightToLeft(isVisible)}`}
         >

@@ -59,8 +59,7 @@ export const About = () => {
             <div>
               <p className="text-sm font-bold text-custom-tertiary md:text-base">Lider wśród producentów domów z bala</p>
               <p className="text-sm font-light md:text-base">
-                Opatentowane, autorskie techniki montażu przy użyciu drewna świerkowego, które charakteryzuje się stosunkowo małą ilością słoi oraz naturalnych
-                pęknięć
+                Opatentowane, autorskie techniki montażu przy użyciu oryginalnych i selekcjonowanych bali suszonych, które importujemy z wysokich rejonów Alp
               </p>
             </div>
           </div>
