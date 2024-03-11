@@ -12,7 +12,7 @@ const Projects = () => {
     <div className="flex flex-col items-center gap-4">
       <div className="flex flex-col items-center justify-center gap-3">
         <Separator className="h-[2px] w-14 bg-custom-tertiary" />
-        <p className="mt-5 w-full px-3 text-sm font-thin md:w-[70%] md:px-4 md:text-base">
+        <p className="mt-5 w-full px-3 text-sm font-light md:w-[70%] md:px-4 md:text-base">
           W ciągu naszej 25-letniej historii zrealizowaliśmy wiele wspaniałych projektów w całej Polsce. Od domów całorocznych, przez letniskowe po obiekty
           gospodarcze.
         </p>
@@ -51,7 +51,7 @@ const Visualisations = () => {
     <div className="flex flex-col items-center gap-4">
       <div className="flex flex-col items-center justify-center gap-3">
         <Separator className="h-[2px] w-14 bg-custom-tertiary" />
-        <p className="mt-5 w-full px-3 text-sm font-thin md:w-[70%] md:px-4 md:text-base">
+        <p className="mt-5 w-full px-3 text-sm font-light md:w-[70%] md:px-4 md:text-base">
           Dzięki współpracy z renomowanym biurem architektonicznym - Cdom, oferujemy najwyższej jakości projekty. Konstrukcje z bala to nie tylko tradycyjne
           chaty, ale i nowoczesne domy.
         </p>
