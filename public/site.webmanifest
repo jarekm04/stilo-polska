@@ -1,14 +1,20 @@
 {
-    "name": "",
-    "short_name": "",
-    "icons": [
-       {
-          "src": "/android-chrome-192x192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-       }
-    ],
-    "theme_color": "#FFFFFF",
-    "background_color": "#FFFFFF",
-    "display": "standalone"
- }
+  "name": "Stilo Polska - Domy z bala",
+  "short_name": "Stilo Polska",
+  "icons": [
+    {
+      "src": "/wp-content/themes/react/assets/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/wp-content/themes/react/assets/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#ec8117",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "description": "Jesteśmy jednym z liderów wśród producentów domów z bala, szczególnie przy realizacji technologicznie skomplikowanych projektów."
+}
