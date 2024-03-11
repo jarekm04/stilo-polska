@@ -80,7 +80,7 @@ export const Offer = () => {
           <p className="w-full px-3 text-sm font-thin sm:text-base md:w-[90%] md:px-4">
             Poza realizacją indywidualnych projektów, oferujemy szeroką gamę propozycji przygotowanych przez współpracujące z nami od wielu lat biuro projektowe
             -{' '}
-            <Link to="http://www.cdomprojekt.pl/" target="_blank" className="text-custom-tertiary underline">
+            <Link to="https://tinyurl.com/yc3htpw3" target="_blank" className="text-custom-tertiary underline">
               Cdom
             </Link>
             .

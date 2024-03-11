@@ -28,7 +28,7 @@ const Projects = () => {
             light={<ThumbShort />}
           />
         </div>
-        <div className="max-h-[500px] max-w-[800px] p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
+        <div className="xs:max-h-[350px] max-h-[220px] max-w-[800px] p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)] sm:max-h-[500px]">
           <ReactPlayer url={residence} width="100%" height="100%" playing={true} controls={true} light={<ThumbResidence />} />
         </div>
       </div>
