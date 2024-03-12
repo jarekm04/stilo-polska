@@ -1,10 +1,10 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { ErrorPage } from '@/pages/ErrorPage';
 import { Separator } from '@/components/ui/separator';
 import { Footer } from '@/components/Footer';
 import { SkeletonOffers } from '@/components/Skeletons';
-import { extractHeading, extractImages } from '@/lib/utils';
 import { Post } from '@/lib/types';
 
 const OfferLoader = () => {
@@ -54,15 +54,50 @@ const OfferTxt = () => {
   );
 };
 
-const categoryId = 3;
-const perPage = 100;
+const OfferImage = ({ id }: { id: number }) => {
+  const perPage = 100;
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['offerImage', id, perPage],
+    queryFn: () =>
+      fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details&order=asc`).then((res) => res.json()),
+  });
+
+  if (!data || data.length === 0 || isLoading) {
+    return <></>;
+  }
+
+  return (
+    <img
+      src={data[0]?.media_details.sizes.full.source_url}
+      className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover object-center brightness-75 transition-all group-hover:brightness-100"
+      alt="Offer house"
+    />
+  );
+};
 
 export const Offer = () => {
+  const categoryId = 3;
+  const perPage = 100;
+  const [heading, setHeading] = useState<string>('');
+
   const { data, error, isLoading } = useQuery<Post[]>({
-    queryKey: ['offer'],
-    queryFn: () => fetch(`https://jmajchrzak.tech/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${perPage}`).then((res) => res.json()),
+    queryKey: ['offer', categoryId, perPage],
+    queryFn: () =>
+      fetch(`https://jmajchrzak.tech/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${perPage}&_fields=id,title,content`).then((res) => res.json().then((data) => {
+        // const parser = new DOMParser();
+        // const htmlDoc = parser.parseFromString(data.content.rendered, 'text/html');
+        // const headingElement = htmlDoc.querySelector('h2');
+
+        // if (headingElement && headingElement.textContent) {
+        //   setHeading(headingElement.textContent);
+        // }
+        return data;
+      }),),
   });
   const navigate = useNavigate();
+
+  console.log(data);
 
   if (error) return <ErrorPage />;
 
@@ -73,27 +108,18 @@ export const Offer = () => {
       <div className="flex flex-col items-center gap-2 py-3 md:gap-7 lg:py-6">
         <OfferTxt />
         <div className="grid grid-cols-1 place-content-center gap-5 px-8 py-8 md:grid-cols-2 lg:grid-cols-3 lg:px-14">
-          {data?.map(({ id, title, content }) => (
+          {data?.map(({ id, title }) => (
             <article
               key={id}
               className={`shadow-blue-gray-900/50 group relative flex min-h-60 max-w-[450px] cursor-pointer select-none flex-col items-center justify-end gap-2 shadow-xl`}
               onClick={() => navigate(`/offer/${id}`)}
             >
-              {extractImages(content.rendered)
-                .slice(0, 1)
-                .map((image, index) => (
-                  <img
-                    key={index}
-                    src={image}
-                    className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover object-center brightness-75 transition-all group-hover:brightness-100"
-                    alt={`Offer house - ${index}`}
-                  />
-                ))}
+              <OfferImage id={id} />
               <p className="capitalize-first mb-6 px-2 text-center text-lg lowercase text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                 {title.rendered}
               </p>
               <p className="text-md absolute right-0 top-0 bg-gray-500 px-1 text-center font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-                {extractHeading(content.rendered)}
+                {heading}
               </p>
             </article>
           ))}

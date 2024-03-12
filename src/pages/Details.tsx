@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -8,23 +8,78 @@ import { Button } from '@/components/ui/button';
 import { Gallery } from '@/components/Gallery';
 import { SkeletonDetails } from '@/components/Skeletons';
 import { Footer } from '@/components/Footer';
-import { extractHeading, extractImages } from '@/lib/utils';
+import { MediaDetails } from '@/lib/types';
+
+const DetailsImages = ({
+  postId,
+  setStartIndex,
+  setMainImage,
+}: {
+  postId?: string;
+  setStartIndex: React.Dispatch<React.SetStateAction<number>>;
+  setMainImage: React.Dispatch<React.SetStateAction<string | undefined>>;
+}) => {
+  const perPage = 100;
+
+  const { data, error, isLoading } = useQuery<MediaDetails>({
+    queryKey: ['detailsImages', postId, perPage],
+    queryFn: () => fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${postId}&per_page=${perPage}&_fields=media_details`).then((res) => res.json()),
+  });
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+      setMainImage(data[0].media_details.sizes.full.source_url);
+    }
+  }, [data, setMainImage]);
+
+  if (error) return <ErrorPage />;
+
+  if (isLoading) {
+    return <SkeletonDetails />;
+  }
+
+  return (
+    <div className="grid grid-cols-1 place-content-center gap-5 px-3 py-4 sm:grid-cols-2 sm:px-6 md:grid-cols-3 md:px-14 md:py-8">
+      {data?.map((item, index) => (
+        <DialogTrigger asChild key={index}>
+          <div className="h-full max-h-[270px] w-full">
+            <img
+              src={item.media_details.sizes.full.source_url}
+              className="h-full w-full cursor-pointer object-cover shadow-xl transition duration-500 group-hover:scale-110"
+              alt={`Realization house: ${index}`}
+              onClick={() => setStartIndex(index)}
+            />
+          </div>
+        </DialogTrigger>
+      ))}
+    </div>
+  );
+};
 
 export const Details = () => {
   const [startIndex, setStartIndex] = useState(0);
+  const [mainImage, setMainImage] = useState<string>();
+  const [heading, setHeading] = useState<string>('');
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const postId = pathname.split('/').pop();
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['details', postId],
-    queryFn: () => fetch(`https://jmajchrzak.tech/wp-json/wp/v2/posts/${postId}`).then((res) => res.json()),
-  });
+    queryFn: () =>
+      fetch(`https://jmajchrzak.tech/wp-json/wp/v2/posts/${postId}?_fields=id,content,title`).then((res) =>
+        res.json().then((data) => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(data.content.rendered, 'text/html');
+          const headingElement = htmlDoc.querySelector('h2');
 
-  const title = data?.title.rendered;
-  const heading = extractHeading(data?.content.rendered);
-  const imagesUrls = extractImages(data?.content.rendered);
-  const formattedImages = imagesUrls.map((url) => ({ original: url, thumbnail: url }));
+          if (headingElement && headingElement.textContent) {
+            setHeading(headingElement.textContent);
+          }
+          return data;
+        }),
+      ),
+  });
 
   if (error) return <ErrorPage />;
 
@@ -35,9 +90,11 @@ export const Details = () => {
   return (
     <Dialog>
       <section className="mt-20">
-        <div className={`relative flex w-full flex-col h-[200px] items-center justify-center gap-3 md:h-[300px]`}>
-          <img className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover blur-sm brightness-50" src={formattedImages[0].original} />
-          <h1 className="px-1 text-center text-xl uppercase text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] sm:text-2xl md:text-4xl">{title}</h1>
+        <div className={`relative flex h-[200px] w-full flex-col items-center justify-center gap-3 md:h-[300px]`}>
+          <img className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover blur-sm brightness-50" src={mainImage} />
+          <h1 className="px-1 text-center text-xl uppercase text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] sm:text-2xl md:text-4xl">
+            {data?.title.rendered}
+          </h1>
           <p className="bg-gray-500 px-1 text-center text-xs uppercase text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] sm:text-base md:text-xl">
             {heading}
           </p>
@@ -45,22 +102,9 @@ export const Details = () => {
             <ArrowLeft /> Powrót
           </Button>
         </div>
-        <div className="grid grid-cols-1 place-content-center gap-5 px-3 py-4 sm:grid-cols-2 sm:px-6 md:grid-cols-3 md:px-14 md:py-8">
-          {formattedImages.map((image, index) => (
-            <DialogTrigger asChild key={index}>
-              <div className="h-full max-h-[270px] w-full">
-                <img
-                  src={image.original}
-                  className="h-full w-full cursor-pointer object-cover shadow-xl transition duration-500 group-hover:scale-110"
-                  alt={`Realization house: ${index}`}
-                  onClick={() => setStartIndex(index)}
-                />
-              </div>
-            </DialogTrigger>
-          ))}
-        </div>
+        <DetailsImages postId={postId} setStartIndex={setStartIndex} setMainImage={setMainImage} />
       </section>
-      <Gallery id={Number(postId)} startIndex={startIndex} />
+      <Gallery id={Number(postId)} title={data?.title.rendered} startIndex={startIndex} />
       <Footer />
     </Dialog>
   );

@@ -8,7 +8,6 @@ import { Footer } from '@/components/Footer';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Gallery } from '@/components/Gallery';
 import { Post } from '@/lib/types';
-import { extractImages } from '@/lib/utils';
 
 const RealizationsTxt = () => {
   return (
@@ -38,15 +37,38 @@ const RealizationsLoader = () => {
   );
 };
 
-const categoryId = 4;
-const perPage = 100;
+const RealizationImage = ({ id }: { id: number }) => {
+  const perPage = 100;
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['realizationImage', id, perPage],
+    queryFn: () =>
+      fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details&order=asc`).then((res) => res.json()),
+  });
+
+  if (!data || data.length === 0 || isLoading) {
+    return <></>;
+  }
+
+  return (
+    <img
+      src={data[0]?.media_details.sizes.full.source_url}
+      className="h-full max-h-[270px] w-full object-cover transition duration-500 group-hover:scale-110"
+      alt="Realization house"
+    />
+  );
+};
 
 export const Realizations = () => {
+  const categoryId = 4;
+  const perPage = 100;
+
   const { data, error, isLoading } = useQuery<Post[]>({
-    queryKey: ['realizations'],
-    queryFn: () => fetch(`https://jmajchrzak.tech/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${perPage}`).then((res) => res.json()),
+    queryKey: ['realizations', categoryId, perPage],
+    queryFn: () => fetch(`https://jmajchrzak.tech/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${perPage}&_fields=id,title`).then((res) => res.json()),
   });
   const [selectedId, setSelectedId] = useState<number>();
+  const [selectedTitle, setSelectedTitle] = useState<string>();
 
   if (error) return <ErrorPage />;
 
@@ -58,22 +80,16 @@ export const Realizations = () => {
         <div className="mb-2 flex flex-col items-center gap-7 py-3 md:py-6">
           <RealizationsTxt />
           <section className="flex flex-wrap justify-center gap-5 px-2 sm:px-4">
-            {data?.map(({ id, title, content }) => (
+            {data?.map(({ id, title }) => (
               <DialogTrigger asChild key={id}>
                 <article
                   className={`group grid max-h-[350px] w-[350px] cursor-pointer grid-rows-[7fr_1fr_1fr] overflow-hidden bg-white shadow-xl sm:w-[450px]`}
-                  onClick={() => setSelectedId(id)}
+                  onClick={() => {
+                    setSelectedId(id);
+                    setSelectedTitle(title.rendered);
+                  }}
                 >
-                  {extractImages(content.rendered)
-                    .slice(0, 1)
-                    .map((image, index) => (
-                      <img
-                        key={index}
-                        src={image}
-                        className="h-full max-h-[270px] w-full object-cover transition duration-500 group-hover:scale-110"
-                        alt={`Realization house: ${index}`}
-                      />
-                    ))}
+                  <RealizationImage id={id} />
                   <p className="z-10 flex items-center justify-center bg-white px-2 py-1 text-center text-lg font-light uppercase text-custom-secondary">
                     {title.rendered}
                   </p>
@@ -90,7 +106,7 @@ export const Realizations = () => {
         </div>
         <Footer />
       </section>
-      {selectedId && <Gallery id={selectedId} />}
+      {selectedId && <Gallery id={selectedId} title={selectedTitle} />}
     </Dialog>
   );
 };

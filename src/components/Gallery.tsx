@@ -1,27 +1,25 @@
-import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { isMobile } from 'react-device-detect';
 import ImageGallery from 'react-image-gallery';
 import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { extractImages } from '@/lib/utils';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import '@/lib/gallery-fix.css';
+import { MediaDetail } from '@/lib/types';
 
-export const Gallery = ({ id, startIndex }: { id: number; startIndex?: number }) => {
-  const { data } = useQuery({
-    queryKey: ['gallery', id],
-    queryFn: () => fetch(`https://jmajchrzak.tech/wp-json/wp/v2/posts/${id}`).then((res) => res.json()),
+export const Gallery = ({ id, title, startIndex }: { id: number; title?: string; startIndex?: number }) => {
+  const perPage = 100;
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['gallery', id, perPage],
+    queryFn: () => fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details&order=asc`).then((res) => res.json()),
   });
 
-  const title = data?.title.rendered;
-  const imagesUrls = extractImages(data?.content.rendered);
-  const formattedImages = imagesUrls.map((url) => ({ original: url, thumbnail: url }));
+  const formattedImages = data?.map((item: MediaDetail) => ({
+    original: item.media_details.sizes.full.source_url,
+    thumbnail: item.media_details.sizes.thumbnail.source_url,
+  }));
 
-  useEffect(() => {
-    setTimeout(() => {}, 500);
-  }, []);
-
-  if (!id) return <></>;
+  if (!id || isLoading) return <></>;
 
   return (
     <DialogContent
