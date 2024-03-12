@@ -10,6 +10,34 @@ import { Gallery } from '@/components/Gallery';
 import { Post } from '@/lib/types';
 import { extractImages } from '@/lib/utils';
 
+const RealizationsTxt = () => {
+  return (
+    <div className="flex flex-col items-center justify-center gap-3">
+      <h1 className="mt-2 text-center text-xl font-light lg:text-2xl">Nasze realizacje</h1>
+      <Separator className="h-[2px] w-14 bg-custom-tertiary" />
+      <p className="mt-5 w-full px-3 text-sm font-light sm:text-base md:w-[80%] md:px-4">
+        W latach 2004 – 2022 budowaliśmy domy z bali okrągłych, natomiast od roku 2022 budujemy z bali prostokątnych – suszonych i klejonych.
+      </p>
+    </div>
+  );
+};
+
+const RealizationsLoader = () => {
+  return (
+    <section className="mt-20 flex min-h-[calc(100vh-64px)] flex-col bg-gradient-to-b from-white to-orange-50">
+      <div className="mb-2 flex flex-col items-center gap-7 py-3 md:py-6">
+        <RealizationsTxt />
+        <section className="flex flex-wrap justify-center gap-5 px-2 sm:px-4">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <SkeletonRealizations key={index} />
+          ))}
+        </section>
+      </div>
+      <Footer />
+    </section>
+  );
+};
+
 const categoryId = 4;
 const perPage = 100;
 
@@ -22,38 +50,13 @@ export const Realizations = () => {
 
   if (error) return <ErrorPage />;
 
-  if (isLoading)
-    return (
-      <section className="mt-20 flex min-h-[calc(100vh-64px)] flex-col bg-gradient-to-b from-white to-orange-50">
-        <div className="mb-2 flex flex-col items-center gap-7 py-3 md:py-6">
-          <div className="flex flex-col items-center justify-center gap-3">
-            <h1 className="mt-2 text-center text-xl font-light lg:text-2xl">Nasze realizacje</h1>
-            <Separator className="h-[2px] w-14 bg-custom-tertiary" />
-            <p className="mt-5 w-full px-3 text-sm font-light sm:text-base md:w-[80%] md:px-4">
-              W latach 2004 – 2022 budowaliśmy domy z bali okrągłych, natomiast od roku 2022 budujemy z bali prostokątnych – suszonych i klejonych.
-            </p>
-          </div>
-          <section className="flex flex-wrap justify-center gap-5 px-2 sm:px-4">
-            {Array.from({ length: 6 }).map((_, index) => (
-              <SkeletonRealizations key={index} />
-            ))}
-          </section>
-        </div>
-        <Footer />
-      </section>
-    );
+  if (isLoading) return <RealizationsLoader />;
 
   return (
     <Dialog>
       <section className="mt-20 flex min-h-[calc(100vh-64px)] flex-col bg-gradient-to-b from-white to-orange-50">
         <div className="mb-2 flex flex-col items-center gap-7 py-3 md:py-6">
-          <div className="flex flex-col items-center justify-center gap-3">
-            <h1 className="mt-2 text-center text-xl font-light lg:text-2xl">Nasze realizacje</h1>
-            <Separator className="h-[2px] w-14 bg-custom-tertiary" />
-            <p className="mt-5 w-full px-3 text-sm font-light sm:text-base md:w-[80%] md:px-4">
-              W latach 2004 – 2022 budowaliśmy domy z bali okrągłych, natomiast od roku 2022 budujemy z bali prostokątnych – suszonych i klejonych.
-            </p>
-          </div>
+          <RealizationsTxt />
           <section className="flex flex-wrap justify-center gap-5 px-2 sm:px-4">
             {data?.map(({ id, title, content }) => (
               <DialogTrigger asChild key={id}>

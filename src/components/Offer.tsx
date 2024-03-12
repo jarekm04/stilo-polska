@@ -7,7 +7,7 @@ import offer3 from '@/assets/offer3.jpg';
 import offer4 from '@/assets/offer4.jpg';
 
 const items = [
-  { p1: 'NOWOCZESNY DOM Z BALA W DOLNOŚLĄSKIM', p2: '142', delay: 'delay-0', src: offer1, id: 1181 },
+  { p1: 'nowoczesny dom z bala w dolnośląskim', p2: '142', delay: 'delay-0', src: offer1, id: 1181 },
   { p1: 'Nowoczesny dom z bala o pow. użytkowej 160,80 m2', p2: '140', delay: 'delay-100', src: offer2, id: 1146 },
   { p1: 'NOWOCZESNY DOM Z BALA O POW. 148M2', p2: '108', delay: 'delay-200', src: offer3, id: 1307 },
   { p1: 'NOWOCZESNY DOM Z BALA O POW. UŻYTKOWEJ 110,00M2', p2: '103', delay: 'delay-200', src: offer4, id: 720 },
@@ -61,7 +61,7 @@ export const Offer = () => {
         {items.map((item, index) => (
           <div
             key={item.p2}
-            className={`shadow-blue-gray-900/50 group relative flex min-h-60 cursor-pointer select-none flex-col items-center justify-center gap-2 shadow-xl ${animationSlideInRightToLeft(isVisible)} ${item.delay} ${index % 3 === 2 ? 'md:col-span-2' : ''} ${index % 4 === 0 ? 'md:row-span-2' : ''}`}
+            className={`shadow-blue-gray-900/50 group relative flex min-h-60 cursor-pointer select-none flex-col items-center justify-end gap-2 shadow-xl ${animationSlideInRightToLeft(isVisible)} ${item.delay} ${index % 3 === 2 ? 'md:col-span-2' : ''} ${index % 4 === 0 ? 'md:row-span-2' : ''}`}
             onClick={() => navigate(`/offer/${item.id}`)}
           >
             <img
@@ -69,8 +69,8 @@ export const Offer = () => {
               className="absolute bottom-0 left-0 right-0 top-0 -z-10 h-full w-full object-cover object-center brightness-75 transition-all group-hover:brightness-100"
               alt="offer-house"
             />
-            <p className="px-1 text-center text-xl text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] md:text-2xl">{item.p1}</p>
-            <p className="absolute right-0 top-0 bg-gray-500 px-1 text-center text-sm font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] md:text-lg">
+            <p className="capitalize-first lowercase px-2 mb-6 text-center text-md text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] md:text-lg">{item.p1}</p>
+            <p className="absolute right-0 top-0 bg-gray-500 px-1 text-center text-sm font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] md:text-md">
               {item.p2}
             </p>
           </div>

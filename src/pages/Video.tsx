@@ -1,21 +1,37 @@
 import ReactPlayer from 'react-player';
 import { useState } from 'react';
-import { ThumbHouse, ThumbLong, ThumbResidence, ThumbShort, ThumbVisualisation } from '@/lib/thumbnails';
+import { Link } from 'react-router-dom';
+import { Facebook, Youtube } from 'lucide-react';
+import { ThumbHouse, ThumbHouse2, ThumbInside, ThumbLong, ThumbResidence, ThumbShort, ThumbVisualisation } from '@/lib/thumbnails';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { Footer } from '@/components/Footer';
 import residence from '@/assets/residence.mp4';
 import house from '@/assets/house.mp4';
+import house2 from '@/assets/house2.mp4';
+import inside from '@/assets/inside.mp4';
 
 const Projects = () => {
   return (
     <div className="flex flex-col items-center gap-4">
       <div className="flex flex-col items-center justify-center gap-3">
         <Separator className="h-[2px] w-14 bg-custom-tertiary" />
-        <p className="mt-5 w-full px-3 text-sm font-light md:w-[70%] md:px-4 md:text-base">
-          W ciągu naszej 25-letniej historii zrealizowaliśmy wiele wspaniałych projektów w całej Polsce. Od domów całorocznych, przez letniskowe po obiekty
-          gospodarcze.
-        </p>
+        <p className="mt-5 w-full px-3 text-center text-sm font-light md:px-4 md:text-base">Kilka przykładowych realizacji, które cieszą oko.</p>
+        <div className="flex w-full flex-wrap items-center justify-center gap-x-2 px-3 text-sm font-light md:px-4 md:text-base">
+          <p className="text-sm font-light md:text-base">Po więcej zapraszamy na</p>
+          <Link
+            className="flex gap-2 transition-all hover:text-custom-tertiary"
+            to="https://www.facebook.com/people/Domy-z-bali-Stilo-Polska/100057174441927/?ref=br_rs"
+            target="_blank"
+          >
+            <Facebook /> Facebook
+          </Link>
+          <p className="text-sm font-light md:text-base">oraz na</p>
+          <Link className="flex gap-2 transition-all hover:text-custom-tertiary" to="https://www.youtube.com/channel/UCy3px_4qWAVVZhfCnmsyEmA" target="_blank">
+            <Youtube /> Youtube
+          </Link>
+          <p className="text-sm font-light md:text-base">.</p>
+        </div>
       </div>
       <div className="grid grid-cols-1 grid-rows-2 gap-3 lg:grid-cols-2 lg:grid-rows-1">
         <div className="max-h-[500px] max-w-[800px] p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
@@ -51,10 +67,19 @@ const Visualisations = () => {
     <div className="flex flex-col items-center gap-4">
       <div className="flex flex-col items-center justify-center gap-3">
         <Separator className="h-[2px] w-14 bg-custom-tertiary" />
-        <p className="mt-5 w-full px-3 text-sm font-light md:w-[70%] md:px-4 md:text-base">
-          Dzięki współpracy z renomowanym biurem architektonicznym - Cdom, oferujemy najwyższej jakości projekty. Konstrukcje z bala to nie tylko tradycyjne
-          chaty, ale i nowoczesne domy.
+        <p className="mt-5 w-full px-3 text-sm font-light text-center lg:w-[70%] md:px-4 md:text-base">
+          Dzięki współpracy z renomowanym biurem architektonicznym -{' '}
+          <Link to="https://tinyurl.com/yc3htpw3" target="_blank" className="text-custom-tertiary underline">
+            Cdom
+          </Link>
+          , oferujemy najwyższej jakości projekty. Konstrukcje z bala to nie tylko tradycyjne chaty, ale i nowoczesne domy.
         </p>
+        <div className="flex w-full flex-wrap justify-center gap-x-2 px-3 text-sm font-light lg:w-[70%] md:px-4 md:text-base">
+          <p className="text-sm font-light md:text-base">Po więcej zapraszamy na</p>
+          <Link className="flex gap-2 transition-all hover:text-custom-tertiary" to="https://www.youtube.com/channel/UCy3px_4qWAVVZhfCnmsyEmA" target="_blank">
+            <Youtube /> Youtube Cdom.
+          </Link>
+        </div>
       </div>
       <div className="grid grid-cols-1 grid-rows-2 gap-3 lg:grid-cols-2 lg:grid-rows-1">
         <div className="flex max-h-[400px] max-w-[700px] items-center p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
@@ -69,6 +94,14 @@ const Visualisations = () => {
         </div>
         <div className="max-h-[400px] max-w-[700px] p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
           <ReactPlayer url={house} width="100%" height="100%" playing={true} controls={true} light={<ThumbHouse />} />
+        </div>
+      </div>
+      <div className="grid grid-cols-1 grid-rows-2 gap-3 lg:grid-cols-2 lg:grid-rows-1">
+        <div className="flex max-h-[400px] max-w-[700px] items-center p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
+          <ReactPlayer url={house2} height="100%" width="100%" playing={true} controls={true} light={<ThumbHouse2 />} />
+        </div>
+        <div className="max-h-[400px] max-w-[700px] p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
+          <ReactPlayer url={inside} width="100%" height="100%" playing={true} controls={true} light={<ThumbInside />} />
         </div>
       </div>
     </div>

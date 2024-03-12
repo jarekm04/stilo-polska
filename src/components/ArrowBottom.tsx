@@ -24,9 +24,16 @@ export const ArrowBottom = () => {
     };
   }, [pathname]);
 
+  const handleChevronsClick = () => {
+    window.scrollTo({
+      top: window.scrollY + 450,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     isVisible && (
-      <div className="animate-moveChevronsDown fixed bottom-10 right-10">
+      <div className="fixed bottom-10 right-10 animate-moveChevronsDown cursor-pointer" onClick={handleChevronsClick}>
         <ChevronsDown className="h-10 w-10 text-white" />
       </div>
     )

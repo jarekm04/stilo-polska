@@ -48,7 +48,7 @@ export const About = () => {
           <div className={`grid grid-cols-[1fr_3fr] place-items-center gap-5 bg-white ${animationSlideInLeftToRight(isVisible)} delay-100`}>
             <TrendingUp className="h-10 w-10 text-custom-tertiary md:h-14 md:w-14 lg:h-20 lg:w-20" />
             <div>
-              <p className="text-sm font-bold text-custom-tertiary md:text-base">30 lat na rynku</p>
+              <p className="text-sm font-bold text-custom-tertiary md:text-base">Na rynku od 2004 roku</p>
               <p className="text-sm font-light md:text-base">
                 Firma o ugruntowanej pozycji z nowoczesnymi rozwiązaniami, której konstrukcje można podziwiać w całej Polsce, jak i poza jej granicami
               </p>
