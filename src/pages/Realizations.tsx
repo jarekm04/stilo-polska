@@ -43,7 +43,8 @@ const RealizationImage = ({ id }: { id: number }) => {
   const { data, isLoading } = useQuery({
     queryKey: ['realizationImage', id, perPage],
     queryFn: () =>
-      fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details&order=asc`).then((res) => res.json()),
+      fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details&orderby=title&order=asc
+      `).then((res) => res.json()),
   });
 
   if (isLoading) return <LoadingSpinner />;

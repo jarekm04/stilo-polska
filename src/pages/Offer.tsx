@@ -58,7 +58,9 @@ const OfferImage = ({ id }: { id: number }) => {
 
   const { data, isLoading } = useQuery({
     queryKey: ['offerImage', id, perPage],
-    queryFn: () => fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details`).then((res) => res.json()),
+    queryFn: () =>
+      fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details&orderby=title&order=asc
+    `).then((res) => res.json()),
   });
 
   if (isLoading) return <LoadingSpinner />;

@@ -12,7 +12,9 @@ export const Gallery = ({ id, title, startIndex }: { id: number; title?: string;
 
   const { data, isLoading } = useQuery({
     queryKey: ['gallery', id, perPage],
-    queryFn: () => fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details`).then((res) => res.json()),
+    queryFn: () =>
+      fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details&orderby=title&order=asc
+    `).then((res) => res.json()),
   });
 
   const formattedImages = data?.map((item: MediaDetail) => ({

@@ -23,7 +23,9 @@ const DetailsImages = ({
 
   const { data, error, isLoading } = useQuery<MediaDetails>({
     queryKey: ['detailsImages', postId, perPage],
-    queryFn: () => fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${postId}&per_page=${perPage}&_fields=media_details`).then((res) => res.json()),
+    queryFn: () =>
+      fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${postId}&per_page=${perPage}&_fields=media_details&orderby=title&order=asc
+    `).then((res) => res.json()),
   });
 
   useEffect(() => {
