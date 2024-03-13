@@ -19,6 +19,9 @@ export interface MediaDetail {
       full: {
         source_url: string;
       };
+      medium_large: {
+        source_url: string;
+      }
       thumbnail: {
         source_url: string;
       };

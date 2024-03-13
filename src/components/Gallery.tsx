@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { isMobile } from 'react-device-detect';
 import ImageGallery from 'react-image-gallery';
 import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { LoadingSpinner } from '@/components/Skeletons';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import '@/lib/gallery-fix.css';
 import { MediaDetail } from '@/lib/types';
@@ -11,7 +12,8 @@ export const Gallery = ({ id, title, startIndex }: { id: number; title?: string;
 
   const { data, isLoading } = useQuery({
     queryKey: ['gallery', id, perPage],
-    queryFn: () => fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details&order=asc`).then((res) => res.json()),
+    queryFn: () =>
+      fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details`).then((res) => res.json()),
   });
 
   const formattedImages = data?.map((item: MediaDetail) => ({
@@ -19,7 +21,9 @@ export const Gallery = ({ id, title, startIndex }: { id: number; title?: string;
     thumbnail: item.media_details.sizes.thumbnail.source_url,
   }));
 
-  if (!id || isLoading) return <></>;
+  if (isLoading) return <LoadingSpinner />;
+
+  if (!id) return <></>;
 
   return (
     <DialogContent

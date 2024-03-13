@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { ErrorPage } from '@/pages/ErrorPage';
 import { Separator } from '@/components/ui/separator';
 import { Footer } from '@/components/Footer';
-import { SkeletonOffers } from '@/components/Skeletons';
+import { LoadingSpinner, SkeletonOffers } from '@/components/Skeletons';
 import { Post } from '@/lib/types';
 
 const OfferLoader = () => {
@@ -59,17 +58,18 @@ const OfferImage = ({ id }: { id: number }) => {
 
   const { data, isLoading } = useQuery({
     queryKey: ['offerImage', id, perPage],
-    queryFn: () =>
-      fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details&order=asc`).then((res) => res.json()),
+    queryFn: () => fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details`).then((res) => res.json()),
   });
 
-  if (!data || data.length === 0 || isLoading) {
+  if (isLoading) return <LoadingSpinner />;
+
+  if (!data || data.length === 0) {
     return <></>;
   }
 
   return (
     <img
-      src={data[0]?.media_details.sizes.full.source_url}
+      src={data[0]?.media_details.sizes.medium_large ? data[0]?.media_details.sizes.medium_large.source_url : data[0]?.media_details.sizes.full.source_url}
       className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover object-center brightness-75 transition-all group-hover:brightness-100"
       alt="Offer house"
     />
@@ -79,25 +79,23 @@ const OfferImage = ({ id }: { id: number }) => {
 export const Offer = () => {
   const categoryId = 3;
   const perPage = 100;
-  const [heading, setHeading] = useState<string>('');
 
   const { data, error, isLoading } = useQuery<Post[]>({
     queryKey: ['offer', categoryId, perPage],
     queryFn: () =>
-      fetch(`https://jmajchrzak.tech/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${perPage}&_fields=id,title,content`).then((res) => res.json().then((data) => {
-        // const parser = new DOMParser();
-        // const htmlDoc = parser.parseFromString(data.content.rendered, 'text/html');
-        // const headingElement = htmlDoc.querySelector('h2');
-
-        // if (headingElement && headingElement.textContent) {
-        //   setHeading(headingElement.textContent);
-        // }
-        return data;
-      }),),
+      fetch(`https://jmajchrzak.tech/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${perPage}&_fields=id,title,content`).then((res) => res.json()),
   });
   const navigate = useNavigate();
 
-  console.log(data);
+  const getHeading = (text: string) => {
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(text, 'text/html');
+    const headingElement = htmlDoc.querySelector('h2');
+
+    if (headingElement && headingElement.textContent) {
+      return headingElement.textContent;
+    }
+  };
 
   if (error) return <ErrorPage />;
 
@@ -108,7 +106,7 @@ export const Offer = () => {
       <div className="flex flex-col items-center gap-2 py-3 md:gap-7 lg:py-6">
         <OfferTxt />
         <div className="grid grid-cols-1 place-content-center gap-5 px-8 py-8 md:grid-cols-2 lg:grid-cols-3 lg:px-14">
-          {data?.map(({ id, title }) => (
+          {data?.map(({ id, title, content }) => (
             <article
               key={id}
               className={`shadow-blue-gray-900/50 group relative flex min-h-60 max-w-[450px] cursor-pointer select-none flex-col items-center justify-end gap-2 shadow-xl`}
@@ -119,7 +117,7 @@ export const Offer = () => {
                 {title.rendered}
               </p>
               <p className="text-md absolute right-0 top-0 bg-gray-500 px-1 text-center font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-                {heading}
+                {getHeading(content.rendered)}
               </p>
             </article>
           ))}

@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { ErrorPage } from '@/pages/ErrorPage';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { SkeletonRealizations } from '@/components/Skeletons';
+import { LoadingSpinner, SkeletonRealizations } from '@/components/Skeletons';
 import { Footer } from '@/components/Footer';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Gallery } from '@/components/Gallery';
@@ -46,13 +46,15 @@ const RealizationImage = ({ id }: { id: number }) => {
       fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details&order=asc`).then((res) => res.json()),
   });
 
-  if (!data || data.length === 0 || isLoading) {
+  if (isLoading) return <LoadingSpinner />;
+
+  if (!data || data.length === 0) {
     return <></>;
   }
 
   return (
     <img
-      src={data[0]?.media_details.sizes.full.source_url}
+      src={data[0]?.media_details.sizes.medium_large ? data[0]?.media_details.sizes.medium_large.source_url : data[0]?.media_details.sizes.full.source_url}
       className="h-full max-h-[270px] w-full object-cover transition duration-500 group-hover:scale-110"
       alt="Realization house"
     />

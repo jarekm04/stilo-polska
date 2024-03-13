@@ -66,13 +66,14 @@ export const Technology = () => {
           </div>
           <Separator className="h-[1px] bg-custom-tertiary" />
           <p className="text-sm font-light">
-            Domy wykonujemy z bali "grubych" - pełnych, toczonych (cylindrowanych). Średnice bali stosowane w domach całorocznych to: 20, 22, 24 lub 26 cm. Bale
-            pozyskiwane są z drzew sosnowych, świerkowych, jodłowych, oraz na specjalne życzenie z cedru syberyjskiego. Drewno sprowadzane jest przez naszą
-            firmę partnerską, z Syberii.
+            Domy wykonujemy z bali suszonych, klejonych. Najczęściej stosowane grubości to 20 i 24 cm łączone na poczwórny pióro wpust. Węgły uszczelniane są
+            dodatkowymi elastycznymi materiałami. W balach przygotowywane są otwry pod instalację elektryczną. Materiał do budowy to wyselekcjonowany świerk
+            alpejski, starannie dobierany, ścinany tylko zimą.
           </p>
           <p className="text-sm font-light">
-            Na podłożu przygotowanym przez Klienta wykonujemy montaż budynku zgodnie z projektem. Stabilność konstrukcji uzyskujemy poprzez zastosowanie
-            specjalnych szpilek metalowych, z automatycznym systemem docisku. Podczas układania bali łączenia uszczelnia się wełną owczą z podwójną uszczelką.
+            Na fundamencie przygotowanym przez Klienta, zgodnie z projektem wykonujemy montaż budynku. Stabilność konstrukcji uzyskujemy poprzez zastosowanie
+            specjalnych szpilek metalowych, z automatycznym systemem docisku, które przechodzą od pierwszego do ostatniego bala. Takie rozwiązanie zapewnia
+            sztywność i stabilność konstrukcji.
           </p>
         </div>
         <div
@@ -85,13 +86,13 @@ export const Technology = () => {
           <Separator className="h-[1px] bg-custom-tertiary" />
           <p className="text-sm font-light">
             W domu z bali nie instaluje się systemów wentylacyjnych (wyjątek stanowi kuchnia i łazienka - tam gdzie powstają duże nagromadzenia pary wodnej). W
-            przeciwieństwie do innych materiałów budowlanych - w ścianie zbudowanej z litego drewna możliwa jest wymiana powietrza w obu kierunkach. Miliardy
-            tzw. mikroporów umożliwiają nieustanne przenikanie powietrza, przy utrzymaniu izolacji cieplnej. W domu z bali nigdy nie wystąpi zjawisko
-            zawilgotnienia ścian.
+            przeciwieństwie do innych materiałów budowlanych - w ścianie zbudowanej tylko z drewna możliwa jest wymiana powietrza w obu kierunkach. Miliardy
+            tzw. mikroporów umożliwiają nieustanne przenikanie powietrza, przy utrzymaniu izolacji cieplnej.
           </p>
           <p className="text-sm font-light">
-            Tylko w domu drewnianym występuje zjawisko „termosowe”: zimą ciepło w domu, latem chłód. Dom z bali pełnych w pełnej zgodzie z naturą, z miejscowym
-            mikroklimatem, sam reguluje poziom wilgotności wewnętrznej, co gwarantuje mieszkańcom najbardziej przyjazny klimat.
+            Tylko w domu drewnianym występuje zjawisko tzw. termosowe tj. zimą ciepło, latem chłodno. Dom z bali funkcjonuje w pełnej zgodzie z naturą, z
+            miejscowym mikroklimatem, sam reguluje poziom wilgotności wewnętrznej, co gwarantuje mieszkańcom najbardziej przyjazny klimat. Koszty eksploatacji
+            naszych domów są niższe niż domów budowanych w innej technologii o tej samej kubaturze.
           </p>
         </div>
       </div>

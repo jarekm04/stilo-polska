@@ -6,7 +6,7 @@ import { ErrorPage } from '@/pages/ErrorPage';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Gallery } from '@/components/Gallery';
-import { SkeletonDetails } from '@/components/Skeletons';
+import { LoadingSpinner, SkeletonDetails } from '@/components/Skeletons';
 import { Footer } from '@/components/Footer';
 import { MediaDetails } from '@/lib/types';
 
@@ -35,7 +35,7 @@ const DetailsImages = ({
   if (error) return <ErrorPage />;
 
   if (isLoading) {
-    return <SkeletonDetails />;
+    return <LoadingSpinner />;
   }
 
   return (
@@ -44,7 +44,7 @@ const DetailsImages = ({
         <DialogTrigger asChild key={index}>
           <div className="h-full max-h-[270px] w-full">
             <img
-              src={item.media_details.sizes.full.source_url}
+              src={item.media_details.sizes.medium_large ? item.media_details.sizes.medium_large.source_url : item.media_details.sizes.full.source_url}
               className="h-full w-full cursor-pointer object-cover shadow-xl transition duration-500 group-hover:scale-110"
               alt={`Realization house: ${index}`}
               onClick={() => setStartIndex(index)}
