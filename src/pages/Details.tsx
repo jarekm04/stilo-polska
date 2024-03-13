@@ -6,7 +6,7 @@ import { ErrorPage } from '@/pages/ErrorPage';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Gallery } from '@/components/Gallery';
-import { LoadingSpinner, SkeletonDetails } from '@/components/Skeletons';
+import { SkeletonDetails } from '@/components/Skeletons';
 import { Footer } from '@/components/Footer';
 import { MediaDetails } from '@/lib/types';
 
@@ -37,7 +37,7 @@ const DetailsImages = ({
   if (error) return <ErrorPage />;
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return <></>;
   }
 
   return (
