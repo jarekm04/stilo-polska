@@ -76,7 +76,11 @@ const Visualisations = () => {
         </p>
         <div className="flex w-full flex-wrap justify-center gap-x-2 px-3 text-sm font-light md:px-4 md:text-base lg:w-[70%]">
           <p className="text-sm font-light md:text-base">Po więcej zapraszamy na</p>
-          <Link className="flex gap-2 transition-all hover:text-custom-tertiary" to="https://www.youtube.com/channel/UCy3px_4qWAVVZhfCnmsyEmA" target="_blank">
+          <Link
+            className="flex gap-2 transition-all hover:text-custom-tertiary"
+            to="https://www.youtube.com/@cdomprojektypiotrstoklosa8873/videos"
+            target="_blank"
+          >
             <Youtube /> Youtube Cdom Piotr Stokłosa.
           </Link>
         </div>
