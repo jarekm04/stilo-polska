@@ -12,8 +12,7 @@ export const Gallery = ({ id, title, startIndex }: { id: number; title?: string;
 
   const { data, isLoading } = useQuery({
     queryKey: ['gallery', id, perPage],
-    queryFn: () =>
-      fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details`).then((res) => res.json()),
+    queryFn: () => fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details`).then((res) => res.json()),
   });
 
   const formattedImages = data?.map((item: MediaDetail) => ({
@@ -28,7 +27,7 @@ export const Gallery = ({ id, title, startIndex }: { id: number; title?: string;
   return (
     <DialogContent
       onOpenAutoFocus={(e) => e.preventDefault()}
-      className="h-[60vh] w-[100vw] max-w-none grid-rows-[25px_1fr] md:h-[75vh] lg:h-[90vh] lg:w-[80vw]"
+      className="h-[60vh] w-[100vw] max-w-none grid-rows-[25px_1fr] gap-0 md:h-[75vh] lg:h-[90vh] lg:w-[80vw]"
     >
       <DialogHeader className="gap-6">
         <DialogTitle className="mr-4 text-sm uppercase sm:text-lg">{title}</DialogTitle>

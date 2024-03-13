@@ -44,7 +44,7 @@ const Projects = () => {
             light={<ThumbShort />}
           />
         </div>
-        <div className="xs:max-h-[350px] max-h-[220px] max-w-[800px] p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)] sm:max-h-[500px]">
+        <div className="xs:max-h-[350px] max-h-[220px] max-w-[800px] p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)] sm:max-h-[500px] lg:max-h-[400px] xl:max-h-[500px]">
           <ReactPlayer url={residence} width="100%" height="100%" playing={true} controls={true} light={<ThumbResidence />} />
         </div>
       </div>
@@ -67,14 +67,14 @@ const Visualisations = () => {
     <div className="flex flex-col items-center gap-4">
       <div className="flex flex-col items-center justify-center gap-3">
         <Separator className="h-[2px] w-14 bg-custom-tertiary" />
-        <p className="mt-5 w-full px-3 text-sm font-light text-center lg:w-[70%] md:px-4 md:text-base">
+        <p className="mt-5 w-full px-3 text-center text-sm font-light md:px-4 md:text-base lg:w-[70%]">
           Dzięki współpracy z renomowanym biurem architektonicznym -{' '}
           <Link to="https://tinyurl.com/yc3htpw3" target="_blank" className="text-custom-tertiary underline">
             Cdom
           </Link>
           , oferujemy najwyższej jakości projekty. Konstrukcje z bala to nie tylko tradycyjne chaty, ale i nowoczesne domy.
         </p>
-        <div className="flex w-full flex-wrap justify-center gap-x-2 px-3 text-sm font-light lg:w-[70%] md:px-4 md:text-base">
+        <div className="flex w-full flex-wrap justify-center gap-x-2 px-3 text-sm font-light md:px-4 md:text-base lg:w-[70%]">
           <p className="text-sm font-light md:text-base">Po więcej zapraszamy na</p>
           <Link className="flex gap-2 transition-all hover:text-custom-tertiary" to="https://www.youtube.com/channel/UCy3px_4qWAVVZhfCnmsyEmA" target="_blank">
             <Youtube /> Youtube Cdom Piotr Stokłosa.
