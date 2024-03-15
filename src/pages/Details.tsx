@@ -24,7 +24,7 @@ const DetailsImages = ({
   const { data, error, isLoading } = useQuery<MediaDetails>({
     queryKey: ['detailsImages', postId, perPage],
     queryFn: () =>
-      fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${postId}&per_page=${perPage}&_fields=media_details&orderby=title&order=asc
+      fetch(`https://stilopolska.pl/wp-json/wp/v2/media?parent=${postId}&per_page=${perPage}&_fields=media_details&orderby=title&order=asc
     `).then((res) => res.json()),
   });
 
@@ -69,7 +69,7 @@ export const Details = () => {
   const { data, error, isLoading } = useQuery({
     queryKey: ['details', postId],
     queryFn: () =>
-      fetch(`https://jmajchrzak.tech/wp-json/wp/v2/posts/${postId}?_fields=id,content,title`).then((res) =>
+      fetch(`https://stilopolska.pl/wp-json/wp/v2/posts/${postId}?_fields=id,content,title`).then((res) =>
         res.json().then((data) => {
           const parser = new DOMParser();
           const htmlDoc = parser.parseFromString(data.content.rendered, 'text/html');

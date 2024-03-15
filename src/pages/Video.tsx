@@ -36,7 +36,7 @@ const Projects = () => {
       <div className="grid grid-cols-1 grid-rows-2 gap-3 lg:grid-cols-2 lg:grid-rows-1">
         <div className="max-h-[500px] max-w-[800px] p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
           <ReactPlayer
-            url="https://jmajchrzak.tech/wp-content/uploads/2024/03/short-1.mp4"
+            url="https://stilopolska.pl/wp-content/uploads/2024/03/short.mp4"
             width="100%"
             height="100%"
             playing={true}
@@ -50,7 +50,7 @@ const Projects = () => {
       </div>
       <div className="max-h-[500px] max-w-[800px] p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
         <ReactPlayer
-          url="https://jmajchrzak.tech/wp-content/uploads/2024/03/long.mp4"
+          url="https://stilopolska.pl/wp-content/uploads/2024/03/long.mp4"
           width="100%"
           height="100%"
           playing={true}
@@ -88,7 +88,7 @@ const Visualisations = () => {
       <div className="grid grid-cols-1 grid-rows-2 gap-3 lg:grid-cols-2 lg:grid-rows-1">
         <div className="flex max-h-[400px] max-w-[700px] items-center p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
           <ReactPlayer
-            url="https://jmajchrzak.tech/wp-content/uploads/2024/03/visualisation-1.mp4"
+            url="https://stilopolska.pl/wp-content/uploads/2024/03/visualisation.mp4"
             height="100%"
             width="100%"
             playing={true}

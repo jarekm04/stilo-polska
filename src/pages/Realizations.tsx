@@ -43,7 +43,7 @@ const RealizationImage = ({ id }: { id: number }) => {
   const { data, isLoading } = useQuery({
     queryKey: ['realizationImage', id, perPage],
     queryFn: () =>
-      fetch(`https://jmajchrzak.tech/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details&orderby=title&order=asc
+      fetch(`https://stilopolska.pl/wp-json/wp/v2/media?parent=${id}&per_page=${perPage}&_fields=media_details&orderby=title&order=asc
       `).then((res) => res.json()),
   });
 
@@ -68,7 +68,7 @@ export const Realizations = () => {
 
   const { data, error, isLoading } = useQuery<Post[]>({
     queryKey: ['realizations', categoryId, perPage],
-    queryFn: () => fetch(`https://jmajchrzak.tech/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${perPage}&_fields=id,title`).then((res) => res.json()),
+    queryFn: () => fetch(`https://stilopolska.pl/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${perPage}&_fields=id,title`).then((res) => res.json()),
   });
   const [selectedId, setSelectedId] = useState<number>();
   const [selectedTitle, setSelectedTitle] = useState<string>();
