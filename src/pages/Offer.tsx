@@ -28,7 +28,7 @@ const OfferTxt = () => {
       <h1 className="mt-2 text-center text-xl font-light md:text-2xl">Oferta</h1>
       <Separator className="h-[2px] w-14 bg-custom-tertiary" />
       <p className="mt-5 w-full px-3 text-sm font-light sm:text-base md:w-[90%] md:px-4">
-        Budujemy generalnie z drewna świerkowego, które charakteryzuje się stosunkowo małą ilością słoi oraz naturalnych pęknięć. Drewno jest suszone w
+        Budujemy przede wszystkim z drewna świerkowego, które charakteryzuje się stosunkowo małą ilością słoi oraz naturalnych pęknięć. Drewno jest suszone w
         specjalnych komorach, a następnie klejone do pożądanego wymiaru. Po procesie technologicznym uzyskuje wilgotność na poziomie 15-16 %. Bale wykonywane są
         w technologii prostokątnej, obrabiane na maszynach CNC. Najczęściej stosowane grubości bali to 20 i 24 cm i wysokości 26 cm. Aby jednak sprostać
         oczekiwaniom niektórych klientów jesteśmy w stanie sprowadzić drewno o większych wymiarach. Dzięki zastosowanej technologii osiadanie bali jest znikome
