@@ -7,10 +7,10 @@ import offer3 from '@/assets/offer3.jpg';
 import offer4 from '@/assets/offer4.jpg';
 
 const items = [
-  { p1: 'Nowoczesny dom z bala nad Soliną', p2: '142', delay: 'delay-0', src: offer1, id: 1181 },
-  { p1: 'Nowoczesny dom z bala o pow. użytkowej 160,80 m2', p2: '140', delay: 'delay-100', src: offer2, id: 1146 },
-  { p1: 'Nowoczesny dom z bala o pow. 148m2', p2: '108', delay: 'delay-200', src: offer3, id: 1307 },
-  { p1: 'Nowoczesny dom z bala o pow. użytkowej 110,00m2', p2: '103', delay: 'delay-200', src: offer4, id: 720 },
+  { p1: 'Nowoczesny dom z bala nad Soliną', p2: '142', delay: 'delay-0', src: offer1, id: 993 },
+  { p1: 'Nowoczesny dom z bala o pow. użytkowej 160,80 m2', p2: '140', delay: 'delay-100', src: offer2, id: 927 },
+  { p1: 'Nowoczesny dom z bala o pow. 148m2', p2: '108', delay: 'delay-200', src: offer3, id: 538 },
+  { p1: 'Nowoczesny dom z bala o pow. użytkowej 110,00m2', p2: '103', delay: 'delay-200', src: offer4, id: 331 },
 ];
 
 export const Offer = () => {
