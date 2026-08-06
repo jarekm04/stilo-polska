@@ -28,12 +28,13 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 30 20% 90%;
+    --input: 30 20% 90%;
+    --ring: 27 84% 51%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
+    /* legacy palette – zachowana dla kompatybilności */
     --custom-primary: #ffffdd;
     --custom-secondary: #393286;
     --custom-tertiary: #ec8117;
@@ -44,17 +45,152 @@
     --custom-eigth: #c4b2ba;
     --custom-ninth: #f3cca0;
     --custom-tenth: #c4c2db;
-  }
-}
 
-@layer base {
+    /* nowa paleta – ciepłe drewno + bursztyn.
+       Kanały RGB (bez rgb()), aby Tailwind mógł doklejać przezroczystość: text-ink/60 itd. */
+    --ink: 27 24 21;
+    --ink-soft: 44 38 33;
+    --sand: 246 241 234;
+    --cream: 253 251 248;
+    --brand: 236 129 23;
+    --brand-dark: 201 103 12;
+    --brand-light: 246 164 78;
+    --brand-soft: 253 242 228;
+  }
+
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     @apply border-border;
   }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
   body {
-    @apply bg-background font-montserrat text-foreground;
+    @apply bg-cream font-montserrat text-ink antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: rgb(var(--brand));
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgb(var(--sand));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #d8cec1;
+    border-radius: 999px;
+    border: 2px solid rgb(var(--sand));
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--brand-light));
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* wspólny rytm sekcji */
+  .section-pad {
+    @apply px-5 py-16 sm:px-8 md:py-20 lg:px-12 lg:py-24;
+  }
+
+  .shell {
+    @apply mx-auto w-full max-w-[1320px];
+  }
+
+  /* nadkreślenie sekcji */
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 text-[11px] font-semibold uppercase tracking-[0.28em] text-brand;
+  }
+
+  .eyebrow::before {
+    content: '';
+    @apply block h-px w-8 bg-brand/60;
+  }
+
+  .link-underline {
+    @apply relative;
+  }
+  .link-underline::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 h-[2px] w-0 bg-brand transition-[width] duration-500 ease-out;
+  }
+  .link-underline:hover::after,
+  .link-underline[data-active='true']::after {
+    @apply w-full;
+  }
+
+  .glass {
+    background: rgba(253, 251, 248, 0.82);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+
+  /* siatka linii w tle sekcji */
+  .hairlines {
+    background-image: linear-gradient(to right, rgba(27, 24, 21, 0.05) 1px, transparent 1px);
+    background-size: 25% 100%;
+  }
+}
+
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .text-shadow-soft {
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+  }
+
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, #000 65%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 65%, transparent 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

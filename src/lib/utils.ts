@@ -57,11 +57,11 @@ export const navigation = [
     title: 'O nas',
   },
   {
-    path: '/offer',
+    path: '/oferta',
     title: 'Oferta',
   },
   {
-    path: '/realizations',
+    path: '/realizacje',
     title: 'Nasze realizacje',
   },
   {
@@ -69,7 +69,7 @@ export const navigation = [
     title: 'Video',
   },
   {
-    path: '/contact',
+    path: '/kontakt',
     title: 'Kontakt',
   },
 ];

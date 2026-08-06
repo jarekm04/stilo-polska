@@ -3,141 +3,136 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Youtube } from 'lucide-react';
 import { ThumbHouse, ThumbHouse2, ThumbInside, ThumbLong, ThumbResidence, ThumbShort, ThumbVisualisation } from '@/lib/thumbnails';
-import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
 import { Footer } from '@/components/Footer';
+import { CtaBand } from '@/components/CtaBand';
+import { PageHero } from '@/components/PageHero';
+import { Reveal } from '@/components/Reveal';
+import { cn } from '@/lib/utils';
 import residence from '@/assets/residence.mp4';
 import house from '@/assets/house.mp4';
 import house2 from '@/assets/house2.mp4';
 import inside from '@/assets/inside.mp4';
 
-const Projects = () => {
-  return (
-    <div className="flex flex-col items-center gap-4">
-      <div className="flex flex-col items-center justify-center gap-3">
-        <Separator className="h-[2px] w-14 bg-custom-tertiary" />
-        <p className="mt-5 w-full px-3 text-center text-sm font-light md:px-4 md:text-base">Kilka przykładowych realizacji, które cieszą oko.</p>
-        <div className="flex w-full flex-wrap items-center justify-center gap-x-2 px-3 text-sm font-light md:px-4 md:text-base">
-          <p className="text-sm font-light md:text-base">Po więcej zapraszamy na</p>
-          <Link
-            className="flex gap-2 transition-all hover:text-custom-tertiary"
-            to="https://www.facebook.com/people/Domy-z-bali-Stilo-Polska/100057174441927/?ref=br_rs"
-            target="_blank"
-          >
-            <Facebook /> Facebook
-          </Link>
-          <p className="text-sm font-light md:text-base">oraz na</p>
-          <Link className="flex gap-2 transition-all hover:text-custom-tertiary" to="https://www.youtube.com/channel/UCy3px_4qWAVVZhfCnmsyEmA" target="_blank">
-            <Youtube /> Youtube
-          </Link>
-          <p className="text-sm font-light md:text-base">.</p>
-        </div>
-      </div>
-      <div className="grid grid-cols-1 grid-rows-2 gap-3 lg:grid-cols-2 lg:grid-rows-1">
-        <div className="max-h-[500px] max-w-[800px] p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
-          <ReactPlayer
-            url="https://stilopolska.pl/wp-content/uploads/2024/03/short.mp4"
-            width="100%"
-            height="100%"
-            playing={true}
-            controls={true}
-            light={<ThumbShort />}
-          />
-        </div>
-        <div className="xs:max-h-[350px] max-h-[220px] max-w-[800px] p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)] sm:max-h-[500px] lg:max-h-[400px] xl:max-h-[500px]">
-          <ReactPlayer url={residence} width="100%" height="100%" playing={true} controls={true} light={<ThumbResidence />} />
-        </div>
-      </div>
-      <div className="max-h-[500px] max-w-[800px] p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
-        <ReactPlayer
-          url="https://stilopolska.pl/wp-content/uploads/2024/03/long.mp4"
-          width="100%"
-          height="100%"
-          playing={true}
-          controls={true}
-          light={<ThumbLong />}
-        />
-      </div>
-    </div>
-  );
-};
+/* Link zostaje elementem inline (bez inline-flex), dzięki czemu jego tekst leży
+   na tej samej linii bazowej co reszta akapitu; ikonę dosuwamy do tekstu przez align. */
+const socialLinkClasses = 'font-medium text-brand transition-colors hover:text-brand-dark';
+/* krótkie etykiety trzymamy w jednej linii razem z ikoną */
+const socialLinkNowrapClasses = cn(socialLinkClasses, 'whitespace-nowrap');
+const socialIconClasses = 'mr-1.5 inline-block h-4 w-4 align-[-0.2em]';
 
-const Visualisations = () => {
-  return (
-    <div className="flex flex-col items-center gap-4">
-      <div className="flex flex-col items-center justify-center gap-3">
-        <Separator className="h-[2px] w-14 bg-custom-tertiary" />
-        <p className="mt-5 w-full px-3 text-center text-sm font-light md:px-4 md:text-base lg:w-[70%]">
-          Dzięki współpracy z renomowanym biurem architektonicznym -{' '}
-          <Link to="https://tinyurl.com/yc3htpw3" target="_blank" className="text-custom-tertiary underline">
-            Cdom
-          </Link>
-          , oferujemy najwyższej jakości projekty. Konstrukcje z bala to nie tylko tradycyjne chaty, ale i nowoczesne domy.
-        </p>
-        <div className="flex w-full flex-wrap justify-center gap-x-2 px-3 text-sm font-light md:px-4 md:text-base lg:w-[70%]">
-          <p className="text-sm font-light md:text-base">Po więcej zapraszamy na</p>
-          <Link
-            className="flex gap-2 transition-all hover:text-custom-tertiary"
-            to="https://www.youtube.com/@cdomprojektypiotrstoklosa8873/videos"
-            target="_blank"
-          >
-            <Youtube /> Youtube Cdom Piotr Stokłosa.
-          </Link>
-        </div>
-      </div>
-      <div className="grid grid-cols-1 grid-rows-2 gap-3 lg:grid-cols-2 lg:grid-rows-1">
-        <div className="flex max-h-[400px] max-w-[700px] items-center p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
-          <ReactPlayer
-            url="https://stilopolska.pl/wp-content/uploads/2024/03/visualisation.mp4"
-            height="100%"
-            width="100%"
-            playing={true}
-            controls={true}
-            light={<ThumbVisualisation />}
-          />
-        </div>
-        <div className="max-h-[400px] max-w-[700px] p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
-          <ReactPlayer url={house} width="100%" height="100%" playing={true} controls={true} light={<ThumbHouse />} />
-        </div>
-      </div>
-      <div className="grid grid-cols-1 grid-rows-2 gap-3 lg:grid-cols-2 lg:grid-rows-1">
-        <div className="flex max-h-[400px] max-w-[700px] items-center p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
-          <ReactPlayer url={house2} height="100%" width="100%" playing={true} controls={true} light={<ThumbHouse2 />} />
-        </div>
-        <div className="max-h-[400px] max-w-[700px] p-3 transition-all duration-300 ease-in-out hover:cursor-pointer hover:drop-shadow-[2px_4px_6px_rgba(0,0,0,1)]">
-          <ReactPlayer url={inside} width="100%" height="100%" playing={true} controls={true} light={<ThumbInside />} />
-        </div>
-      </div>
+/** Kadr 16:9 z zaokrągleniem – ujednolica wszystkie odtwarzacze. */
+const Frame = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
+  <Reveal delay={delay}>
+    <div className="aspect-video w-full overflow-hidden rounded-2xl bg-ink shadow-soft transition-shadow duration-500 ease-smooth hover:shadow-lift">
+      {children}
     </div>
-  );
-};
+  </Reveal>
+);
+
+const playerProps = { width: '100%', height: '100%', playing: true, controls: true } as const;
+
+const Projects = () => (
+  <div className="flex flex-col gap-10">
+    <Reveal className="mx-auto max-w-2xl text-center">
+      <p className="text-sm font-light leading-relaxed text-ink/65 sm:text-base">
+        Kilka przykładowych realizacji, które cieszą oko. Po więcej zapraszamy na{' '}
+        <Link className={socialLinkNowrapClasses} to="https://www.facebook.com/people/Domy-z-bali-Stilo-Polska/100057174441927/?ref=br_rs" target="_blank">
+          <Facebook className={socialIconClasses} />
+          Facebook
+        </Link>{' '}
+        oraz{' '}
+        <Link className={socialLinkNowrapClasses} to="https://www.youtube.com/channel/UCy3px_4qWAVVZhfCnmsyEmA" target="_blank">
+          <Youtube className={socialIconClasses} />
+          YouTube
+        </Link>
+        .
+      </p>
+    </Reveal>
+
+    <div className="grid gap-6 lg:grid-cols-2">
+      <Frame>
+        <ReactPlayer url="https://stilopolska.pl/wp-content/uploads/2024/03/short.mp4" {...playerProps} light={<ThumbShort />} />
+      </Frame>
+      <Frame delay={100}>
+        <ReactPlayer url={residence} {...playerProps} light={<ThumbResidence />} />
+      </Frame>
+    </div>
+
+    <div className="mx-auto w-full lg:max-w-4xl">
+      <Frame delay={60}>
+        <ReactPlayer url="https://stilopolska.pl/wp-content/uploads/2024/03/long.mp4" {...playerProps} light={<ThumbLong />} />
+      </Frame>
+    </div>
+  </div>
+);
+
+const Visualisations = () => (
+  <div className="flex flex-col gap-10">
+    <Reveal className="mx-auto max-w-2xl text-center">
+      <p className="text-sm font-light leading-relaxed text-ink/65 sm:text-base">
+        Dzięki współpracy z renomowanym biurem architektonicznym –{' '}
+        <Link to="https://tinyurl.com/yc3htpw3" target="_blank" className="font-medium text-brand underline decoration-brand/30 underline-offset-4">
+          Cdom
+        </Link>{' '}
+        – oferujemy najwyższej jakości projekty. Konstrukcje z bala to nie tylko tradycyjne chaty, ale i nowoczesne domy. Po więcej zapraszamy na{' '}
+        <Link className={socialLinkClasses} to="https://www.youtube.com/@cdomprojektypiotrstoklosa8873/videos" target="_blank">
+          <Youtube className={socialIconClasses} />
+          YouTube Cdom Piotr Stokłosa
+        </Link>
+        .
+      </p>
+    </Reveal>
+
+    <div className="grid gap-6 lg:grid-cols-2">
+      <Frame>
+        <ReactPlayer url="https://stilopolska.pl/wp-content/uploads/2024/03/visualisation.mp4" {...playerProps} light={<ThumbVisualisation />} />
+      </Frame>
+      <Frame delay={100}>
+        <ReactPlayer url={house} {...playerProps} light={<ThumbHouse />} />
+      </Frame>
+      <Frame delay={60}>
+        <ReactPlayer url={house2} {...playerProps} light={<ThumbHouse2 />} />
+      </Frame>
+      <Frame delay={140}>
+        <ReactPlayer url={inside} {...playerProps} light={<ThumbInside />} />
+      </Frame>
+    </div>
+  </div>
+);
+
+const tabs = [
+  { id: 'projects', label: 'Realizacje' },
+  { id: 'visualisations', label: 'Wizualizacje' },
+] as const;
 
 export const Video = () => {
-  const [showSecondContent, setShowSecondContent] = useState(false);
+  const [activeTab, setActiveTab] = useState<(typeof tabs)[number]['id']>('projects');
 
   return (
-    <section className="mt-20 flex flex-col">
-      <article className="flex flex-col gap-6 bg-gradient-to-b from-white to-orange-50 pt-4">
-        <div className="flex flex-col items-center gap-4 py-4">
-          <div className="flex justify-center gap-6">
-            <Button
-              className="bg-custom-tertiary text-sm text-white transition-all hover:border-custom-tertiary hover:bg-orange-50 hover:text-custom-tertiary sm:text-base"
-              onClick={() => setShowSecondContent(false)}
-              disabled={!showSecondContent}
+    <section className="flex min-h-screen flex-col bg-cream">
+      <PageHero eyebrow="Galeria wideo" title="Zobacz nasze domy w ruchu">
+        {/* przełącznik z przesuwającym się wskaźnikiem */}
+        <div className="mt-2 inline-flex rounded-full border border-ink/10 bg-white p-1 shadow-soft">
+          {tabs.map(({ id, label }) => (
+            <button
+              key={id}
+              type="button"
+              onClick={() => setActiveTab(id)}
+              aria-pressed={activeTab === id}
+              className={cn(
+                'rounded-full px-7 py-2.5 text-sm font-semibold transition-all duration-300 ease-smooth',
+                activeTab === id ? 'bg-brand text-white shadow-brand' : 'text-ink/55 hover:text-brand',
+              )}
             >
-              Realizacje
-            </Button>
-            <Button
-              className="bg-custom-tertiary text-sm text-white transition-all hover:border-custom-tertiary hover:bg-orange-50 hover:text-custom-tertiary sm:text-base"
-              onClick={() => setShowSecondContent(true)}
-              disabled={showSecondContent}
-            >
-              Wizualizacje
-            </Button>
-          </div>
+              {label}
+            </button>
+          ))}
         </div>
-        <div className="flex justify-center p-4 md:gap-16 md:px-14 md:pb-8">{showSecondContent ? <Visualisations /> : <Projects />}</div>
-      </article>
+      </PageHero>
+
+      <div className="shell px-5 py-14 sm:px-8 lg:px-12 lg:py-16">{activeTab === 'projects' ? <Projects /> : <Visualisations />}</div>
+
+      <CtaBand />
       <Footer />
     </section>
   );

@@ -38,13 +38,15 @@ export const ArrowTop = () => {
 
   return (
     shouldRender && (
-      <div
-        className={`fixed bottom-6 right-6 z-50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border bg-custom-secondary transition-all hover:scale-110 ${isVisible ? 'animate-fadeIn opacity-100' : 'animate-fadeOut opacity-0'}`}
+      <button
+        type="button"
+        aria-label="Wróć na górę strony"
+        className={`fixed bottom-6 right-6 z-50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-ink text-cream shadow-lift transition-all duration-300 ease-smooth hover:-translate-y-1 hover:bg-brand ${isVisible ? 'animate-fadeIn opacity-100' : 'animate-fadeOut opacity-0'}`}
         onClick={scrollToTop}
         onAnimationEnd={onAnimationEnd}
       >
-        <ArrowUp className="h-2/3 w-2/3 text-white" />
-      </div>
+        <ArrowUp className="h-5 w-5" strokeWidth={1.8} />
+      </button>
     )
   );
 };

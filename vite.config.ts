@@ -10,5 +10,6 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  base: '/wp-content/themes/react/',
+  // base: '/wp-content/themes/react/',
+  // resposywnosc iphone 12 pro
 });

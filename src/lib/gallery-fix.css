@@ -22,6 +22,8 @@
 
 .image-gallery-slides {
   height: 100% !important;
+  border-radius: 0.75rem;
+  overflow: hidden;
 }
 
 .image-gallery-slide {
@@ -35,4 +37,40 @@
 
 .image-gallery-thumbnail-image {
   max-height: 60px !important;
+}
+
+/* --- odświeżenie kontrolek galerii --- */
+.image-gallery-thumbnail {
+  border-width: 2px !important;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.image-gallery-thumbnail.active,
+.image-gallery-thumbnail:hover,
+.image-gallery-thumbnail:focus {
+  border-color: rgb(var(--brand)) !important;
+}
+
+/* Uwaga: strzałki nawigacji są centrowane przez `transform: translateY(-50%)`.
+   Nie wolno nadpisywać tu `transform`, bo przycisk zjeżdża w dół – powiększenie
+   robi sama biblioteka na wewnętrznym SVG. */
+.image-gallery-icon {
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+  transition: color 0.3s ease;
+}
+
+.image-gallery-icon:hover {
+  color: rgb(var(--brand)) !important;
+}
+
+.image-gallery-index {
+  background: rgba(27, 24, 21, 0.72) !important;
+  border-radius: 999px !important;
+  padding: 4px 12px !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.05em;
+  top: 12px !important;
+  right: 12px !important;
 }

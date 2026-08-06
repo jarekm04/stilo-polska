@@ -1,35 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Youtube, Facebook, Menu, X } from 'lucide-react';
-import { NavigationMenu, NavigationMenuItem, NavigationMenuList, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
+import { Youtube, Facebook, Menu, X, Phone } from 'lucide-react';
+import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { Button } from '@/components/ui/button';
-import { navigation } from '@/lib/utils';
+import { navigation, cn } from '@/lib/utils';
 import logoImage from '@/assets/logo-removedbg.png';
-import logoImageBg from '@/assets/logo-edit.png';
 
-const linkClasses = (isScrolled: boolean, isHome: boolean) =>
-  `${navigationMenuTriggerStyle()} ${
-    isHome
-      ? isScrolled
-        ? 'text-custom-secondary hover:text-custom-tertiary'
-        : 'text-slate-100 hover:text-custom-ninth'
-      : 'text-custom-secondary hover:text-custom-tertiary'
-  } pt-1 font-semibold`;
-
-const spanClasses =
-  'from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:0%_2px] bg-left-bottom bg-no-repeat pb-1.5 transition-all duration-500 ease-out hover:bg-[length:100%_2px]';
-
-const spanClassesActive =
-  'from-custom-tertiary to-custom-tertiary bg-gradient-to-r bg-[length:100%_2px] bg-left-bottom bg-no-repeat pb-1.5 transition-all duration-500 ease-out';
-
-const iconClasses = (isScrolled: boolean, isHome: boolean) =>
-  `${navigationMenuTriggerStyle()} ${
-    isHome
-      ? isScrolled
-        ? 'text-custom-secondary hover:text-custom-tertiary'
-        : 'text-slate-100 hover:text-custom-ninth'
-      : 'text-custom-secondary hover:text-custom-tertiary'
-  }`;
+/**
+ * Nad zdjęciem hero logo pokazujemy w wersji monochromatycznej (białej) – granatowy
+ * znak nie miałby kontrastu, a wariant z białą podkładką odcinał się od tła jako obcy kafelek.
+ */
+const logoClasses = (isTransparent: boolean) =>
+  cn('w-auto transition-all duration-500 ease-smooth', isTransparent && 'brightness-0 invert drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)]');
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -37,139 +19,195 @@ export const Header = () => {
   const { pathname } = useLocation();
 
   const isHome = pathname === '/';
+  /** Na stronie głównej pasek jest przezroczysty aż do przewinięcia hero. */
+  const isTransparent = isHome && !isScrolled;
 
   useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      setIsScrolled(offset > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 40);
 
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const isActive = (path: string) => {
-    if (path === '/') {
-      return pathname === path;
-    }
-    return pathname.startsWith(path);
-  };
+  /** Blokada przewijania tła przy otwartym menu mobilnym. */
+  useEffect(() => {
+    document.body.style.overflow = isMobileNavOpened ? 'hidden' : '';
 
-  const handleMobileNav = () => {
-    setIsMobileNavOpened((prev) => !prev);
-  };
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileNavOpened]);
+
+  useEffect(() => {
+    setIsMobileNavOpened(false);
+  }, [pathname]);
+
+  const isActive = (path: string) => (path === '/' ? pathname === path : pathname.startsWith(path));
+
+  const navLinkClasses = cn(
+    'link-underline relative px-1 py-1 text-[0.8rem] font-medium uppercase tracking-[0.16em] transition-colors duration-300',
+    isTransparent ? 'text-white/85 hover:text-white' : 'text-ink/70 hover:text-brand',
+  );
+
+  const iconLinkClasses = cn(
+    'flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300 hover:-translate-y-0.5',
+    isTransparent
+      ? 'border-white/25 text-white/85 hover:border-white/60 hover:text-white'
+      : 'border-ink/10 text-ink/60 hover:border-brand/40 hover:bg-brand-soft hover:text-brand',
+  );
 
   return (
     <>
-      <>
-        <header
-          className={`fixed left-0 top-0 z-30 hidden h-20 w-full items-center justify-between overflow-hidden drop-shadow-lg transition-all duration-500 lg:flex ${isHome ? 'bg-transparent' : 'bg-white'}`}
-          data-title="desktop-nav"
-        >
-          {isHome && (
-            <div
-              className={`absolute inset-0 transform bg-white transition-transform duration-500 ease-in-out ${isScrolled ? 'translate-x-0' : '-translate-x-full'}`}
-            />
-          )}
-          <div className="relative z-10 flex items-center">
-            <Link to="/" className="flex min-w-[190px] items-center transition-transform duration-200 hover:scale-105">
-              <img
-                src={logoImageBg}
-                alt="Logo"
-                className={`absolute left-0 top-0 h-16 w-[190px] transition-all duration-500 ease-in-out ${!isScrolled && isHome ? '' : '-translate-x-full'}`}
-              />
-              <img
-                src={logoImage}
-                alt="Logo"
-                className={`h-16 pl-3 transition-all duration-500 ease-in-out ${!isScrolled && isHome ? '-translate-x-full' : ''}`}
-              />
-            </Link>
-          </div>
-          <NavigationMenu className="relative z-10 h-full">
-            <NavigationMenuList className="h-20 gap-5 2xl:gap-8">
+      <header
+        data-title="desktop-nav"
+        className={cn(
+          'fixed left-0 top-0 z-40 hidden w-full transition-all duration-500 ease-smooth lg:block',
+          isTransparent ? 'h-24 bg-gradient-to-b from-black/45 to-transparent' : 'glass h-20 border-b border-ink/[0.07] shadow-soft',
+        )}
+      >
+        <div className="shell flex h-full items-center justify-between gap-8 px-6 xl:px-10">
+          <Link to="/" className="group flex items-center" aria-label="Stilo Polska – strona główna">
+            <img src={logoImage} alt="Stilo Polska" className={cn(logoClasses(isTransparent), 'h-14 group-hover:scale-[1.04]')} />
+          </Link>
+
+          <NavigationMenu className="flex-none">
+            <NavigationMenuList className="gap-7 xl:gap-9">
               {navigation.map(({ path, title }) => (
-                <NavigationMenuItem key={path} className="h-full">
-                  <Link to={path} className={linkClasses(isScrolled, isHome)} data-active={isActive(path)}>
-                    <span className={isActive(path) ? spanClassesActive : spanClasses}>{title}</span>
+                <NavigationMenuItem key={path}>
+                  <Link to={path} className={navLinkClasses} data-active={isActive(path)}>
+                    {title}
                   </Link>
                 </NavigationMenuItem>
               ))}
-              <NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+
+          <div className="flex items-center gap-3">
+            <Link
+              to="https://www.facebook.com/people/Domy-z-bali-Stilo-Polska/100057174441927/?ref=br_rs"
+              target="_blank"
+              aria-label="Facebook"
+              className={iconLinkClasses}
+            >
+              <Facebook className="h-[18px] w-[18px]" />
+            </Link>
+            <Link to="https://www.youtube.com/channel/UCy3px_4qWAVVZhfCnmsyEmA" target="_blank" aria-label="YouTube" className={iconLinkClasses}>
+              <Youtube className="h-[18px] w-[18px]" />
+            </Link>
+            <a
+              href="tel:+48585126999"
+              className={cn(
+                'ml-2 inline-flex h-10 items-center gap-2 rounded-full px-5 text-[0.8rem] font-semibold tracking-wide transition-all duration-300 hover:-translate-y-0.5',
+                isTransparent ? 'bg-white/95 text-ink hover:bg-white' : 'bg-brand text-white shadow-brand hover:bg-brand-dark',
+              )}
+            >
+              <Phone className="h-4 w-4" />
+              58 512-69-99
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <header data-title="mobile-nav" className="fixed left-0 top-0 z-40 w-full lg:hidden">
+        <nav
+          className={cn(
+            'flex items-center justify-between px-4 py-2 transition-all duration-500 ease-smooth',
+            isTransparent ? 'bg-gradient-to-b from-black/50 to-transparent' : 'glass border-b border-ink/[0.07] shadow-soft',
+          )}
+        >
+          <Link to="/" aria-label="Stilo Polska – strona główna">
+            <img src={logoImage} alt="Stilo Polska" className={cn(logoClasses(isTransparent), 'h-12')} />
+          </Link>
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Otwórz menu"
+            className={cn(
+              'rounded-full border transition-all',
+              isTransparent ? 'border-white/25 bg-white/10 text-white hover:bg-white/20' : 'border-ink/10 bg-white text-ink hover:bg-brand-soft hover:text-brand',
+            )}
+            onClick={() => setIsMobileNavOpened(true)}
+          >
+            <Menu className="h-5 w-5" />
+          </Button>
+        </nav>
+
+        <div className={cn('fixed inset-0 z-50', isMobileNavOpened ? 'visible' : 'invisible')}>
+          <div
+            className={cn('absolute inset-0 bg-ink/60 backdrop-blur-sm transition-opacity duration-500', isMobileNavOpened ? 'opacity-100' : 'opacity-0')}
+            onClick={() => setIsMobileNavOpened(false)}
+          />
+          <nav
+            className={cn(
+              'absolute bottom-0 right-0 top-0 flex w-[85%] max-w-sm flex-col bg-cream px-7 py-6 shadow-lift transition-transform duration-500 ease-smooth',
+              isMobileNavOpened ? 'translate-x-0' : 'translate-x-full',
+            )}
+          >
+            <div className="mb-10 flex items-center justify-between">
+              <Link to="/" onClick={() => setIsMobileNavOpened(false)}>
+                <img src={logoImage} alt="Stilo Polska" className="h-14 w-auto" />
+              </Link>
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Zamknij menu"
+                className="rounded-full text-ink/50 hover:bg-brand-soft hover:text-brand"
+                onClick={() => setIsMobileNavOpened(false)}
+              >
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
+
+            <ul className="flex flex-col">
+              {navigation.map(({ title, path }, index) => (
+                <li key={path}>
+                  <Link
+                    to={path}
+                    onClick={() => setIsMobileNavOpened(false)}
+                    className={cn(
+                      'flex items-baseline gap-4 border-b border-ink/[0.07] py-4 font-display text-2xl transition-colors duration-300',
+                      isActive(path) ? 'text-brand' : 'text-ink hover:text-brand',
+                    )}
+                  >
+                    <span className="font-montserrat text-[0.65rem] font-semibold tracking-[0.2em] text-brand/50">0{index + 1}</span>
+                    {title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-auto flex flex-col gap-5 pt-8">
+              <a href="tel:+48585126999" className="inline-flex items-center gap-3 text-sm font-semibold text-ink">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-soft text-brand">
+                  <Phone className="h-4 w-4" />
+                </span>
+                58 512-69-99
+              </a>
+              <div className="flex gap-3">
                 <Link
                   to="https://www.facebook.com/people/Domy-z-bali-Stilo-Polska/100057174441927/?ref=br_rs"
                   target="_blank"
-                  className={iconClasses(isScrolled, isHome)}
+                  aria-label="Facebook"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-ink/10 text-ink/60 transition-colors hover:border-brand/40 hover:text-brand"
                 >
-                  <Facebook />
+                  <Facebook className="h-[18px] w-[18px]" />
                 </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link to="https://www.youtube.com/channel/UCy3px_4qWAVVZhfCnmsyEmA" target="_blank" className={iconClasses(isScrolled, isHome)}>
-                  <Youtube />
+                <Link
+                  to="https://www.youtube.com/channel/UCy3px_4qWAVVZhfCnmsyEmA"
+                  target="_blank"
+                  aria-label="YouTube"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-ink/10 text-ink/60 transition-colors hover:border-brand/40 hover:text-brand"
+                >
+                  <Youtube className="h-[18px] w-[18px]" />
                 </Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-        </header>
-      </>
-      <>
-        <header className="fixed left-0 top-0 z-30 w-full drop-shadow-lg lg:hidden" data-title="mobile-nav">
-          <nav className="relative flex items-center justify-between bg-transparent py-2 pr-4">
-            <Link to="/" className="drop-shadow-2xl transition-transform duration-200 hover:scale-105">
-              <img src={logoImageBg} alt="Logo" className="h-14" />
-            </Link>
-            <Button
-              variant="outline"
-              size="icon"
-              className="bg-custom-secondary text-white transition-all hover:border-custom-tertiary hover:bg-orange-50 hover:text-custom-tertiary"
-              onClick={handleMobileNav}
-            >
-              <Menu className="h-6 w-6" />
-            </Button>
+              </div>
+              <p className="text-[0.7rem] tracking-wide text-ink/40">Stilo Polska © 2024</p>
+            </div>
           </nav>
-          <div className={`relative z-50 h-screen ${isMobileNavOpened ? 'block' : 'hidden'}`}>
-            <div className="navbar-backdrop fixed inset-0 bg-gray-800 opacity-75" onClick={handleMobileNav} />
-            <nav className={`animate-slideIn fixed bottom-0 left-0 top-0 flex w-5/6 max-w-sm flex-col overflow-y-auto border-r bg-white px-6 py-6`}>
-              <div className="mb-8 flex items-center justify-between">
-                <Link to="/" className="transition-transform duration-200 hover:scale-105">
-                  <img src={logoImage} alt="Logo" className="h-16" />
-                </Link>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="border-none transition-all hover:bg-orange-50 hover:text-custom-tertiary"
-                  onClick={handleMobileNav}
-                >
-                  <X className="h-6 w-6" />
-                </Button>
-              </div>
-              <div>
-                <ul>
-                  {navigation.map(({ title, path }) => (
-                    <li key={path} className="mb-1">
-                      <Link
-                        to={path}
-                        className={`block rounded p-4 text-sm font-semibold ${isActive(path) ? 'bg-slate-100 text-custom-fifth' : 'text-custom-secondary'} hover:bg-orange-50 hover:text-custom-tertiary`}
-                        onClick={handleMobileNav}
-                      >
-                        {title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-auto">
-                <p className="my-4 text-center text-xs text-gray-400">
-                  <span>Stilo © 2024</span>
-                </p>
-              </div>
-            </nav>
-          </div>
-        </header>
-      </>
+        </div>
+      </header>
     </>
   );
 };
