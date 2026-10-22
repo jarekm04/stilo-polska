@@ -220,15 +220,18 @@ const CarouselDot = React.forwardRef<HTMLButtonElement, React.ComponentProps<typ
     const { scrollTo, selectedIndex } = useCarousel();
 
     const isCurrentImg = index === selectedIndex;
-    const bgColor = isCurrentImg ? 'bg-orange-500' : 'bg-transparent';
-    const measurements = isCurrentImg ? 'h-4 w-4' : 'h-3 w-3';
 
     return (
       <Button
         ref={ref}
         variant={variant}
         size={size}
-        className={cn('rounded-full border-2 backdrop-blur-md transition-all duration-500 ease-in-out', bgColor, measurements, className)}
+        aria-current={isCurrentImg}
+        className={cn(
+          'h-[3px] rounded-full border-0 p-0 backdrop-blur-md transition-all duration-500 ease-smooth hover:bg-white/70',
+          isCurrentImg ? 'w-12 bg-brand' : 'w-6 bg-white/40',
+          className,
+        )}
         onClick={() => scrollTo(index)}
         {...props}
       />

@@ -1,84 +1,71 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Maximize2 } from 'lucide-react';
+import { Reveal } from '@/components/Reveal';
+import { SectionHeading } from '@/components/SectionHeading';
 import offer1 from '@/assets/offer1.jpg';
 import offer2 from '@/assets/offer2.jpg';
 import offer3 from '@/assets/offer3.jpg';
 import offer4 from '@/assets/offer4.jpg';
 
 const items = [
-  { p1: 'Nowoczesny dom z bala nad Soliną', p2: '142', delay: 'delay-0', src: offer1, id: 993 },
-  { p1: 'Nowoczesny dom z bala o pow. użytkowej 160,80 m2', p2: '140', delay: 'delay-100', src: offer2, id: 927 },
-  { p1: 'Nowoczesny dom z bala o pow. 148m2', p2: '108', delay: 'delay-200', src: offer3, id: 538 },
-  { p1: 'Nowoczesny dom z bala o pow. użytkowej 110,00m2', p2: '103', delay: 'delay-200', src: offer4, id: 331 },
+  { title: 'Nowoczesny dom z bala nad Soliną', area: '142', src: offer1, id: 993, span: 'lg:col-span-7' },
+  { title: 'Nowoczesny dom z bala o pow. użytkowej 160,80 m²', area: '140', src: offer2, id: 927, span: 'lg:col-span-5' },
+  { title: 'Nowoczesny dom z bala o pow. 148 m²', area: '108', src: offer3, id: 538, span: 'lg:col-span-5' },
+  { title: 'Nowoczesny dom z bala o pow. użytkowej 110,00 m²', area: '103', src: offer4, id: 331, span: 'lg:col-span-7' },
 ];
 
 export const Offer = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isVisible2Part, setIsVisible2Part] = useState(false);
-  const divRef = useRef<HTMLDivElement | null>(null);
-  const anchorRef = useRef<HTMLAnchorElement | null>(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const observerCallback: IntersectionObserverCallback = (entries) => {
-      entries.forEach((entry) => {
-        if (entry.target === divRef.current) {
-          setIsVisible(entry.isIntersecting);
-        } else if (entry.target === anchorRef.current) {
-          setIsVisible2Part(entry.isIntersecting);
-        }
-      });
-    };
-
-    const observerOptions: IntersectionObserverInit = {
-      threshold: 0.1,
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    if (divRef.current) {
-      observer.observe(divRef.current);
-    }
-
-    if (anchorRef.current) {
-      observer.observe(anchorRef.current);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  const animationSlideInLeftToRight = (isVisible: boolean) =>
-    `transform ${isVisible ? 'translate-x-0' : '-translate-x-[250%]'} transition-transform duration-500 ease-out`;
-  const animationSlideInRightToLeft = (isVisiblePart2: boolean) =>
-    `transform ${isVisiblePart2 ? 'translate-x-0' : 'translate-x-[250%]'} transition-transform duration-500 ease-out`;
-
   return (
-    <article className="my-2 flex flex-col overflow-hidden">
-      <div ref={divRef} className="grid grid-cols-1 gap-5 px-6 py-8 sm:grid-cols-2 md:grid-flow-dense md:grid-cols-3 md:place-content-center">
-        {items.map((item, index) => (
-          <div
-            key={item.p2}
-            className={`shadow-blue-gray-900/50 group relative flex min-h-60 cursor-pointer select-none flex-col items-center justify-end gap-2 shadow-xl ${animationSlideInRightToLeft(isVisible)} ${item.delay} ${index % 3 === 2 ? 'md:col-span-2' : ''} ${index % 4 === 0 ? 'md:row-span-2' : ''}`}
-            onClick={() => navigate(`/offer/${item.id}`)}
+    <article className="relative overflow-hidden bg-sand">
+      <div className="shell section-pad">
+        <SectionHeading
+          eyebrow="Wybrane projekty"
+          title="Zobacz, co możemy dla Ciebie zbudować"
+          description="Każdy dom powstaje na podstawie projektu technologicznego, dopasowanego do indywidualnych oczekiwań inwestora."
+        />
+
+        <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-12">
+          {items.map(({ title, area, src, id, span }, index) => (
+            <Reveal key={id} delay={index * 100} className={`sm:col-span-1 ${span}`}>
+              <Link
+                to={`/oferta/${id}`}
+                className="group relative flex h-[300px] w-full flex-col justify-end overflow-hidden rounded-2xl shadow-soft transition-all duration-500 ease-smooth hover:shadow-lift md:h-[380px]"
+              >
+                <img
+                  src={src}
+                  className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-1000 ease-smooth group-hover:scale-[1.07]"
+                  alt={title}
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent transition-opacity duration-500 group-hover:from-ink/90" />
+
+                <span className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-md">
+                  <Maximize2 className="h-3.5 w-3.5" />
+                  {area} m²
+                </span>
+
+                <div className="relative z-10 p-6 md:p-7">
+                  <h3 className="text-xl font-normal leading-snug text-white md:text-2xl">{title}</h3>
+                  <span className="mt-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand-light">
+                    Zobacz szczegóły
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
+                  </span>
+                </div>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={120} className="mt-12 flex justify-center">
+          <Link
+            to="/oferta"
+            className="group inline-flex h-[3.25rem] items-center gap-3 rounded-full bg-ink px-9 text-sm font-semibold text-cream transition-all duration-300 ease-smooth hover:-translate-y-0.5 hover:bg-brand hover:shadow-brand"
           >
-            <img
-              src={item.src}
-              className="absolute bottom-0 left-0 right-0 top-0 -z-10 h-full w-full object-cover object-center brightness-75 transition-all group-hover:brightness-100"
-              alt="offer-house"
-            />
-            <p className="px-2 mb-6 text-center text-md text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] md:text-lg">{item.p1}</p>
-            <p className="absolute right-0 top-0 bg-gray-500 px-1 text-center text-sm font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] md:text-md">
-              {item.p2}
-            </p>
-          </div>
-        ))}
+            Przejdź do pełnej oferty
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
+          </Link>
+        </Reveal>
       </div>
-      <Link ref={anchorRef} to="/offer" className="flex w-full items-center justify-center bg-orange-100 py-8">
-        <Button className={`bg-custom-tertiary hover:bg-custom-tenth ${animationSlideInLeftToRight(isVisible2Part)}`}>Przejdź do pełnej oferty</Button>
-      </Link>
     </article>
   );
 };

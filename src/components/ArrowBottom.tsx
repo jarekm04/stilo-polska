@@ -33,9 +33,15 @@ export const ArrowBottom = () => {
 
   return (
     isVisible && (
-      <div className="fixed bottom-10 right-10 animate-moveChevronsDown cursor-pointer" onClick={handleChevronsClick}>
-        <ChevronsDown className="h-10 w-10 text-white" />
-      </div>
+      <button
+        type="button"
+        aria-label="Przewiń w dół"
+        className="group fixed bottom-9 left-8 z-20 hidden flex-col items-center gap-2 md:flex lg:left-12"
+        onClick={handleChevronsClick}
+      >
+        <span className="text-[0.6rem] font-semibold uppercase tracking-[0.3em] text-white/60 transition-colors group-hover:text-white">Przewiń</span>
+        <ChevronsDown className="h-6 w-6 animate-moveChevronsDown text-white/80 transition-colors group-hover:text-brand" strokeWidth={1.5} />
+      </button>
     )
   );
 };

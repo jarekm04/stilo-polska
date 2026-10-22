@@ -1,4 +1,4 @@
-import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
+import { Navigate, Route, createBrowserRouter, createRoutesFromElements, useParams, RouterProvider } from 'react-router-dom';
 import { MainTemplate } from '@/templates/MainTemplate';
 import { Home } from '@/pages/Home';
 import { Video } from '@/pages/Video';
@@ -8,16 +8,29 @@ import { Offer } from '@/pages/Offer';
 import { ErrorPage } from '@/pages/ErrorPage';
 import { Details } from '@/pages/Details';
 
+/** Stary adres szczegółów oferty (/offer/:id) – przenosimy razem z identyfikatorem. */
+const LegacyOfferDetails = () => {
+  const { id } = useParams();
+  return <Navigate to={`/oferta/${id}`} replace />;
+};
+
 export const RootProvider = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainTemplate />}>
         <Route path="/" element={<Home />} />
-        <Route path="/offer" element={<Offer />} />
-        <Route path="/offer/:id" element={<Details />} />
-        <Route path="/realizations" element={<Realizations />} />
+        <Route path="/oferta" element={<Offer />} />
+        <Route path="/oferta/:id" element={<Details />} />
+        <Route path="/realizacje" element={<Realizations />} />
         <Route path="/video" element={<Video />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/kontakt" element={<Contact />} />
+
+        {/* przekierowania z poprzednich, angielskich adresów – zapisane linki dalej działają */}
+        <Route path="/offer" element={<Navigate to="/oferta" replace />} />
+        <Route path="/offer/:id" element={<LegacyOfferDetails />} />
+        <Route path="/realizations" element={<Navigate to="/realizacje" replace />} />
+        <Route path="/contact" element={<Navigate to="/kontakt" replace />} />
+
         <Route path="*" element={<ErrorPage />} />
       </Route>,
     ),
