@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { Header } from '@/components/Header';
 import { ArrowTop } from '@/components/ArrowTop';
 import { ArrowBottom } from '@/components/ArrowBottom';
-import { Cursor } from '@/components/fx/Cursor';
 import { GrainOverlay } from '@/components/fx/GrainOverlay';
 import { PageCurtain } from '@/components/fx/PageCurtain';
 import { ScrollProgress } from '@/components/fx/ScrollProgress';
@@ -44,7 +43,6 @@ export const MainTemplate = () => {
       <ArrowBottom />
       <PageCurtain />
       <GrainOverlay />
-      <Cursor />
     </div>
   );
 };

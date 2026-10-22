@@ -67,11 +67,12 @@ export const Slider = () => {
   const { title, caption, low, full } = slides[index];
 
   /**
-   * Stopień pisma dobierany do długości słowa: tytuł ma wypełnić szerokość kolumny
-   * i zmieścić się w jednym wierszu. 0,7 em to średnia szerokość wersalika
-   * w Playfair Display, 1224 px to szerokość `shell` bez marginesów.
+   * Stopień pisma dobierany do długości słowa – tytuł zawsze zostaje w jednym
+   * wierszu i zajmuje mniej więcej dwie trzecie kolumny, niezależnie od tego,
+   * czy ma 8, czy 15 znaków. 1,05 to średnia szerokość wersalika Playfair (≈0,68 em)
+   * powiększona o zapas, 1224 px to szerokość `shell` bez marginesów.
    */
-  const titleFontSize = `clamp(1.9rem, calc(min(100vw - 2.5rem, 1224px) / ${(title.length * 0.7).toFixed(2)}), 9.5rem)`;
+  const titleFontSize = `clamp(1.75rem, calc(min(100vw - 2.5rem, 1224px) / ${(title.length * 1.05).toFixed(2)}), 6.5rem)`;
 
   return (
     <section ref={heroRef} className="relative h-[100svh] w-full overflow-hidden bg-ink" aria-label="Realizacje Stilo Polska">

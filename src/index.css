@@ -242,12 +242,6 @@
     will-change: transform;
     animation: grainShift 7s steps(6) infinite;
   }
-
-  /* kursor znika tylko tam, gdzie zastępuje go własny wskaźnik */
-  .cursor-hidden,
-  .cursor-hidden * {
-    cursor: none !important;
-  }
 }
 
 @keyframes grainShift {
@@ -282,10 +276,6 @@
   }
   .grain-overlay {
     animation: none;
-  }
-  .cursor-hidden,
-  .cursor-hidden * {
-    cursor: auto !important;
   }
   *,
   *::before,
