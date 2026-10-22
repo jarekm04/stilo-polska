@@ -1,14 +1,24 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Header } from '@/components/Header';
 import { ArrowTop } from '@/components/ArrowTop';
 import { ArrowBottom } from '@/components/ArrowBottom';
+import { Cursor } from '@/components/fx/Cursor';
+import { GrainOverlay } from '@/components/fx/GrainOverlay';
+import { PageCurtain } from '@/components/fx/PageCurtain';
+import { ScrollProgress } from '@/components/fx/ScrollProgress';
+import { smoothScrollTo, useSmoothScroll } from '@/lib/smoothScroll';
 
 export const MainTemplate = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  useSmoothScroll();
+
   useEffect(() => {
+    /* bez `immediate` Lenis dojeżdżałby na górę już po odsłonięciu kurtyny */
+    smoothScrollTo(0, { immediate: true });
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
@@ -24,11 +34,17 @@ export const MainTemplate = () => {
   return (
     <div className="relative">
       <Header />
-      <main className="animate-custom-appear">
+      <ScrollProgress />
+
+      <motion.main key={location.pathname} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, ease: 'easeOut' }}>
         <Outlet />
-      </main>
+      </motion.main>
+
       <ArrowTop />
       <ArrowBottom />
+      <PageCurtain />
+      <GrainOverlay />
+      <Cursor />
     </div>
   );
 };

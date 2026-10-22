@@ -46,7 +46,7 @@
     --custom-ninth: #f3cca0;
     --custom-tenth: #c4c2db;
 
-    /* nowa paleta – ciepłe drewno + bursztyn.
+    /* paleta – ciepłe drewno + bursztyn.
        Kanały RGB (bez rgb()), aby Tailwind mógł doklejać przezroczystość: text-ink/60 itd. */
     --ink: 27 24 21;
     --ink-soft: 44 38 33;
@@ -56,6 +56,9 @@
     --brand-dark: 201 103 12;
     --brand-light: 246 164 78;
     --brand-soft: 253 242 228;
+
+    /* wysokość paska nawigacji – używana przy odsunięciu treści podstron */
+    --header-h: 5rem;
   }
 
   * {
@@ -105,6 +108,26 @@
 
   p {
     text-wrap: pretty;
+  }
+
+  /* --- Lenis (płynne przewijanie) ---------------------------------------
+     Gdy Lenis przejmuje scroll, natywne `scroll-behavior` musi zniknąć,
+     inaczej obie animacje walczą o tę samą pozycję. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
   }
 }
 
@@ -175,6 +198,76 @@
     -webkit-mask-image: linear-gradient(to bottom, #000 65%, transparent 100%);
     mask-image: linear-gradient(to bottom, #000 65%, transparent 100%);
   }
+
+  /* --- typografia płynna --------------------------------------------------
+     Jeden stopień skali zamiast trzech breakpointów – tytuł rośnie wraz
+     z szerokością okna, więc kadr wygląda tak samo na 13" i na 27". */
+  .display-hero {
+    font-size: clamp(2.75rem, 11vw, 10.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.015em;
+  }
+
+  .display-xl {
+    font-size: clamp(2.25rem, 6.2vw, 5rem);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+  }
+
+  .display-lg {
+    font-size: clamp(1.9rem, 4.2vw, 3.25rem);
+    line-height: 1.08;
+  }
+
+  /* maska do odsłaniania wierszy tekstu – dziecko startuje pod krawędzią */
+  .line-mask {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.12em;
+    margin-bottom: -0.12em;
+  }
+
+  /* --- ziarno ------------------------------------------------------------
+     Delikatny szum na całej stronie. Ociepla płaskie plamy koloru i zdejmuje
+     z fotografii „cyfrowy” połysk. Rysowany raz, jako data URI – zero requestów. */
+  .grain-overlay {
+    position: fixed;
+    inset: -50%;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.32;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    will-change: transform;
+    animation: grainShift 7s steps(6) infinite;
+  }
+
+  /* kursor znika tylko tam, gdzie zastępuje go własny wskaźnik */
+  .cursor-hidden,
+  .cursor-hidden * {
+    cursor: none !important;
+  }
+}
+
+@keyframes grainShift {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-6%, 4%);
+  }
+  40% {
+    transform: translate(4%, -6%);
+  }
+  60% {
+    transform: translate(-3%, -4%);
+  }
+  80% {
+    transform: translate(6%, 3%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -185,6 +278,13 @@
     opacity: 1;
     transform: none;
     transition: none;
+  }
+  .grain-overlay {
+    animation: none;
+  }
+  .cursor-hidden,
+  .cursor-hidden * {
+    cursor: auto !important;
   }
   *,
   *::before,
