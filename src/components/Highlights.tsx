@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { ShieldCheck, TrendingUp, Ruler, Trees, type LucideIcon } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ShieldCheck, TrendingUp, Ruler, Trees } from 'lucide-react';
 import { Reveal } from '@/components/Reveal';
+import { useActiveIndex } from '@/lib/useActiveIndex';
 import { cn } from '@/lib/utils';
 /* wariant bez tła – `logo.png` ma białą podkładkę, która na kremowym tle odcina się jako obcy kafelek */
 import logoImage from '@/assets/logo-removedbg.png';
@@ -31,79 +31,21 @@ const highlights = [
   },
 ];
 
-type ItemProps = {
-  icon: LucideIcon;
-  title: string;
-  text: string;
-  index: number;
-  isActive: boolean;
-  onActive: (index: number) => void;
-};
-
-const HighlightItem = ({ icon: Icon, title, text, index, isActive, onActive }: ItemProps) => {
-  const ref = useRef<HTMLDivElement>(null);
-  /* 60% wysokości w kadrze – atut staje się aktywny dopiero, gdy naprawdę się go czyta */
-  const isInView = useInView(ref, { amount: 0.6 });
-
-  useEffect(() => {
-    if (isInView) onActive(index);
-  }, [isInView, index, onActive]);
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 36 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.8, ease: EASE }}
-      className={cn(
-        'relative border-t py-10 pl-6 transition-colors duration-700 lg:py-12 lg:pl-10',
-        isActive ? 'border-brand/35' : 'border-ink/[0.09]',
-      )}
-    >
-      {/* pionowa kreska zapala się na całej wysokości aktywnego atutu */}
-      <span className="absolute left-0 top-0 h-full w-px bg-ink/[0.07]">
-        <motion.span
-          className="block w-full origin-top bg-brand"
-          initial={false}
-          animate={{ scaleY: isActive ? 1 : 0 }}
-          transition={{ duration: 0.7, ease: EASE }}
-          style={{ height: '100%' }}
-        />
-      </span>
-
-      <div className="flex items-start gap-5">
-        <span
-          className={cn(
-            'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-colors duration-700',
-            isActive ? 'bg-brand text-white' : 'bg-brand-soft text-brand',
-          )}
-        >
-          <Icon className="h-6 w-6" strokeWidth={1.6} />
-        </span>
-
-        <div className="flex flex-col gap-2.5">
-          <h3 className={cn('text-2xl font-normal transition-colors duration-700 lg:text-[1.75rem]', isActive ? 'text-ink' : 'text-ink/55')}>{title}</h3>
-          <p className="max-w-xl text-sm font-light leading-relaxed text-ink/60 sm:text-base">{text}</p>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
-
 /**
  * Atuty na przyklejonej kolumnie: nagłówek stoi w miejscu, treść przesuwa się obok,
- * a szyna `01–04` pokazuje, przy którym atucie właśnie jesteśmy. Na telefonie
- * przyklejanie znika – zostaje zwykła, czytelna lista.
+ * a szyna `01–04` pokazuje, przy którym atucie właśnie jesteśmy.
+ *
+ * Lewa kolumna ma pełną wysokość okna z treścią wyśrodkowaną w pionie – inaczej
+ * przyklejenie starcza tylko na różnicę wysokości kolumn i nagłówek ucieka w połowie
+ * sekcji. Każdy atut dostaje też swój kawałek ekranu, żeby było co przewijać.
  */
 export const Highlights = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const handleActive = useCallback((index: number) => setActiveIndex(index), []);
+  const { activeIndex, register } = useActiveIndex(highlights.length);
 
   return (
     <article className="relative overflow-hidden bg-cream">
-      <div className="shell section-pad grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20">
-        <div className="lg:sticky lg:top-32 lg:self-start">
+      <div className="shell section-pad grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20">
+        <div className="lg:sticky lg:top-0 lg:flex lg:h-[100svh] lg:flex-col lg:justify-center">
           <div className="flex flex-col items-start gap-6">
             <Reveal>
               <img src={logoImage} alt="Stilo Polska" className="h-16 w-auto md:h-20" />
@@ -146,9 +88,49 @@ export const Highlights = () => {
         </div>
 
         <div className="flex flex-col">
-          {highlights.map(({ icon, title, text }, index) => (
-            <HighlightItem key={title} icon={icon} title={title} text={text} index={index} isActive={index === activeIndex} onActive={handleActive} />
-          ))}
+          {highlights.map(({ icon: Icon, title, text }, index) => {
+            const isActive = index === activeIndex;
+
+            return (
+              <div key={title} ref={register(index)} className="flex flex-col justify-center lg:min-h-[46svh]">
+                <motion.div
+                  initial={{ opacity: 0, y: 36 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.25 }}
+                  transition={{ duration: 0.8, ease: EASE }}
+                  className={cn('relative border-t py-10 pl-6 transition-colors duration-700 lg:pl-10', isActive ? 'border-brand/35' : 'border-ink/[0.09]')}
+                >
+                  {/* pionowa kreska zapala się na całej wysokości aktywnego atutu */}
+                  <span className="absolute left-0 top-0 h-full w-px bg-ink/[0.07]">
+                    <motion.span
+                      className="block h-full w-full origin-top bg-brand"
+                      initial={false}
+                      animate={{ scaleY: isActive ? 1 : 0 }}
+                      transition={{ duration: 0.7, ease: EASE }}
+                    />
+                  </span>
+
+                  <div className="flex items-start gap-5">
+                    <span
+                      className={cn(
+                        'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-colors duration-700',
+                        isActive ? 'bg-brand text-white' : 'bg-brand-soft text-brand',
+                      )}
+                    >
+                      <Icon className="h-6 w-6" strokeWidth={1.6} />
+                    </span>
+
+                    <div className="flex flex-col gap-2.5">
+                      <h3 className={cn('text-2xl font-normal transition-colors duration-700 lg:text-[1.75rem]', isActive ? 'text-ink' : 'text-ink/55')}>
+                        {title}
+                      </h3>
+                      <p className="max-w-xl text-sm font-light leading-relaxed text-ink/60 sm:text-base">{text}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </article>

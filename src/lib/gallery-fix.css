@@ -22,8 +22,24 @@
 
 .image-gallery-slides {
   height: 100% !important;
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   overflow: hidden;
+}
+
+/* --- ciemna oprawa pełnoekranowego podglądu --- */
+.image-gallery-thumbnails {
+  background: rgba(27, 24, 21, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 999px;
+  padding: 6px 10px !important;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.image-gallery-thumbnails-wrapper {
+  right: 0 !important;
+  padding-bottom: 10px;
 }
 
 .image-gallery-slide {

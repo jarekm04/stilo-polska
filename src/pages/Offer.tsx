@@ -2,7 +2,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { ArrowRight } from 'lucide-react';
 import { ErrorPage } from '@/pages/ErrorPage';
-import { Footer } from '@/components/Footer';
 import { CtaBand } from '@/components/CtaBand';
 import { PageHero } from '@/components/PageHero';
 import { Reveal } from '@/components/Reveal';
@@ -78,7 +77,6 @@ const OfferLoader = () => (
         <SkeletonOffers key={index} />
       ))}
     </div>
-    <Footer />
   </section>
 );
 
@@ -141,7 +139,6 @@ export const Offer = () => {
       </div>
 
       <CtaBand />
-      <Footer />
     </section>
   );
 };

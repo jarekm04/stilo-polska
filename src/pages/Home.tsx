@@ -5,7 +5,6 @@ import { Highlights } from '@/components/Highlights';
 import { Offer } from '@/components/Offer';
 import { Technology } from '@/components/Technology';
 import { Realizations } from '@/components/Realizations';
-import { Footer } from '@/components/Footer';
 import { CtaBand } from '@/components/CtaBand';
 
 /**
@@ -24,7 +23,6 @@ export const Home = () => {
       <Realizations />
       <Technology />
       <CtaBand />
-      <Footer />
     </section>
   );
 };

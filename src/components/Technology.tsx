@@ -1,6 +1,11 @@
-import { TreePine, Wrench, BatteryCharging } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { TreePine, Wrench, BatteryCharging, type LucideIcon } from 'lucide-react';
 import { Reveal } from '@/components/Reveal';
 import { SectionHeading } from '@/components/SectionHeading';
+import { useActiveIndex } from '@/lib/useActiveIndex';
+import { cn } from '@/lib/utils';
+
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 const pillars = [
   {
@@ -30,7 +35,93 @@ const pillars = [
   },
 ];
 
+/** Wysokość ścianki bębna w pikselach – od niej zależy promień bryły. */
+const FACE_HEIGHT = 150;
+
+/**
+ * Numer filaru na obracającym się bębnie.
+ *
+ * Ścianki stoją na bokach graniastosłupa: każda obrócona o 360°/n i odsunięta
+ * od osi o promień. Obrót całej bryły o ten sam kąt w drugą stronę ustawia
+ * wybraną ściankę równo na wprost widza – tak jak w liczniku przebiegu.
+ */
+const Drum = ({ active, count }: { active: number; count: number }) => {
+  const step = 360 / count;
+  /* promień graniastosłupa o `count` ściankach i zadanej wysokości ścianki */
+  const radius = FACE_HEIGHT / 2 / Math.tan(Math.PI / count);
+
+  return (
+    <div className="relative w-full" style={{ height: FACE_HEIGHT, perspective: 700 }} aria-hidden>
+      <motion.div
+        className="absolute inset-0"
+        style={{ transformStyle: 'preserve-3d' }}
+        animate={{ rotateX: -active * step }}
+        transition={{ type: 'spring', stiffness: 90, damping: 17 }}
+      >
+        {pillars.slice(0, count).map(({ title }, index) => (
+          <div
+            key={title}
+            className="absolute inset-0 flex items-center justify-start [backface-visibility:hidden]"
+            style={{ transform: `rotateX(${index * step}deg) translateZ(${radius}px)` }}
+          >
+            <span className="font-display leading-none text-brand" style={{ fontSize: FACE_HEIGHT }}>
+              0{index + 1}
+            </span>
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
+
+type PillarProps = {
+  icon: LucideIcon;
+  title: string;
+  paragraphs: string[];
+  index: number;
+  isActive: boolean;
+};
+
+const Pillar = ({ icon: Icon, title, paragraphs, index, isActive }: PillarProps) => (
+  <motion.div
+    initial={{ opacity: 0, y: 36 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.2 }}
+    transition={{ duration: 0.8, ease: EASE }}
+    className={cn('border-t py-12 transition-colors duration-700 lg:py-16', isActive ? 'border-brand/35' : 'border-ink/[0.09]')}
+  >
+    <div className="flex items-center gap-4">
+        <span
+          className={cn(
+            'flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl transition-colors duration-700',
+            isActive ? 'bg-brand text-white' : 'bg-brand-soft text-brand',
+          )}
+        >
+          <Icon className="h-7 w-7" strokeWidth={1.5} />
+        </span>
+        <h3 className="font-display text-2xl font-normal uppercase tracking-wide text-ink lg:text-3xl">{title}</h3>
+        {/* numer dla telefonu – tam bęben się nie pokazuje */}
+        <span className="ml-auto font-display text-3xl text-ink/15 lg:hidden">0{index + 1}</span>
+      </div>
+
+      <div className="mt-6 flex flex-col gap-4">
+        {paragraphs.map((text, paragraphIndex) => (
+          <p key={paragraphIndex} className="text-sm font-light leading-relaxed text-ink/65 sm:text-base">
+            {text}
+          </p>
+        ))}
+      </div>
+  </motion.div>
+);
+
+/**
+ * Lewa kolumna ma pełną wysokość okna z treścią wyśrodkowaną w pionie. Przy
+ * `self-start` przyklejenie starczało tylko na różnicę wysokości kolumn – bęben
+ * odjeżdżał w połowie sekcji. Każdy filar dostaje też swój kawałek ekranu.
+ */
 export const Technology = () => {
+  const { activeIndex, register } = useActiveIndex(pillars.length);
+
   return (
     <article className="relative overflow-hidden bg-sand">
       <div className="shell section-pad">
@@ -40,31 +131,45 @@ export const Technology = () => {
           description="Od doboru surowca, przez montaż, po codzienną eksploatację – wszystko przemyślane w najmniejszym detalu."
         />
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
-          {pillars.map(({ icon: Icon, title, paragraphs }, index) => (
-            <Reveal key={title} delay={index * 120} className="h-full">
-              <div className="group relative flex h-full flex-col gap-5 overflow-hidden rounded-2xl border border-ink/[0.07] bg-white p-7 shadow-soft transition-all duration-500 ease-smooth hover:-translate-y-1.5 hover:border-brand/25 hover:shadow-lift lg:p-8">
-                <span className="pointer-events-none absolute -right-2 -top-4 font-display text-[5.5rem] leading-none text-ink/[0.05] transition-colors duration-500 group-hover:text-brand/10">
-                  0{index + 1}
-                </span>
+        <div className="mt-16 grid gap-10 lg:grid-cols-[minmax(0,0.6fr)_minmax(0,1.4fr)] lg:gap-20">
+          <div className="hidden lg:sticky lg:top-0 lg:flex lg:h-[100svh] lg:flex-col lg:justify-center">
+            <Reveal>
+              <Drum active={activeIndex} count={pillars.length} />
+            </Reveal>
 
-                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-soft text-brand transition-colors duration-500 group-hover:bg-brand group-hover:text-white">
-                  <Icon className="h-7 w-7" strokeWidth={1.5} />
-                </span>
-
-                <h3 className="text-2xl font-normal uppercase tracking-wide text-ink">{title}</h3>
-                <span className="h-px w-12 bg-brand/50" />
-
-                <div className="flex flex-col gap-4">
-                  {paragraphs.map((text, i) => (
-                    <p key={i} className="text-sm font-light leading-relaxed text-ink/60">
-                      {text}
-                    </p>
-                  ))}
-                </div>
+            <Reveal delay={100}>
+              <div className="mt-10 flex flex-col gap-3">
+                {pillars.map(({ title }, index) => (
+                  <div key={title} className="flex items-center gap-4">
+                    <span
+                      className={cn(
+                        'text-[0.7rem] font-semibold uppercase tracking-[0.2em] transition-colors duration-500',
+                        index === activeIndex ? 'text-brand' : 'text-ink/30',
+                      )}
+                    >
+                      {title}
+                    </span>
+                    <span className="relative block h-px flex-1 bg-ink/[0.09]">
+                      <motion.span
+                        className="absolute inset-y-0 left-0 block w-full origin-left bg-brand"
+                        initial={false}
+                        animate={{ scaleX: index === activeIndex ? 1 : 0 }}
+                        transition={{ duration: 0.6, ease: EASE }}
+                      />
+                    </span>
+                  </div>
+                ))}
               </div>
             </Reveal>
-          ))}
+          </div>
+
+          <div className="flex flex-col">
+            {pillars.map(({ icon, title, paragraphs }, index) => (
+              <div key={title} ref={register(index)} className="flex flex-col justify-center lg:min-h-[62svh]">
+                <Pillar icon={icon} title={title} paragraphs={paragraphs} index={index} isActive={index === activeIndex} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </article>

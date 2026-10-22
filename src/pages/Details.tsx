@@ -6,7 +6,6 @@ import { ErrorPage } from '@/pages/ErrorPage';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Gallery } from '@/components/Gallery';
 import { SkeletonDetails } from '@/components/Skeletons';
-import { Footer } from '@/components/Footer';
 import { CtaBand } from '@/components/CtaBand';
 import { Reveal } from '@/components/Reveal';
 import { MediaDetails } from '@/lib/types';
@@ -124,7 +123,6 @@ export const Details = () => {
         <DetailsImages postId={postId} setStartIndex={setStartIndex} setMainImage={setMainImage} />
 
         <CtaBand />
-        <Footer />
       </section>
 
       <Gallery id={Number(postId)} title={data?.title.rendered} startIndex={startIndex} />

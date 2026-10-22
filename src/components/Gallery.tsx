@@ -1,11 +1,43 @@
 import { useQuery } from '@tanstack/react-query';
 import { isMobile } from 'react-device-detect';
-import ImageGallery from 'react-image-gallery';
+import ImageGallery, { type ReactImageGalleryItem } from 'react-image-gallery';
 import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { LoadingSpinner } from '@/components/Skeletons';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import '@/lib/gallery-fix.css';
 import { MediaDetail } from '@/lib/types';
+
+type LightboxProps = { title?: string; items: ReactImageGalleryItem[]; startIndex?: number };
+
+/**
+ * Pełnoekranowy, ciemny podgląd zdjęć.
+ *
+ * Wspólna oprawa dla galerii budowanych z lokalnych plików (strona główna)
+ * i tych pobieranych z WordPressa (podstrony) – jedno miejsce na wygląd,
+ * dwa źródła zdjęć.
+ */
+export const Lightbox = ({ title, items, startIndex }: LightboxProps) => (
+  <DialogContent
+    onOpenAutoFocus={(event) => event.preventDefault()}
+    className="flex h-[100svh] w-screen max-w-none flex-col gap-0 rounded-none bg-ink p-0 sm:rounded-none"
+  >
+    <DialogHeader className="shrink-0 px-5 pb-4 pt-6 sm:px-8">
+      <DialogTitle className="max-w-[calc(100%-4rem)] text-left font-display text-base font-normal text-cream sm:text-xl">{title}</DialogTitle>
+    </DialogHeader>
+
+    <div className="min-h-0 flex-1 px-3 pb-3 sm:px-6 sm:pb-6">
+      <ImageGallery
+        items={items}
+        showPlayButton={false}
+        showIndex
+        showThumbnails
+        showNav
+        showFullscreenButton={!isMobile}
+        startIndex={startIndex}
+      />
+    </div>
+  </DialogContent>
+);
 
 export const Gallery = ({ id, title, startIndex }: { id: number; title?: string; startIndex?: number }) => {
   const perPage = 100;
@@ -26,25 +58,5 @@ export const Gallery = ({ id, title, startIndex }: { id: number; title?: string;
 
   if (!id) return <></>;
 
-  return (
-    <DialogContent
-      onOpenAutoFocus={(e) => e.preventDefault()}
-      className="h-[60vh] w-[100vw] max-w-none grid-rows-[25px_1fr] gap-0 md:h-[75vh] lg:h-[90vh] lg:w-[80vw]"
-    >
-      <DialogHeader className="gap-6">
-        <DialogTitle className="mr-4 text-sm uppercase sm:text-lg">{title}</DialogTitle>
-      </DialogHeader>
-      <div className="h-full max-w-full overflow-hidden">
-        <ImageGallery
-          items={formattedImages}
-          showPlayButton={false}
-          showIndex={true}
-          showThumbnails={true}
-          showNav={true}
-          showFullscreenButton={isMobile ? false : true}
-          startIndex={startIndex}
-        />
-      </div>
-    </DialogContent>
-  );
+  return <Lightbox title={title} items={formattedImages ?? []} startIndex={startIndex} />;
 };

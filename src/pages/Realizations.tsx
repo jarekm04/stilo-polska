@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import { ArrowRight } from 'lucide-react';
 import { ErrorPage } from '@/pages/ErrorPage';
 import { LoadingSpinner, SkeletonRealizations } from '@/components/Skeletons';
-import { Footer } from '@/components/Footer';
 import { CtaBand } from '@/components/CtaBand';
 import { PageHero } from '@/components/PageHero';
 import { Reveal } from '@/components/Reveal';
@@ -47,7 +46,6 @@ const RealizationsLoader = () => (
         <SkeletonRealizations key={index} />
       ))}
     </div>
-    <Footer />
   </section>
 );
 
@@ -102,7 +100,6 @@ export const Realizations = () => {
         </div>
 
         <CtaBand />
-        <Footer />
       </section>
       {selectedId && <Gallery id={selectedId} title={selectedTitle} />}
     </Dialog>

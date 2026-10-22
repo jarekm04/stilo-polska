@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Youtube, Facebook, Menu, X, Phone } from 'lucide-react';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { Button } from '@/components/ui/button';
@@ -15,17 +14,9 @@ import logoImage from '@/assets/logo-removedbg.png';
 const logoClasses = (isTransparent: boolean) =>
   cn('w-auto transition-all duration-500 ease-smooth', isTransparent && 'brightness-0 invert drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)]');
 
-/** Ruch paska: chowa się przy przewijaniu w dół, wraca przy pierwszym geście w górę. */
-const barMotion = (isHidden: boolean) => ({
-  animate: { y: isHidden ? '-115%' : '0%' },
-  transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
-});
-
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
   const [isMobileNavOpened, setIsMobileNavOpened] = useState(false);
-  const lastScrollY = useRef(0);
   const { pathname } = useLocation();
 
   const isHome = pathname === '/';
@@ -33,21 +24,8 @@ export const Header = () => {
   const isTransparent = isHome && !isScrolled;
 
   useEffect(() => {
-    const handleScroll = () => {
-      const current = window.scrollY;
-      const previous = lastScrollY.current;
-
-      setIsScrolled(current > 40);
-
-      /* próg 6 px wycina drgania gładzika, 200 px zostawia pasek widoczny przy hero */
-      if (current > 200 && current > previous + 6) {
-        setIsHidden(true);
-      } else if (current < previous - 6 || current < 200) {
-        setIsHidden(false);
-      }
-
-      lastScrollY.current = current;
-    };
+    /* pasek zostaje widoczny przez cały czas – kurczy się dopiero po opuszczeniu hero */
+    const handleScroll = () => setIsScrolled(window.scrollY > 40);
 
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -86,9 +64,8 @@ export const Header = () => {
 
   return (
     <>
-      <motion.header
+      <header
         data-title="desktop-nav"
-        {...barMotion(isHidden && !isMobileNavOpened)}
         className={cn(
           'fixed left-0 top-0 z-40 hidden w-full transition-[height,background-color,box-shadow] duration-500 ease-smooth lg:block',
           isTransparent ? 'h-24 bg-gradient-to-b from-black/45 to-transparent' : 'glass h-[4.5rem] border-b border-ink/[0.07] shadow-soft',
@@ -135,11 +112,10 @@ export const Header = () => {
             </a>
           </div>
         </div>
-      </motion.header>
+      </header>
 
       <header data-title="mobile-nav" className="fixed left-0 top-0 z-40 w-full lg:hidden">
-        <motion.nav
-          {...barMotion(isHidden && !isMobileNavOpened)}
+        <nav
           className={cn(
             'flex items-center justify-between px-4 py-2 transition-colors duration-500 ease-smooth',
             isTransparent ? 'bg-gradient-to-b from-black/50 to-transparent' : 'glass border-b border-ink/[0.07] shadow-soft',
@@ -160,7 +136,7 @@ export const Header = () => {
           >
             <Menu className="h-5 w-5" />
           </Button>
-        </motion.nav>
+        </nav>
 
         <div className={cn('fixed inset-0 z-50', isMobileNavOpened ? 'visible' : 'invisible')}>
           <div

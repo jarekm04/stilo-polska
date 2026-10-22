@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Youtube } from 'lucide-react';
 import { ThumbHouse, ThumbHouse2, ThumbInside, ThumbLong, ThumbResidence, ThumbShort, ThumbVisualisation } from '@/lib/thumbnails';
-import { Footer } from '@/components/Footer';
 import { CtaBand } from '@/components/CtaBand';
 import { PageHero } from '@/components/PageHero';
 import { Reveal } from '@/components/Reveal';
@@ -133,7 +132,6 @@ export const Video = () => {
       <div className="shell px-5 py-14 sm:px-8 lg:px-12 lg:py-16">{activeTab === 'projects' ? <Projects /> : <Visualisations />}</div>
 
       <CtaBand />
-      <Footer />
     </section>
   );
 };

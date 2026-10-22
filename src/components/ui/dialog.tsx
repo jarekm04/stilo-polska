@@ -41,7 +41,8 @@ const DialogContent = React.forwardRef<
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-ink/5 text-ink/60 transition-all duration-300 hover:bg-brand hover:text-white focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none">
+      {/* podgląd zdjęć jest ciemny – stąd jasny, półprzezroczysty przycisk zamknięcia */}
+      <DialogPrimitive.Close className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-cream backdrop-blur-md transition-all duration-300 hover:bg-brand hover:text-white focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 focus:ring-offset-ink disabled:pointer-events-none">
         <X className="h-5 w-5" />
         <span className="sr-only">Zamknij</span>
       </DialogPrimitive.Close>

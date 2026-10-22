@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { Building2, Clock, Facebook, Mail, MapPin, Phone, Smartphone, Youtube } from 'lucide-react';
 import { PageHero } from '@/components/PageHero';
 import { Reveal } from '@/components/Reveal';
-import { Footer } from '@/components/Footer';
 import logoImage from '@/assets/logo-removedbg.png';
 import contactImage from '@/assets/contact.jpeg';
 
@@ -120,7 +119,6 @@ export const Contact = () => {
         </div>
       </div>
 
-      <Footer />
     </section>
   );
 };

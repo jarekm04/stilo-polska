@@ -1,11 +1,9 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Header } from '@/components/Header';
 import { ArrowTop } from '@/components/ArrowTop';
-import { ArrowBottom } from '@/components/ArrowBottom';
+import { FooterReveal } from '@/components/FooterReveal';
 import { GrainOverlay } from '@/components/fx/GrainOverlay';
-import { PageCurtain } from '@/components/fx/PageCurtain';
 import { ScrollProgress } from '@/components/fx/ScrollProgress';
 import { smoothScrollTo, useSmoothScroll } from '@/lib/smoothScroll';
 
@@ -35,13 +33,17 @@ export const MainTemplate = () => {
       <Header />
       <ScrollProgress />
 
-      <motion.main key={location.pathname} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, ease: 'easeOut' }}>
+      {/* Własna warstwa i nieprzezroczyste tło – treść ma przykrywać stopkę,
+          która leży przyklejona pod nią (patrz FooterReveal).
+          Bez animacji krycia: półprzezroczysta treść przepuszczałaby tę stopkę
+          na wierzch przy każdym wejściu na stronę. Wejście grają sekcje. */}
+      <main className="relative z-10 bg-cream">
         <Outlet />
-      </motion.main>
+      </main>
+
+      <FooterReveal />
 
       <ArrowTop />
-      <ArrowBottom />
-      <PageCurtain />
       <GrainOverlay />
     </div>
   );
