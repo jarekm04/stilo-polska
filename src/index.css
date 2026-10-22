@@ -202,8 +202,9 @@
   /* --- typografia płynna --------------------------------------------------
      Jeden stopień skali zamiast trzech breakpointów – tytuł rośnie wraz
      z szerokością okna, więc kadr wygląda tak samo na 13" i na 27". */
+  /* Rozmiar hero ustawiany jest w locie, bo zależy od długości słowa –
+     „Wszechstronność” i „Precyzja” nie mogą mieć tego samego stopnia pisma. */
   .display-hero {
-    font-size: clamp(2.75rem, 11vw, 10.5rem);
     line-height: 0.92;
     letter-spacing: -0.015em;
   }

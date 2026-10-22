@@ -13,15 +13,15 @@ import logoImage from '@/assets/logo-removedbg.png';
  */
 export const PageCurtain = () => {
   const { pathname } = useLocation();
-  const isFirstRender = useRef(true);
+  /* porównanie z poprzednią ścieżką, a nie „czy to pierwszy render” –
+     w trybie StrictMode efekt uruchamia się dwa razy i flaga odpalałaby kurtynę od razu */
+  const previousPath = useRef(pathname);
   const [key, setKey] = useState<string | null>(null);
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
+    if (previousPath.current === pathname) return;
 
+    previousPath.current = pathname;
     setKey(pathname);
   }, [pathname]);
 
