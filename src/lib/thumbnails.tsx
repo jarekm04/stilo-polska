@@ -1,11 +1,11 @@
 import { Play } from 'lucide-react';
-import longThumb from '@/assets/long-thumb.png';
-import shortThumb from '@/assets/short-thumb.png';
-import visualisationThumb from '@/assets/visualisation-thumb.png';
-import residenceThumb from '@/assets/residence-thumb.png';
-import houseThumb from '@/assets/house-thumb.png';
-import house2Thumb from '@/assets/house2-thumb.png';
-import insideThumb from '@/assets/inside-thumb.png';
+import longThumb from '@/assets/long-thumb.webp';
+import shortThumb from '@/assets/short-thumb.webp';
+import visualisationThumb from '@/assets/visualisation-thumb.webp';
+import residenceThumb from '@/assets/residence-thumb.webp';
+import houseThumb from '@/assets/house-thumb.webp';
+import house2Thumb from '@/assets/house2-thumb.webp';
+import insideThumb from '@/assets/inside-thumb.webp';
 
 /**
  * Wspólna miniatura odtwarzacza: kadr, gradient, tytuł i przycisk play.

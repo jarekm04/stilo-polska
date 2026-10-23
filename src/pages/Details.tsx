@@ -7,6 +7,7 @@ import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Gallery } from '@/components/Gallery';
 import { SkeletonDetails } from '@/components/Skeletons';
 import { CtaBand } from '@/components/CtaBand';
+import { BlurImage } from '@/components/fx/BlurImage';
 import { Reveal } from '@/components/Reveal';
 import { MediaDetails } from '@/lib/types';
 
@@ -49,11 +50,11 @@ const DetailsImages = ({
               onClick={() => setStartIndex(index)}
               aria-label={`Otwórz zdjęcie ${index + 1} w galerii`}
             >
-              <img
+              <BlurImage
                 src={item.media_details.sizes.medium_large ? item.media_details.sizes.medium_large.source_url : item.media_details.sizes.full.source_url}
-                className="h-full w-full object-cover transition-transform duration-1000 ease-smooth group-hover:scale-[1.08]"
+                placeholder={item.media_details.sizes.thumbnail?.source_url}
                 alt={`Zdjęcie realizacji ${index + 1}`}
-                loading="lazy"
+                className="transition-transform duration-1000 ease-smooth group-hover:scale-[1.08]"
               />
               <span className="absolute inset-0 flex items-center justify-center bg-ink/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 backdrop-blur-md">
@@ -99,8 +100,8 @@ export const Details = () => {
 
   return (
     <Dialog>
-      <section className="mt-20 flex min-h-screen flex-col bg-cream">
-        <div className="relative flex h-[340px] w-full items-end overflow-hidden md:h-[440px]">
+      <section className="flex min-h-screen flex-col bg-cream">
+        <div className="relative flex h-[62svh] min-h-[24rem] w-full items-end overflow-hidden">
           {mainImage && <img className="absolute inset-0 h-full w-full object-cover" src={mainImage} alt="" aria-hidden />}
           <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/55 to-ink/40" />
 

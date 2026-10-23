@@ -1,5 +1,5 @@
 import { useRef, type ReactNode } from 'react';
-import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 type WordProps = { children: ReactNode; progress: MotionValue<number>; range: [number, number] };
@@ -31,12 +31,17 @@ type ScrollWordsProps = {
  */
 export const ScrollWords = ({ text, className, overlap = 2.4 }: ScrollWordsProps) => {
   const ref = useRef<HTMLParagraphElement>(null);
+  const isStill = useReducedMotion();
 
   /* start, gdy akapit wjedzie w dolne 15% ekranu; koniec, gdy jego dół minie 45% wysokości */
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.85', 'end 0.45'] });
 
   const words = text.split(' ');
   const step = 1 / words.length;
+
+  /* bez ruchu akapit jest po prostu czytelny od razu – przygaszone słowa
+     czekające na przewinięcie byłyby wtedy przeszkodą, a nie efektem */
+  if (isStill) return <p className={className}>{text}</p>;
 
   return (
     <p ref={ref} className={cn('flex flex-wrap', className)}>

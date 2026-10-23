@@ -1,6 +1,7 @@
 import ReactPlayer from 'react-player';
-import { useState } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { Facebook, Youtube } from 'lucide-react';
 import { ThumbHouse, ThumbHouse2, ThumbInside, ThumbLong, ThumbResidence, ThumbShort, ThumbVisualisation } from '@/lib/thumbnails';
 import { CtaBand } from '@/components/CtaBand';
@@ -11,6 +12,7 @@ import residence from '@/assets/residence.mp4';
 import house from '@/assets/house.mp4';
 import house2 from '@/assets/house2.mp4';
 import inside from '@/assets/inside.mp4';
+import heroImage from '@/assets/slider3.webp';
 
 /* Link zostaje elementem inline (bez inline-flex), dzięki czemu jego tekst leży
    na tej samej linii bazowej co reszta akapitu; ikonę dosuwamy do tekstu przez align. */
@@ -19,14 +21,29 @@ const socialLinkClasses = 'font-medium text-brand transition-colors hover:text-b
 const socialLinkNowrapClasses = cn(socialLinkClasses, 'whitespace-nowrap');
 const socialIconClasses = 'mr-1.5 inline-block h-4 w-4 align-[-0.2em]';
 
-/** Kadr 16:9 z zaokrągleniem – ujednolica wszystkie odtwarzacze. */
-const Frame = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
-  <Reveal delay={delay}>
-    <div className="aspect-video w-full overflow-hidden rounded-2xl bg-ink shadow-soft transition-shadow duration-500 ease-smooth hover:shadow-lift">
-      {children}
-    </div>
-  </Reveal>
-);
+/**
+ * Kadr 16:9 z zaokrągleniem – ujednolica wszystkie odtwarzacze.
+ * Każdy jedzie we własnym tempie względem strony, więc siatka nagrań oddycha
+ * zamiast przesuwać się jednym blokiem.
+ */
+const Frame = ({ children, delay = 0, shift = 40 }: { children: ReactNode; delay?: number; shift?: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isStill = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const y = useTransform(scrollYProgress, [0, 1], [shift, -shift]);
+
+  return (
+    <Reveal delay={delay}>
+      <motion.div
+        ref={ref}
+        style={isStill ? undefined : { y }}
+        className="aspect-video w-full overflow-hidden rounded-2xl bg-ink shadow-soft transition-shadow duration-500 ease-smooth hover:shadow-lift"
+      >
+        {children}
+      </motion.div>
+    </Reveal>
+  );
+};
 
 const playerProps = { width: '100%', height: '100%', playing: true, controls: true } as const;
 
@@ -52,13 +69,13 @@ const Projects = () => (
       <Frame>
         <ReactPlayer url="https://stilopolska.pl/wp-content/uploads/2024/03/short.mp4" {...playerProps} light={<ThumbShort />} />
       </Frame>
-      <Frame delay={100}>
+      <Frame delay={100} shift={-40}>
         <ReactPlayer url={residence} {...playerProps} light={<ThumbResidence />} />
       </Frame>
     </div>
 
     <div className="mx-auto w-full lg:max-w-4xl">
-      <Frame delay={60}>
+      <Frame delay={60} shift={24}>
         <ReactPlayer url="https://stilopolska.pl/wp-content/uploads/2024/03/long.mp4" {...playerProps} light={<ThumbLong />} />
       </Frame>
     </div>
@@ -86,13 +103,13 @@ const Visualisations = () => (
       <Frame>
         <ReactPlayer url="https://stilopolska.pl/wp-content/uploads/2024/03/visualisation.mp4" {...playerProps} light={<ThumbVisualisation />} />
       </Frame>
-      <Frame delay={100}>
+      <Frame delay={100} shift={-40}>
         <ReactPlayer url={house} {...playerProps} light={<ThumbHouse />} />
       </Frame>
-      <Frame delay={60}>
+      <Frame delay={60} shift={-28}>
         <ReactPlayer url={house2} {...playerProps} light={<ThumbHouse2 />} />
       </Frame>
-      <Frame delay={140}>
+      <Frame delay={140} shift={32}>
         <ReactPlayer url={inside} {...playerProps} light={<ThumbInside />} />
       </Frame>
     </div>
@@ -109,27 +126,33 @@ export const Video = () => {
 
   return (
     <section className="flex min-h-screen flex-col bg-cream">
-      <PageHero eyebrow="Galeria wideo" title="Zobacz nasze domy w ruchu">
-        {/* przełącznik z przesuwającym się wskaźnikiem */}
-        <div className="mt-2 inline-flex rounded-full border border-ink/10 bg-white p-1 shadow-soft">
+      <PageHero eyebrow="Galeria wideo" title="Zobacz nasze domy w ruchu" image={heroImage}>
+        {/* wskaźnik przejeżdża między zakładkami zamiast przeskakiwać – wspólne `layoutId` */}
+        <div className="mt-1 inline-flex rounded-full border border-white/20 bg-white/10 p-1 backdrop-blur-md backdrop-saturate-150">
           {tabs.map(({ id, label }) => (
             <button
               key={id}
               type="button"
               onClick={() => setActiveTab(id)}
               aria-pressed={activeTab === id}
-              className={cn(
-                'rounded-full px-7 py-2.5 text-sm font-semibold transition-all duration-300 ease-smooth',
-                activeTab === id ? 'bg-brand text-white shadow-brand' : 'text-ink/55 hover:text-brand',
-              )}
+              className="relative rounded-full px-7 py-2.5 text-sm font-semibold"
             >
-              {label}
+              {activeTab === id && (
+                <motion.span
+                  layoutId="video-tab-indicator"
+                  className="absolute inset-0 rounded-full bg-brand shadow-brand"
+                  transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                />
+              )}
+              <span className={cn('relative z-10 transition-colors duration-300', activeTab === id ? 'text-white' : 'text-white/60 hover:text-white')}>
+                {label}
+              </span>
             </button>
           ))}
         </div>
       </PageHero>
 
-      <div className="shell px-5 py-14 sm:px-8 lg:px-12 lg:py-16">{activeTab === 'projects' ? <Projects /> : <Visualisations />}</div>
+      <div className="shell px-5 py-14 sm:px-8 lg:px-12 lg:py-20">{activeTab === 'projects' ? <Projects /> : <Visualisations />}</div>
 
       <CtaBand />
     </section>

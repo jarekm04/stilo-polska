@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { TreePine, Wrench, BatteryCharging, type LucideIcon } from 'lucide-react';
 import { Reveal } from '@/components/Reveal';
 import { SectionHeading } from '@/components/SectionHeading';
@@ -46,7 +46,18 @@ const FACE_HEIGHT = 150;
  * wybraną ściankę równo na wprost widza – tak jak w liczniku przebiegu.
  */
 const Drum = ({ active, count }: { active: number; count: number }) => {
+  const isStill = useReducedMotion();
   const step = 360 / count;
+
+  /* Bez obrotu bryła zostałaby na pierwszej ściance i numer kłamałby przy każdym
+     kolejnym filarze – dlatego przy ograniczonych animacjach pokazujemy zwykłą cyfrę. */
+  if (isStill) {
+    return (
+      <span className="block font-display leading-none text-brand" style={{ fontSize: FACE_HEIGHT }} aria-hidden>
+        0{active + 1}
+      </span>
+    );
+  }
   /* promień graniastosłupa o `count` ściankach i zadanej wysokości ścianki */
   const radius = FACE_HEIGHT / 2 / Math.tan(Math.PI / count);
 

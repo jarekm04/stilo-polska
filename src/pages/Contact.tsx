@@ -3,7 +3,7 @@ import { Building2, Clock, Facebook, Mail, MapPin, Phone, Smartphone, Youtube } 
 import { PageHero } from '@/components/PageHero';
 import { Reveal } from '@/components/Reveal';
 import logoImage from '@/assets/logo-removedbg.png';
-import contactImage from '@/assets/contact.jpeg';
+import contactImage from '@/assets/contact.webp';
 
 const people = [
   { name: 'Jerzy Kruczkowski', phone: '(+48) 609-540-763', href: 'tel:+48609540763' },
@@ -23,16 +23,16 @@ const socialClasses =
 export const Contact = () => {
   return (
     <section className="flex min-h-screen flex-col bg-cream">
-      <PageHero eyebrow="Kontakt" title="Porozmawiajmy o Twoim domu">
-        <p className="text-sm font-light leading-relaxed text-ink/65 sm:text-base">
+      <PageHero eyebrow="Kontakt" title="Porozmawiajmy o Twoim domu" image={contactImage}>
+        <p className="text-sm font-light leading-relaxed sm:text-base">
           Przyślij nam projekt lub po prostu zadzwoń – przygotujemy projekt technologiczny i wycenę.
         </p>
       </PageHero>
 
-      <div className="shell grid gap-8 px-5 py-14 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:px-12 lg:py-16">
-        {/* dane kontaktowe */}
-        <Reveal className="h-full">
-          <div className="flex h-full flex-col gap-8 rounded-2xl border border-ink/[0.07] bg-white p-7 shadow-soft sm:p-9">
+      <div className="shell grid gap-8 px-5 py-14 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:px-12 lg:py-20">
+        {/* dane kontaktowe zostają na widoku, kiedy obok przewija się mapa i zdjęcie */}
+        <Reveal className="lg:sticky lg:top-28 lg:self-start">
+          <div className="flex flex-col gap-8 rounded-2xl border border-ink/[0.07] bg-white p-7 shadow-soft sm:p-9">
             <img src={logoImage} alt="Stilo Polska" className="h-16 w-auto self-start" />
 
             <div className="flex flex-col gap-4">
@@ -96,29 +96,34 @@ export const Contact = () => {
           </div>
         </Reveal>
 
-        {/* mapa + zdjęcie biura */}
         <div className="flex flex-col gap-8">
+          {/* mapa w ciemnej ramce – kolorowy kafelek Google przestaje wypadać z palety */}
           <Reveal delay={100}>
-            <div className="overflow-hidden rounded-2xl border border-ink/[0.07] shadow-soft">
+            <div className="overflow-hidden rounded-2xl bg-ink p-2.5 shadow-soft">
+              <div className="flex items-center justify-between px-3 py-2">
+                <span className="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-cream/70">Znajdź nas</span>
+                <span className="text-[0.65rem] font-light text-cream/55">Gdańsk Przymorze</span>
+              </div>
               <iframe
                 title="Lokalizacja Stilo Polska"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2322.43922086986!2d18.58132261587419!3d54.40221948021385!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46fd752a03e0754d%3A0x8792e0b75e4d17fc!2sSTILO+POLSKA!5e0!3m2!1spl!2spl!4v1531332049002"
                 width="100%"
-                height="360"
+                height="380"
                 loading="lazy"
                 allowFullScreen
-                className="block"
+                className="block rounded-xl"
               />
             </div>
           </Reveal>
 
           {/* zwykły <img> zamiast tła CSS – dzięki temu przeglądarka pobiera zdjęcie od razu */}
-          <div className="flex-1 overflow-hidden rounded-2xl shadow-soft">
-            <img src={contactImage} alt="Biuro Stilo Polska" className="h-full min-h-[300px] w-full object-cover" />
-          </div>
+          <Reveal delay={180} className="flex-1">
+            <div className="h-full overflow-hidden rounded-2xl shadow-soft">
+              <img src={contactImage} alt="Biuro Stilo Polska" className="h-full min-h-[300px] w-full object-cover" />
+            </div>
+          </Reveal>
         </div>
       </div>
-
     </section>
   );
 };

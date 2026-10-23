@@ -106,6 +106,14 @@
     text-wrap: balance;
   }
 
+  /* Jeden, czytelny pierścień fokusu na całą stronę – domyślna obwódka ginęła
+     na ciemnych kadrach i na bursztynowych przyciskach. Tylko dla klawiatury. */
+  :focus-visible {
+    outline: 2px solid rgb(var(--brand));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
   p {
     text-wrap: pretty;
   }
@@ -167,6 +175,17 @@
     background: rgba(253, 251, 248, 0.82);
     backdrop-filter: blur(14px) saturate(140%);
     -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+
+  /* skrót do treści – widoczny dopiero po przejściu tabulatorem */
+  .skip-link {
+    @apply fixed left-4 top-4 z-[80] -translate-y-24 rounded-full bg-ink px-6 py-3 text-sm font-semibold text-cream shadow-lift transition-transform duration-300;
+  }
+
+  /* zwykły `:focus`, nie `:focus-visible` – do tego odnośnika i tak dochodzi się
+     wyłącznie tabulatorem, a `:focus-visible` nie łapie fokusu ustawionego skryptem */
+  .skip-link:focus {
+    @apply translate-y-0;
   }
 
   /* siatka linii w tle sekcji */

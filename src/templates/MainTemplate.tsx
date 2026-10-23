@@ -30,6 +30,9 @@ export const MainTemplate = () => {
 
   return (
     <div className="relative">
+      <a href="#tresc" className="skip-link">
+        Przejdź do treści
+      </a>
       <Header />
       <ScrollProgress />
 
@@ -37,7 +40,7 @@ export const MainTemplate = () => {
           która leży przyklejona pod nią (patrz FooterReveal).
           Bez animacji krycia: półprzezroczysta treść przepuszczałaby tę stopkę
           na wierzch przy każdym wejściu na stronę. Wejście grają sekcje. */}
-      <main className="relative z-10 bg-cream">
+      <main id="tresc" className="relative z-10 bg-cream">
         <Outlet />
       </main>
 

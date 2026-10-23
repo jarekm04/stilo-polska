@@ -19,9 +19,13 @@ export const Header = () => {
   const [isMobileNavOpened, setIsMobileNavOpened] = useState(false);
   const { pathname } = useLocation();
 
-  const isHome = pathname === '/';
-  /** Na stronie głównej pasek jest przezroczysty aż do przewinięcia hero. */
-  const isTransparent = isHome && !isScrolled;
+  /**
+   * Nad ciemnym kadrem nagłówka pasek jest przezroczysty aż do przewinięcia.
+   * Mają go wszystkie znane trasy – strona błędu nie, bo jest jasna i biały
+   * znak zniknąłby na kremowym tle.
+   */
+  const hasDarkHero = ['/oferta', '/realizacje', '/video', '/kontakt'].some((path) => pathname.startsWith(path)) || pathname === '/';
+  const isTransparent = hasDarkHero && !isScrolled;
 
   useEffect(() => {
     /* pasek zostaje widoczny przez cały czas – kurczy się dopiero po opuszczeniu hero */

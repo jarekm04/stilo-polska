@@ -1,15 +1,15 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion';
 import { ArrowRight, Camera } from 'lucide-react';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Lightbox } from '@/components/Gallery';
 import { Reveal } from '@/components/Reveal';
 import { SectionHeading } from '@/components/SectionHeading';
 import { images1, images2, images3 } from '@/lib/utils';
-import ready1 from '@/assets/ready1.jpg';
-import ready2 from '@/assets/ready2.jpg';
-import ready3 from '@/assets/ready3.jpg';
+import ready1 from '@/assets/ready1.webp';
+import ready2 from '@/assets/ready2.webp';
+import ready3 from '@/assets/ready3.webp';
 
 const items = [
   { title: 'Dom całoroczny bal klejony 279 m²', src: ready1, id: 1, images: images1 },
@@ -31,6 +31,9 @@ type StackCardProps = {
 };
 
 const StackCard = ({ item: { title, src, images }, index, total, progress, onOpen }: StackCardProps) => {
+  /* bez ruchu stos zostaje zwykłą listą kart – nic się nie cofa ani nie przygasa */
+  const isStill = useReducedMotion();
+
   const travel = (total - 1) * CARD_VH + TAIL_VH;
   /** W którym miejscu postępu karta dolatuje na swoją pozycję. */
   const stickAt = (cardIndex: number) => (cardIndex * CARD_VH) / travel;
@@ -64,10 +67,14 @@ const StackCard = ({ item: { title, src, images }, index, total, progress, onOpe
 
   return (
     <div
-      className="sticky top-0 flex h-[100svh] items-start justify-center px-5 [perspective:1400px] sm:px-8 lg:px-12"
-      style={{ paddingTop: `calc(6svh + ${index * 2.2}rem)` }}
+      className={
+        isStill
+          ? 'flex justify-center px-5 pb-6 sm:px-8 lg:px-12'
+          : 'sticky top-0 flex h-[100svh] items-start justify-center px-5 [perspective:1400px] sm:px-8 lg:px-12'
+      }
+      style={isStill ? undefined : { paddingTop: `calc(6svh + ${index * 2.2}rem)` }}
     >
-      <motion.div style={{ scale, rotateX, originY: 0 }} className="w-full max-w-5xl">
+      <motion.div style={isStill ? undefined : { scale, rotateX, originY: 0 }} className="w-full max-w-5xl">
         <DialogTrigger asChild>
           <button
             type="button"
@@ -78,7 +85,7 @@ const StackCard = ({ item: { title, src, images }, index, total, progress, onOpe
 
             <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/25 to-ink/10" />
             {/* przyciemnienie rośnie, w miarę jak karta cofa się pod kolejną */}
-            <motion.span style={{ opacity: veil }} className="pointer-events-none absolute inset-0 bg-ink" />
+            {!isStill && <motion.span style={{ opacity: veil }} className="pointer-events-none absolute inset-0 bg-ink" />}
 
             <span className="absolute left-6 top-6 font-display text-sm tracking-[0.25em] text-white/60">0{index + 1}</span>
 
@@ -103,6 +110,7 @@ const StackCard = ({ item: { title, src, images }, index, total, progress, onOpe
 
 export const Realizations = () => {
   const [selectedIndex, setSelectedIndex] = useState<number>();
+  const isStill = useReducedMotion();
   const stackRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
@@ -123,7 +131,7 @@ export const Realizations = () => {
 
         {/* stos: wszystkie karty przyklejone do góry jednego, wysokiego kontenera –
             kolejna wjeżdża na poprzednią, a tamta cofa się w głąb */}
-        <div ref={stackRef} className="relative mt-10" style={{ paddingBottom: `${TAIL_VH}svh` }}>
+        <div ref={stackRef} className="relative mt-10" style={isStill ? undefined : { paddingBottom: `${TAIL_VH}svh` }}>
           {items.map((item, index) => (
             <StackCard key={item.id} item={item} index={index} total={items.length} progress={scrollYProgress} onOpen={setSelectedIndex} />
           ))}

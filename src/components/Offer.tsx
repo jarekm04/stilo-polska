@@ -1,16 +1,16 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Maximize2 } from 'lucide-react';
 import { TiltCard } from '@/components/fx/TiltCard';
 import { Reveal } from '@/components/Reveal';
 import { smoothScrollTo } from '@/lib/smoothScroll';
 import { useMediaQuery } from '@/lib/useMediaQuery';
 import { cn } from '@/lib/utils';
-import offer1 from '@/assets/offer1.jpg';
-import offer2 from '@/assets/offer2.jpg';
-import offer3 from '@/assets/offer3.jpg';
-import offer4 from '@/assets/offer4.jpg';
+import offer1 from '@/assets/offer1.webp';
+import offer2 from '@/assets/offer2.webp';
+import offer3 from '@/assets/offer3.webp';
+import offer4 from '@/assets/offer4.webp';
 
 /** Światło między ostatnim kafelkiem a prawą krawędzią ekranu (odpowiednik `lg:px-12`). */
 const END_GUTTER = 48;
@@ -93,6 +93,8 @@ const OfferOutro = ({ onCardFocus }: { onCardFocus: FocusHandler }) => (
 
 export const Offer = () => {
   const isDesktop = useMediaQuery('(min-width: 1024px)');
+  /* przy ograniczonych animacjach sekcja zostaje zwykłym, przewijanym palcem torem */
+  const isStill = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [distance, setDistance] = useState(0);
@@ -131,7 +133,7 @@ export const Offer = () => {
   const x = useTransform(scrollYProgress, [0, 1], [0, -distance]);
   const progressScale = useTransform(scrollYProgress, [0, 1], [0.04, 1]);
 
-  const isPinned = isDesktop && distance > 0;
+  const isPinned = isDesktop && distance > 0 && !isStill;
 
   const heading = (
     <div className="flex flex-col gap-4">

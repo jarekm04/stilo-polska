@@ -222,36 +222,102 @@ i po każdym `setSize` przywracamy rozciąganie na 100%.
 kryciu poniżej 1 widać to, co leży pod spodem — czyli przyklejoną stopkę. Animacja wejścia
 całej strony wyleciała; wejście grają sekcje, nie cała warstwa.
 
-### ⬜ Etap 7 — Podstrony
+### ✅ Etap 7 — Podstrony
 
 > `Etap 7: podstrony w nowym języku wizualnym`
 
-- [ ] **PageHero** — edytorski: duży tytuł, pasek zdjęcia z parallaxem
-- [ ] **Oferta / Realizacje** — siatka o zmiennych wysokościach, wejście kaskadowe w kolumnach,
-      blur-up przy ładowaniu (warianty `*FCP.jpg` jako placeholdery)
-- [ ] **Video** — przełącznik z przesuwającym się wskaźnikiem, kadry z parallaxem
-- [ ] **Kontakt** — przyklejona karta danych, mapa w ciemnej ramce
-- [ ] **404** — detektyw na warstwach parallaxu
+- [x] **PageHero** — edytorski: pełnowymiarowy kadr na 62 svh, tytuł odsłaniany literami przy
+      dolnej krawędzi, zdjęcie jedzie wolniej niż treść. Ten sam język co hero strony głównej
+- [x] Pasek nawigacji jest przezroczysty nad każdym ciemnym nagłówkiem, nie tylko na stronie
+      głównej — kadr zaczyna się pod nim, a nie 112 px niżej
+- [x] **Oferta / Realizacje** — siatka na kolumnach CSS z trzema wysokościami w kółko, więc
+      przestaje wyglądać jak tabela; wejście opóźniane numerem kolumny, nie pozycją na liście
+- [x] **Blur-up** — WordPress oddaje dla każdego zdjęcia rozmiar `thumbnail` (kilka kilobajtów).
+      Powiększony i rozmyty daje kolor kadru od pierwszej chwili, pełne zdjęcie wchodzi
+      przenikaniem. Zapowiadane `*FCP.jpg` pasowały tylko do hero — dla zdjęć z WordPressa
+      nie istnieją, a miniatura robi dokładnie to samo
+- [x] **Video** — wskaźnik zakładek przejeżdża między nimi (wspólne `layoutId`) zamiast
+      przeskakiwać; każdy kadr jedzie we własnym tempie, więc siatka nagrań oddycha
+- [x] **Kontakt** — karta z danymi zostaje na widoku, kiedy obok przewija się mapa i zdjęcie;
+      mapa w ciemnej ramce, żeby kolorowy kafelek Google nie wypadał z palety
+- [x] **404** — detektyw odchyla się za kursorem, w tle dryfująca poświata
+- [x] **Szczegóły oferty** — kadr nagłówka powiększony do tego samego 62 svh i wsunięty pod
+      pasek nawigacji; zdjęcia w siatce też z blur-upem
 
-### ⬜ Etap 8 — Assety
+Sprawdzone na żywo: oferta 18 kafli w 3 kolumnach o wysokościach 352/448/400 px,
+realizacje 27 kafli, na telefonie obie schodzą do jednej kolumny; nagłówek 558 px na
+desktopie i 503 px na telefonie, zaczyna się na 0; nigdzie nie ma przewijania w bok.
+
+### ✅ Etap 8 — Assety
 
 > `Etap 8: konwersja assetów i kadry pod nowy layout`
 
-- [ ] Miniatury PNG (5–6 MB każda) → WebP, ok. 150 KB
-- [ ] Zdjęcia hero i oferty → WebP w dwóch szerokościach + kadry 9:16 pod telefon
-- [ ] Blur-up: użycie istniejących `*FCP.jpg` jako placeholderów
-- [ ] **Do decyzji Jarka:** `house.mp4` 128 MB, `inside.mp4` 142 MB, `residence.mp4` 147 MB —
-      przy tej wadze żaden efekt nie zdąży się pokazać. Proponowana kompresja albo przeniesienie
-      na streaming
+- [x] **Skrypt `npm run assets`** (`scripts/optimize-assets.mjs`, sharp) — powtarzalny,
+      domyślnie pomija to, co już przerobił, `-- --force` nadpisuje. Oryginały zostają
+      nietknięte jako materiał wyjściowy
+- [x] Miniatury wideo PNG: **33,38 MB → 0,74 MB** (siedem plików po 5–6 MB)
+- [x] Kadry hero: 9,95 MB → 3,70 MB, w tym **kadry 9:16 pod telefon** — sharp sam wybiera
+      najciekawszy fragment, więc przy przycięciu dom nie ucieka poza krawędź
+- [x] Oferta 6,77 → 1,10 MB, realizacje 1,90 → 0,52 MB, podglądy hero 0,91 → 0,18 MB
+- [x] Galerie: ready1 8,54 → 2,99 MB, ready2 12,79 → 2,72 MB, ready3 5,07 → 1,61 MB
+- [x] **Razem 81,63 MB → 14,02 MB** (−83%). Zbudowana strona niesie teraz 14 MB zdjęć
+      zamiast ponad osiemdziesięciu
+- [x] Blur-up na podglądach hero (`*FCP`) podawanych płótnu WebGL, zanim dojdą pełne kadry
+- [x] Logo zostaje w PNG — 20–35 KB, konwersja nic by nie dała, a `logo-removedbg.png`
+      jest przepuszczane przez filtry CSS
 
-### ⬜ Etap 9 — Domknięcie
+**Filmy — zostają do decyzji.** `residence.mp4` 140 MB, `inside.mp4` 136 MB, `house.mp4`
+122 MB, `house2.mp4` 88 MB. Razem **487 MB w paczce strony**, czyli trzydzieści pięć razy
+więcej niż wszystkie zdjęcia po konwersji. Nie ruszyłem ich, bo na tej maszynie nie ma
+ffmpeg (`convert` w PATH to narzędzie Windowsa do systemów plików, nie ImageMagick).
 
-> `Etap 9: reduced-motion, degradacja na telefonie, pomiar`
+Dwie drogi, obie czyste:
 
-- [ ] Pełny przegląd `prefers-reduced-motion` na wszystkich nowych efektach
-- [ ] Degradacja na telefonie: fade/slide zamiast pinowania i tiltu
-- [ ] Lighthouse przed/po, sprawdzenie braku przesuwania layoutu (CLS)
-- [ ] Przegląd dostępności: fokus klawiaturą, kontrasty, `aria-*`
+1. **Przenieść na serwer WordPress**, tak jak już działają `short.mp4`, `long.mp4`
+   i `visualisation.mp4` — te trzy są pobierane z `stilopolska.pl`, a nie z paczki.
+   Zero straty jakości, 487 MB znika z builda. To ta sama ścieżka, którą projekt już zna.
+2. **Przekodować lokalnie** (ffmpeg, H.264, CRF 23, 1080p) — zwykle 10–20× mniej.
+   Wymaga doinstalowania ffmpeg.
+
+### ✅ Etap 9 — Domknięcie
+
+> `Etap 9: reduced-motion, dostępność, pomiar`
+
+**`prefers-reduced-motion` — największa luka całego projektu.** `MotionConfig reducedMotion`
+wyłącza tylko animacje z `animate`. Ruch spięty ze scrollem idzie przez `style` i **działał
+dalej** — parallaks hero i nagłówków podstron, przyklejona oferta, stos realizacji, kadry
+wideo. Każde z tych miejsc dostało jawne wyłączenie:
+
+- [x] Hero i nagłówki podstron: bez parallaksu, bez przygaszania
+- [x] Oferta: bez przyklejania, zostaje zwykły tor przewijany palcem
+- [x] Realizacje: stos rozkłada się na zwykłą listę kart, znika ogon kontenera
+- [x] Wideo: kadry stoją
+- [x] **Bęben w technologii pokazywał zły numer.** Bez obrotu bryła zostawała na pierwszej
+      ściance, więc przy każdym kolejnym filarze numer kłamał. Teraz to zwykła cyfra
+- [x] `ScrollWords` i `SplitText`: zwykły, w pełni czytelny tekst — przygaszone słowa
+      czekające na przewinięcie byłyby przeszkodą, nie efektem
+- [x] Tilt kart wyłączony niezależnie od rodzaju wskaźnika
+
+**Dostępność**
+
+- [x] Jeden pierścień fokusu na całą stronę (bursztyn, 2 px) — domyślna obwódka ginęła
+      na ciemnych kadrach i na bursztynowych przyciskach
+- [x] Odnośnik „Przejdź do treści" jako pierwszy element tabulatora
+- [x] Podniesione krycie najsłabszych etykiet: liczby w belce hero i podpisy mapy
+
+**Pomiary**
+
+- [x] **CLS 0,0004 na stronie głównej i 0,0000 na ofercie** (próg „dobry" to 0,1). Kafle
+      mają z góry znane wysokości, więc dochodzące zdjęcia nie przesuwają układu
+- [x] Paczka bez filmów: **14,8 MB**, z czego 14,0 MB to zdjęcia
+- [x] Tabulatorem: pierwszy `Tab` trafia w odnośnik do treści, ten wjeżdża na ekran
+      i dostaje bursztynowy pierścień — sprawdzone realnym naciśnięciem klawisza
+
+**Czego nie sprawdziłem na żywo:** zachowania przy włączonym `prefers-reduced-motion`.
+Panel podglądu nie umie wymusić tego ustawienia, a `useReducedMotion` czyta je prosto
+z systemu, więc nie da się go podmienić z poziomu strony. Kod przechodzi typy i lint,
+ale samych ścieżek bez ruchu nie widziałem w działaniu — warto kliknąć to u siebie
+z włączonym ograniczeniem animacji w systemie.
 
 ---
 

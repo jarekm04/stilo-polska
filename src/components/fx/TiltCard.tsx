@@ -1,5 +1,5 @@
 import { useRef, type PointerEvent, type ReactNode } from 'react';
-import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 type TiltCardProps = {
@@ -23,8 +23,10 @@ type TiltCardProps = {
  *
  * Reaguje wyłącznie na mysz – przy dotyku pochylanie tylko przeszkadza.
  */
-export const TiltCard = ({ children, className, innerClassName, max = 9, disabled = false }: TiltCardProps) => {
+export const TiltCard = ({ children, className, innerClassName, max = 9, disabled: isDisabledByCaller = false }: TiltCardProps) => {
   const ref = useRef<HTMLDivElement>(null);
+  const isStill = useReducedMotion();
+  const disabled = isDisabledByCaller || Boolean(isStill);
 
   /* znormalizowana pozycja kursora w obrębie karty: 0…1 */
   const pointerX = useMotionValue(0.5);

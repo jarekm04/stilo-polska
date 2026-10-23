@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
-import realization from '@/assets/realization-skeleton.jpeg';
-import offer from '@/assets/offer-skeleton.jpg';
+import realization from '@/assets/realization-skeleton.webp';
+import offer from '@/assets/offer-skeleton.webp';
 
 /** Przesuwający się połysk – używany na wszystkich placeholderach. */
 const Shimmer = () => (
@@ -50,7 +50,7 @@ export const LoadingSpinner = ({ className }: { className?: string }) => {
 
 export const SkeletonDetails = () => {
   return (
-    <section className="mt-20 flex h-[calc(100vh-80px)] items-center justify-center bg-cream">
+    <section className="flex h-screen items-center justify-center bg-cream">
       <LoadingSpinner />
     </section>
   );

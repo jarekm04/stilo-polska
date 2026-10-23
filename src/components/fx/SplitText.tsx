@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 type SplitTextProps = {
@@ -24,6 +24,11 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  * ukryta – inaczej tekst byłby odczytywany sylabami.
  */
 export const SplitText = ({ text, className, delay = 0, stagger, unit = 'letter', duration = 0.95 }: SplitTextProps) => {
+  const isStill = useReducedMotion();
+
+  /* bez ruchu nie ma po co kroić frazy na kawałki – zostaje zwykły tekst */
+  if (isStill) return <span className={className}>{text}</span>;
+
   const words = text.split(' ');
   const step = stagger ?? (unit === 'letter' ? 0.028 : 0.05);
 

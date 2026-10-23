@@ -1,22 +1,28 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { HeroCanvas } from '@/components/fx/HeroCanvas';
 import { SplitText } from '@/components/fx/SplitText';
 import { stats } from '@/lib/stats';
+import { useMediaQuery } from '@/lib/useMediaQuery';
 import { useWebGLSupport } from '@/lib/useWebGLSupport';
 import { cn } from '@/lib/utils';
-import slider1FCP from '@/assets/slider1FCP.jpg';
-import slider2FCP from '@/assets/slider2FCP.jpg';
-import slider3FCP from '@/assets/slider3FCP.jpg';
-import slider4FCP from '@/assets/slider4FCP.jpg';
-import slider5FCP from '@/assets/slider5FCP.jpg';
-import slider1 from '@/assets/slider1.jpg';
-import slider2 from '@/assets/slider2.jpg';
-import slider3 from '@/assets/slider3.jpg';
-import slider4 from '@/assets/slider4.jpg';
-import slider5 from '@/assets/slider5.jpg';
+import slider1FCP from '@/assets/slider1FCP.webp';
+import slider2FCP from '@/assets/slider2FCP.webp';
+import slider3FCP from '@/assets/slider3FCP.webp';
+import slider4FCP from '@/assets/slider4FCP.webp';
+import slider5FCP from '@/assets/slider5FCP.webp';
+import slider1 from '@/assets/slider1.webp';
+import slider2 from '@/assets/slider2.webp';
+import slider3 from '@/assets/slider3.webp';
+import slider4 from '@/assets/slider4.webp';
+import slider5 from '@/assets/slider5.webp';
+import slider1Portrait from '@/assets/slider1-portrait.webp';
+import slider2Portrait from '@/assets/slider2-portrait.webp';
+import slider3Portrait from '@/assets/slider3-portrait.webp';
+import slider4Portrait from '@/assets/slider4-portrait.webp';
+import slider5Portrait from '@/assets/slider5-portrait.webp';
 
 /** Ile slajd zostaje na ekranie – tyle samo trwa wypełnienie kreski w belce. */
 const SLIDE_DURATION = 6800;
@@ -26,11 +32,11 @@ const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 const EASE_CURTAIN = [0.76, 0, 0.24, 1] as const;
 
 const slides = [
-  { title: 'Profesjonalizm', caption: 'Opatentowane techniki montażu i ekipy, które nie znają kompromisów.', low: slider1FCP, full: slider1 },
-  { title: 'Wszechstronność', caption: 'Od kameralnych domków po rezydencje o powierzchni 450 m².', low: slider2FCP, full: slider2 },
-  { title: 'Doświadczenie', caption: 'Na rynku domów z bala nieprzerwanie od 2004 roku.', low: slider3FCP, full: slider3 },
-  { title: 'Innowacyjność', caption: 'Bale suszone i klejone, obrabiane na maszynach CNC.', low: slider4FCP, full: slider4 },
-  { title: 'Precyzja', caption: 'Selekcjonowany świerk alpejski, ścinany wyłącznie zimą.', low: slider5FCP, full: slider5 },
+  { title: 'Profesjonalizm', caption: 'Opatentowane techniki montażu i ekipy, które nie znają kompromisów.', low: slider1FCP, full: slider1, portrait: slider1Portrait },
+  { title: 'Wszechstronność', caption: 'Od kameralnych domków po rezydencje o powierzchni 450 m².', low: slider2FCP, full: slider2, portrait: slider2Portrait },
+  { title: 'Doświadczenie', caption: 'Na rynku domów z bala nieprzerwanie od 2004 roku.', low: slider3FCP, full: slider3, portrait: slider3Portrait },
+  { title: 'Innowacyjność', caption: 'Bale suszone i klejone, obrabiane na maszynach CNC.', low: slider4FCP, full: slider4, portrait: slider4Portrait },
+  { title: 'Precyzja', caption: 'Selekcjonowany świerk alpejski, ścinany wyłącznie zimą.', low: slider5FCP, full: slider5, portrait: slider5Portrait },
 ];
 
 export const Slider = () => {
@@ -41,8 +47,14 @@ export const Slider = () => {
   const heroRef = useRef<HTMLElement>(null);
   const indexRef = useRef(0);
 
+  /* Ruch spięty ze scrollem idzie przez `style`, a nie `animate`, więc
+     `MotionConfig reducedMotion` go nie dotyczy – trzeba go wyłączyć ręcznie. */
+  const isStill = useReducedMotion();
   const canUseWebGL = useWebGLSupport();
-  const fullImages = useMemo(() => slides.map(({ full }) => full), []);
+  /* na wąskim ekranie kadr pionowy: poziome zdjęcie przycięte do 9:16 gubiło cały dom */
+  const isNarrow = useMediaQuery('(max-width: 639px)');
+
+  const fullImages = useMemo(() => slides.map(({ full, portrait }) => (isNarrow ? portrait : full)), [isNarrow]);
   const lowImages = useMemo(() => slides.map(({ low }) => low), []);
 
   /* postęp liczony od wejścia hero w kadr do jego wyjechania górą */
@@ -58,17 +70,17 @@ export const Slider = () => {
   useEffect(() => {
     if (canUseWebGL) return;
 
-    const images = slides.map(({ full }, slideIndex) => {
+    const images = fullImages.map((source, slideIndex) => {
       const image = new Image();
 
       image.onload = () => setIsHighReady((previous) => previous.map((ready, i) => (i === slideIndex ? true : ready)));
-      image.src = full;
+      image.src = source;
 
       return image;
     });
 
     return () => images.forEach((image) => (image.onload = null));
-  }, [canUseWebGL]);
+  }, [canUseWebGL, fullImages]);
 
   const goTo = useCallback((next: number) => {
     if (indexRef.current === next) return;
@@ -97,7 +109,7 @@ export const Slider = () => {
 
     return (
       <img
-        src={isHighReady[slideIndex] ? slide.full : slide.low}
+        src={isHighReady[slideIndex] ? fullImages[slideIndex] : slide.low}
         className="h-full w-full animate-kenBurns object-cover"
         alt={`Dom z bala – ${slide.title.toLowerCase()}`}
         loading={slideIndex === 0 ? 'eager' : 'lazy'}
@@ -109,7 +121,10 @@ export const Slider = () => {
     <section ref={heroRef} className="relative flex h-[100svh] w-full flex-col overflow-hidden bg-ink" aria-label="Realizacje Stilo Polska">
       {/* Kadr: płótno WebGL, a gdy go nie ma – dwie warstwy zdjęć z przycinaniem.
           Skalowania przy przewijaniu nie nakładamy na płótno, bo rozmywałoby render. */}
-      <motion.div style={canUseWebGL ? { y: imageY } : { y: imageY, scale: imageScale }} className="absolute inset-0 will-change-transform">
+      <motion.div
+        style={isStill ? undefined : canUseWebGL ? { y: imageY } : { y: imageY, scale: imageScale }}
+        className="absolute inset-0 will-change-transform"
+      >
         {canUseWebGL ? (
           <HeroCanvas images={fullImages} placeholders={lowImages} index={index} duration={WIPE_DURATION} className="block h-full w-full" />
         ) : (
@@ -133,11 +148,11 @@ export const Slider = () => {
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/45" />
       {/* im dalej przewiniemy, tym ciemniej – hero gaśnie, zamiast po prostu odjechać */}
-      <motion.div style={{ opacity: veilOpacity }} className="pointer-events-none absolute inset-0 bg-ink" />
+      {!isStill && <motion.div style={{ opacity: veilOpacity }} className="pointer-events-none absolute inset-0 bg-ink" />}
 
       {/* treść siada przy dolnej krawędzi kadru – układ edytorski, nie wyśrodkowany */}
       <motion.div
-        style={{ y: contentY, opacity: contentOpacity }}
+        style={isStill ? undefined : { y: contentY, opacity: contentOpacity }}
         className="shell relative z-10 flex flex-1 flex-col justify-end px-6 pb-12 will-change-transform sm:px-10 lg:px-12 lg:pb-16"
       >
         <div className="w-full">
@@ -192,7 +207,7 @@ export const Slider = () => {
             {stats.map(({ value, label }) => (
               <div key={label} className="flex flex-col gap-0.5">
                 <dt className="font-display text-2xl leading-none text-white xl:text-[1.75rem]">{value}</dt>
-                <dd className="text-[0.6rem] font-medium uppercase tracking-[0.18em] text-white/55">{label}</dd>
+                <dd className="text-[0.6rem] font-medium uppercase tracking-[0.18em] text-white/70">{label}</dd>
               </div>
             ))}
           </dl>
