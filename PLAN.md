@@ -15,6 +15,34 @@ nimi są ciągłe: kamera nigdy nie przeskakuje.
 
 ---
 
+## Poprawki po drugim przeglądzie
+
+Przyklejone kolumny z Etapu 6.1 kosztowały za dużo miejsca: żeby nagłówek miał po czym
+jechać, każdy atut i filar dostawał pół ekranu wysokości. Trzy sekcje zajmowały przez to
+**7210 px, czyli 60% strony na dziesięć elementów treści**.
+
+| Sekcja | Przed | Po |
+|---|---|---|
+| Atuty | 1848 px | **702 px** |
+| Realizacje | 3287 px | **1007 px** |
+| Technologia | 2075 px | **1436 px** |
+| Cała strona główna | 11 971 px | **7906 px** |
+
+- Atuty: siatka 2×2 obok nagłówka zamiast listy na cztery ekrany. Zniknęło przyklejanie
+  i szyna postępu — przy czterech krótkich akapitach nie miały czego pokazywać
+- Realizacje: jeden duży kadr obok dwóch mniejszych, wszystkie trzy domy widoczne naraz.
+  Stos kart odpadł razem z 3100 px przewijania
+- Technologia: filary na swojej naturalnej wysokości. Kolumna z numerami jedzie teraz
+  przyklejona przez całą sekcję — od góry kontenera do jego dolnej krawędzi.
+  **Wcześniej nie przyklejała się wcale**: `overflow-hidden` na sekcji łamie
+  `position: sticky` w jej wnętrzu, więc kolumna stała nieruchomo w swoim miejscu
+  i wyglądało to na zbyt krótkie przyklejenie. Po zdjęciu przycinania i zamianie
+  `h-[100svh]` na naturalną wysokość dystans przyklejenia wzrósł ze 151 px do 659 px,
+  a kolumna dojeżdża dolną krawędzią dokładnie do końca siatki
+- Wideo: kadry przestały się rozjeżdżać względem siebie — wyglądało to jak błąd układu
+- Kontakt: nagłówek dostał ostry kadr. Zdjęcie biura ma w oryginale 1024 px szerokości
+  i na pełnowymiarowym nagłówku się sypało; zostaje w kafelku niżej, w swojej wielkości
+
 ## Nowa kolejność sekcji na stronie głównej
 
 Stara kolejność prowadziła przez firmę, zanim pokazała choć jeden dom. Nowa opowiada:

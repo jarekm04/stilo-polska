@@ -1,7 +1,7 @@
 import ReactPlayer from 'react-player';
-import { useRef, useState, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Facebook, Youtube } from 'lucide-react';
 import { ThumbHouse, ThumbHouse2, ThumbInside, ThumbLong, ThumbResidence, ThumbShort, ThumbVisualisation } from '@/lib/thumbnails';
 import { CtaBand } from '@/components/CtaBand';
@@ -23,27 +23,15 @@ const socialIconClasses = 'mr-1.5 inline-block h-4 w-4 align-[-0.2em]';
 
 /**
  * Kadr 16:9 z zaokrągleniem – ujednolica wszystkie odtwarzacze.
- * Każdy jedzie we własnym tempie względem strony, więc siatka nagrań oddycha
- * zamiast przesuwać się jednym blokiem.
+ *
+ * Bez parallaksu: rozjeżdżanie się kadrów względem siebie wyglądało jak błąd
+ * układu, a nie jak efekt. Zostaje spokojne wejście i cień pod kursorem.
  */
-const Frame = ({ children, delay = 0, shift = 40 }: { children: ReactNode; delay?: number; shift?: number }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const isStill = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const y = useTransform(scrollYProgress, [0, 1], [shift, -shift]);
-
-  return (
-    <Reveal delay={delay}>
-      <motion.div
-        ref={ref}
-        style={isStill ? undefined : { y }}
-        className="aspect-video w-full overflow-hidden rounded-2xl bg-ink shadow-soft transition-shadow duration-500 ease-smooth hover:shadow-lift"
-      >
-        {children}
-      </motion.div>
-    </Reveal>
-  );
-};
+const Frame = ({ children, delay = 0 }: { children: ReactNode; delay?: number }) => (
+  <Reveal delay={delay}>
+    <div className="aspect-video w-full overflow-hidden rounded-2xl bg-ink shadow-soft transition-shadow duration-500 ease-smooth hover:shadow-lift">{children}</div>
+  </Reveal>
+);
 
 const playerProps = { width: '100%', height: '100%', playing: true, controls: true } as const;
 
@@ -69,13 +57,13 @@ const Projects = () => (
       <Frame>
         <ReactPlayer url="https://stilopolska.pl/wp-content/uploads/2024/03/short.mp4" {...playerProps} light={<ThumbShort />} />
       </Frame>
-      <Frame delay={100} shift={-40}>
+      <Frame delay={100}>
         <ReactPlayer url={residence} {...playerProps} light={<ThumbResidence />} />
       </Frame>
     </div>
 
     <div className="mx-auto w-full lg:max-w-4xl">
-      <Frame delay={60} shift={24}>
+      <Frame delay={60}>
         <ReactPlayer url="https://stilopolska.pl/wp-content/uploads/2024/03/long.mp4" {...playerProps} light={<ThumbLong />} />
       </Frame>
     </div>
@@ -103,13 +91,13 @@ const Visualisations = () => (
       <Frame>
         <ReactPlayer url="https://stilopolska.pl/wp-content/uploads/2024/03/visualisation.mp4" {...playerProps} light={<ThumbVisualisation />} />
       </Frame>
-      <Frame delay={100} shift={-40}>
+      <Frame delay={100}>
         <ReactPlayer url={house} {...playerProps} light={<ThumbHouse />} />
       </Frame>
-      <Frame delay={60} shift={-28}>
+      <Frame delay={60}>
         <ReactPlayer url={house2} {...playerProps} light={<ThumbHouse2 />} />
       </Frame>
-      <Frame delay={140} shift={32}>
+      <Frame delay={140}>
         <ReactPlayer url={inside} {...playerProps} light={<ThumbInside />} />
       </Frame>
     </div>

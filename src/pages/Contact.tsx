@@ -4,6 +4,10 @@ import { PageHero } from '@/components/PageHero';
 import { Reveal } from '@/components/Reveal';
 import logoImage from '@/assets/logo-removedbg.png';
 import contactImage from '@/assets/contact.webp';
+/* Zdjęcie biura ma w oryginale 1024 px szerokości – rozciągnięte na pełnowymiarowy
+   nagłówek wyraźnie się sypało. Tam idzie ostry kadr, a biuro zostaje w kafelku niżej,
+   gdzie wyświetla się w swojej naturalnej wielkości. */
+import heroImage from '@/assets/slider5.webp';
 
 const people = [
   { name: 'Jerzy Kruczkowski', phone: '(+48) 609-540-763', href: 'tel:+48609540763' },
@@ -23,7 +27,7 @@ const socialClasses =
 export const Contact = () => {
   return (
     <section className="flex min-h-screen flex-col bg-cream">
-      <PageHero eyebrow="Kontakt" title="Porozmawiajmy o Twoim domu" image={contactImage}>
+      <PageHero eyebrow="Kontakt" title="Porozmawiajmy o Twoim domu" image={heroImage}>
         <p className="text-sm font-light leading-relaxed sm:text-base">
           Przyślij nam projekt lub po prostu zadzwoń – przygotujemy projekt technologiczny i wycenę.
         </p>

@@ -1,15 +1,17 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowRight, Camera } from 'lucide-react';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Lightbox } from '@/components/Gallery';
 import { Reveal } from '@/components/Reveal';
 import { SectionHeading } from '@/components/SectionHeading';
-import { images1, images2, images3 } from '@/lib/utils';
+import { images1, images2, images3, cn } from '@/lib/utils';
 import ready1 from '@/assets/ready1.webp';
 import ready2 from '@/assets/ready2.webp';
 import ready3 from '@/assets/ready3.webp';
+
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 const items = [
   { title: 'Dom całoroczny bal klejony 279 m²', src: ready1, id: 1, images: images1 },
@@ -17,128 +19,88 @@ const items = [
   { title: 'Dom całoroczny bal klejony 450 m²', src: ready3, id: 3, images: images3 },
 ];
 
-/* Każda karta zajmuje w pionie jeden ekran; ogon daje ostatniej chwilę na scenie,
-   zanim stos puści i strona pojedzie dalej. */
-const CARD_VH = 100;
-const TAIL_VH = 20;
-
-type StackCardProps = {
+type CardProps = {
   item: (typeof items)[number];
   index: number;
-  total: number;
-  progress: MotionValue<number>;
-  onOpen: (id: number) => void;
+  isFeature: boolean;
+  onOpen: (index: number) => void;
 };
 
-const StackCard = ({ item: { title, src, images }, index, total, progress, onOpen }: StackCardProps) => {
-  /* bez ruchu stos zostaje zwykłą listą kart – nic się nie cofa ani nie przygasa */
-  const isStill = useReducedMotion();
+const RealizationCard = ({ item: { title, src, images }, index, isFeature, onOpen }: CardProps) => (
+  <motion.div
+    initial={{ opacity: 0, y: 36 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.2 }}
+    transition={{ duration: 0.8, ease: EASE, delay: index * 0.1 }}
+    className={cn('min-h-0', isFeature && 'lg:row-span-2')}
+  >
+    <DialogTrigger asChild>
+      <button
+        type="button"
+        onClick={() => onOpen(index)}
+        className={cn(
+          'group relative block w-full overflow-hidden rounded-2xl text-left shadow-soft ring-1 ring-ink/5 transition-shadow duration-500 ease-smooth hover:shadow-lift',
+          isFeature ? 'h-[20rem] lg:h-full' : 'h-[16rem] lg:h-full',
+        )}
+      >
+        <img
+          src={src}
+          className="h-full w-full object-cover transition-transform [transition-duration:1200ms] ease-smooth group-hover:scale-[1.05]"
+          alt={title}
+          loading="lazy"
+        />
 
-  const travel = (total - 1) * CARD_VH + TAIL_VH;
-  /** W którym miejscu postępu karta dolatuje na swoją pozycję. */
-  const stickAt = (cardIndex: number) => (cardIndex * CARD_VH) / travel;
+        <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/25 to-transparent" />
 
-  /* Karta zaczyna cofać się w głąb, gdy tylko wyląduje – i cofa się dalej
-     z każdą kolejną, która na nią wchodzi. Stąd punkty pośrednie, a nie dwa skrajne. */
-  const stops: number[] = [];
-  const scaleOut: number[] = [];
-  const rotateOut: number[] = [];
-  const veilOut: number[] = [];
+        <span className="absolute left-5 top-5 font-display text-sm tracking-[0.25em] text-white/60">0{index + 1}</span>
 
-  for (let next = index; next < total; next += 1) {
-    const depth = next - index;
+        <span className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-[0.7rem] font-semibold text-white backdrop-blur-md">
+          <Camera className="h-3.5 w-3.5" />
+          {images.length} zdjęć
+        </span>
 
-    stops.push(stickAt(next));
-    scaleOut.push(1 - depth * 0.05);
-    rotateOut.push(depth === 0 ? 0 : 6 + (depth - 1) * 2);
-    /* na tyle mocno, by karta odjechała w tło, na tyle słabo, by dalej było widać zdjęcie */
-    veilOut.push(Math.min(0.45, depth * 0.22));
-  }
+        <span className="absolute inset-x-0 bottom-0 flex flex-col items-start gap-2.5 p-5 sm:p-6">
+          <h3 className={cn('font-display font-normal leading-snug text-white', isFeature ? 'text-2xl lg:text-3xl' : 'text-xl lg:text-2xl')}>{title}</h3>
+          <span className="inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-brand-light">
+            Zobacz galerię
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
+          </span>
+        </span>
+      </button>
+    </DialogTrigger>
+  </motion.div>
+);
 
-  /* domknięcie zakresu – `useTransform` potrzebuje co najmniej dwóch punktów */
-  stops.push(1);
-  scaleOut.push(scaleOut[scaleOut.length - 1]);
-  rotateOut.push(rotateOut[rotateOut.length - 1]);
-  veilOut.push(veilOut[veilOut.length - 1]);
-
-  const scale = useTransform(progress, stops, scaleOut);
-  const rotateX = useTransform(progress, stops, rotateOut);
-  const veil = useTransform(progress, stops, veilOut);
-
-  return (
-    <div
-      className={
-        isStill
-          ? 'flex justify-center px-5 pb-6 sm:px-8 lg:px-12'
-          : 'sticky top-0 flex h-[100svh] items-start justify-center px-5 [perspective:1400px] sm:px-8 lg:px-12'
-      }
-      style={isStill ? undefined : { paddingTop: `calc(6svh + ${index * 2.2}rem)` }}
-    >
-      <motion.div style={isStill ? undefined : { scale, rotateX, originY: 0 }} className="w-full max-w-5xl">
-        <DialogTrigger asChild>
-          <button
-            type="button"
-            onClick={() => onOpen(index)}
-            className="group relative block h-[clamp(20rem,74svh,44rem)] w-full overflow-hidden rounded-3xl shadow-lift ring-1 ring-white/10"
-          >
-            <img src={src} className="h-full w-full object-cover transition-transform duration-[1200ms] ease-smooth group-hover:scale-[1.05]" alt={title} loading="lazy" />
-
-            <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/25 to-ink/10" />
-            {/* przyciemnienie rośnie, w miarę jak karta cofa się pod kolejną */}
-            {!isStill && <motion.span style={{ opacity: veil }} className="pointer-events-none absolute inset-0 bg-ink" />}
-
-            <span className="absolute left-6 top-6 font-display text-sm tracking-[0.25em] text-white/60">0{index + 1}</span>
-
-            <span className="absolute right-5 top-5 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-[0.7rem] font-semibold text-white backdrop-blur-md">
-              <Camera className="h-3.5 w-3.5" />
-              {images.length} zdjęć
-            </span>
-
-            <span className="absolute inset-x-0 bottom-0 flex flex-col items-start gap-3 p-6 text-left sm:p-9">
-              <h3 className="font-display text-2xl font-normal leading-snug text-white sm:text-3xl lg:text-4xl">{title}</h3>
-              <span className="inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-brand-light">
-                Zobacz galerię
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
-              </span>
-            </span>
-          </button>
-        </DialogTrigger>
-      </motion.div>
-    </div>
-  );
-};
-
+/**
+ * Realizacje w układzie nierównym: jeden duży kadr obok dwóch mniejszych.
+ *
+ * Wcześniej każda karta miała własny ekran i cofała się w głąb przy przewijaniu –
+ * trzy zdjęcia zajmowały 3287 px, a między nimi zostawała pustka. Ten sam materiał
+ * mieści się teraz w jednym kadrze i od razu widać wszystkie trzy domy.
+ */
 export const Realizations = () => {
   const [selectedIndex, setSelectedIndex] = useState<number>();
-  const isStill = useReducedMotion();
-  const stackRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-
-  const { scrollYProgress } = useScroll({ target: stackRef, offset: ['start start', 'end end'] });
 
   const selected = selectedIndex === undefined ? undefined : items[selectedIndex];
 
   return (
     <Dialog>
       <article className="relative bg-cream">
-        <div className="shell section-pad pb-0">
+        <div className="shell section-pad">
           <SectionHeading
             eyebrow="Zrealizowane"
             title="Domy, które już stoją"
             description="Zajrzyj do galerii wybranych realizacji – od stanu surowego po gotowe wnętrza."
           />
-        </div>
 
-        {/* stos: wszystkie karty przyklejone do góry jednego, wysokiego kontenera –
-            kolejna wjeżdża na poprzednią, a tamta cofa się w głąb */}
-        <div ref={stackRef} className="relative mt-10" style={isStill ? undefined : { paddingBottom: `${TAIL_VH}svh` }}>
-          {items.map((item, index) => (
-            <StackCard key={item.id} item={item} index={index} total={items.length} progress={scrollYProgress} onOpen={setSelectedIndex} />
-          ))}
-        </div>
+          <div className="mt-12 grid gap-4 lg:h-[34rem] lg:grid-cols-[1.35fr_1fr] lg:grid-rows-2 lg:gap-5">
+            {items.map((item, index) => (
+              <RealizationCard key={item.id} item={item} index={index} isFeature={index === 0} onOpen={setSelectedIndex} />
+            ))}
+          </div>
 
-        <div className="shell px-5 pb-16 sm:px-8 lg:px-12 lg:pb-24">
-          <Reveal delay={120} className="flex justify-center">
+          <Reveal delay={120} className="mt-12 flex justify-center">
             <button
               type="button"
               className="group inline-flex h-[3.4rem] items-center gap-3 rounded-full border border-ink/15 px-9 text-sm font-semibold text-ink transition-all duration-300 ease-smooth hover:-translate-y-0.5 hover:border-brand hover:bg-brand hover:text-white hover:shadow-brand"

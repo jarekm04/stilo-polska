@@ -99,7 +99,7 @@ const Pillar = ({ icon: Icon, title, paragraphs, index, isActive }: PillarProps)
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.2 }}
     transition={{ duration: 0.8, ease: EASE }}
-    className={cn('border-t py-12 transition-colors duration-700 lg:py-16', isActive ? 'border-brand/35' : 'border-ink/[0.09]')}
+    className={cn('border-t py-9 transition-colors duration-700 lg:py-12', isActive ? 'border-brand/35' : 'border-ink/[0.09]')}
   >
     <div className="flex items-center gap-4">
         <span
@@ -133,8 +133,10 @@ const Pillar = ({ icon: Icon, title, paragraphs, index, isActive }: PillarProps)
 export const Technology = () => {
   const { activeIndex, register } = useActiveIndex(pillars.length);
 
+  /* Bez `overflow-hidden` na sekcji: przycinanie na przodku łamie `position: sticky`
+     w środku, a kolumna z numerami filarów stała wtedy nieruchomo. */
   return (
-    <article className="relative overflow-hidden bg-sand">
+    <article className="relative bg-sand">
       <div className="shell section-pad">
         <SectionHeading
           eyebrow="Technologia"
@@ -142,8 +144,8 @@ export const Technology = () => {
           description="Od doboru surowca, przez montaż, po codzienną eksploatację – wszystko przemyślane w najmniejszym detalu."
         />
 
-        <div className="mt-16 grid gap-10 lg:grid-cols-[minmax(0,0.6fr)_minmax(0,1.4fr)] lg:gap-20">
-          <div className="hidden lg:sticky lg:top-0 lg:flex lg:h-[100svh] lg:flex-col lg:justify-center">
+        <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,0.55fr)_minmax(0,1.45fr)] lg:gap-16">
+          <div className="hidden lg:sticky lg:top-32 lg:block lg:self-start">
             <Reveal>
               <Drum active={activeIndex} count={pillars.length} />
             </Reveal>
@@ -176,7 +178,7 @@ export const Technology = () => {
 
           <div className="flex flex-col">
             {pillars.map(({ icon, title, paragraphs }, index) => (
-              <div key={title} ref={register(index)} className="flex flex-col justify-center lg:min-h-[62svh]">
+              <div key={title} ref={register(index)} className="flex flex-col justify-center">
                 <Pillar icon={icon} title={title} paragraphs={paragraphs} index={index} isActive={index === activeIndex} />
               </div>
             ))}
