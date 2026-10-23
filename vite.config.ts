@@ -11,4 +11,5 @@ export default defineConfig({
     },
   },
   // base: '/wp-content/themes/react/',
+  base: '/stilo-polska/',
 });
