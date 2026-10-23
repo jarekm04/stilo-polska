@@ -34,6 +34,9 @@ export const RootProvider = () => {
         <Route path="*" element={<ErrorPage />} />
       </Route>,
     ),
+    {
+      basename: import.meta.env.BASE_URL,
+    },
   );
   return <RouterProvider router={router} />;
 };
