@@ -1,6 +1,7 @@
 {
   "name": "stilo-polska",
-  "private": false,
+  "private": true,
+  "homepage": "https://jarekm04.github.io/stilo-polska",
   "version": "2.0.0",
   "type": "module",
   "scripts": {
