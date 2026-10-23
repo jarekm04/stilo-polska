@@ -28,10 +28,15 @@ jechać, każdy atut i filar dostawał pół ekranu wysokości. Trzy sekcje zajm
 | Technologia | 2075 px | **1436 px** |
 | Cała strona główna | 11 971 px | **7906 px** |
 
-- Atuty: siatka 2×2 obok nagłówka zamiast listy na cztery ekrany. Zniknęło przyklejanie
-  i szyna postępu — przy czterech krótkich akapitach nie miały czego pokazywać
-- Realizacje: jeden duży kadr obok dwóch mniejszych, wszystkie trzy domy widoczne naraz.
-  Stos kart odpadł razem z 3100 px przewijania
+- Atuty: **lista czterech ponumerowanych wierszy obok wysokiego panelu ze zdjęciem**,
+  które rozpływa się w kolejne tym samym shaderem co hero. Lista zostaje jasna i czytelna —
+  zmienia się numer, tytuł i kreska przy krawędzi. Pośrednie wersje (siatka 2×2, a potem
+  kafel odwracający się na czarno pod kursorem) odpadły: pierwsza była nijaka, druga
+  waliła po oczach, bo cała karta szła z bieli w czerń
+- Realizacje: **trzy rozsuwane panele**. Wskazany rozpycha się kosztem pozostałych,
+  które zwijają się do pionowych pasków z tytułem. Efekt nie powtarza niczego innego
+  na stronie — hero i atuty mają shader, oferta jazdę poziomą, technologia przyklejoną
+  kolumnę. Stos kart odpadł razem z 3100 px przewijania
 - Technologia: filary na swojej naturalnej wysokości. Kolumna z numerami jedzie teraz
   przyklejona przez całą sekcję — od góry kontenera do jego dolnej krawędzi.
   **Wcześniej nie przyklejała się wcale**: `overflow-hidden` na sekcji łamie

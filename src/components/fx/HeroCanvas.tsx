@@ -209,9 +209,24 @@ export const HeroCanvas = ({ images, placeholders, index, duration = 1.4, zoomDu
 
     window.addEventListener('pointermove', onPointerMove, { passive: true });
 
+    /* Poza kadrem nie ma po co rysować – pętla tyka dalej, ale nie dotyka GPU.
+       Liczy się przy drugim płótnie na stronie: kiedy patrzysz na jedno, drugie śpi. */
+    let isOnScreen = true;
+
+    const visibility = new IntersectionObserver(([entry]) => {
+      isOnScreen = entry.isIntersecting;
+    });
+
+    if (wrapperRef.current) visibility.observe(wrapperRef.current);
+
     let frame = 0;
 
     const render = (time: number) => {
+      if (!isOnScreen) {
+        frame = requestAnimationFrame(render);
+        return;
+      }
+
       const transition = transitionRef.current;
       const pointer = pointerRef.current;
 
@@ -248,6 +263,7 @@ export const HeroCanvas = ({ images, placeholders, index, duration = 1.4, zoomDu
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
+      visibility.disconnect();
       window.removeEventListener('pointermove', onPointerMove);
       textures.forEach((texture) => gl.deleteTexture(texture.texture));
     };
